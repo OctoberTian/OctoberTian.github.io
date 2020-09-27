@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<!--
+点击特效
+<script src="/js/src/click.js"></script>
+-->
+<html lang="ch">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Hexo插件使用 - 十月博客</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="前言想优雅的使用Hexo这个博客还是很不容易的，需要学会使用一些插件，而有的插件之间有一定的冲突，我们需要进行一些修改，才能完美的适配我们的博客。">
+<meta name="keywords" content="Hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo插件使用">
+<meta property="og:url" content="https://www.octber.xyz/2019/05/19/58c84d85.html">
+<meta property="og:site_name" content="十月博客">
+<meta property="og:description" content="前言想优雅的使用Hexo这个博客还是很不容易的，需要学会使用一些插件，而有的插件之间有一定的冲突，我们需要进行一些修改，才能完美的适配我们的博客。">
+<meta property="og:locale" content="ch">
+<meta property="og:image" content="https://www.octber.xyz/images/og_image.png">
+<meta property="og:updated_time" content="2020-03-09T14:50:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo插件使用">
+<meta name="twitter:description" content="前言想优雅的使用Hexo这个博客还是很不容易的，需要学会使用一些插件，而有的插件之间有一定的冲突，我们需要进行一些修改，才能完美的适配我们的博客。">
+<meta name="twitter:image" content="https://www.octber.xyz/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?628227b0cd6d7a0a49bfefde1dcf4518";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="is-3-column">
+    <!--雪花皮肤-->
+    <!-- <script type="text/javascript">
+        var windowWidth = $(window).width();
+        if (windowWidth > 480) {
+            document.write('<script type="text/javascript" src="/js/src/snow.js"></script>');
+    }
+    </script> -->
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/mylogo.png" alt="Hexo插件使用" height="28">
+            
+            </a>
+        </div>
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">主页</a>
+                
+                <a class="navbar-item" href="/archives">归档</a>
+                
+                <a class="navbar-item" href="/categories">分类</a>
+                
+                <a class="navbar-item" href="/tags">标签</a>
+                
+                <a class="navbar-item" href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="My Github" href="https://github.com/OctoberTian">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-6-tablet is-6-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-05-19T12:46:08.000Z">2019-05-19</time>
+                
+                <div class="level-item">
+                    <a class="has-link-grey-link" href="/categories/Hexo/">Hexo</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    14 minutes 读完 (大约 2119 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+            
+            Hexo插件使用
+            
+        </h1>
+        <div class="content">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>想优雅的使用Hexo这个博客还是很不容易的，需要学会使用一些插件，而有的插件之间有一定的冲突，我们需要进行一些修改，才能完美的适配我们的博客。</p>
+<a id="more"></a>
+<h2 id="hexo-abbrlink"><a href="#hexo-abbrlink" class="headerlink" title="hexo-abbrlink"></a>hexo-abbrlink</h2><p>原生的Hexo博客生成的目录是<code>:year/:month/:day/:title</code>，这就使得我们的url中携带大量中文，有些人通过<code>hexo new title</code>使用英文的title，这当然可行的，但是这不代表你的title就一定是唯一确定的，这也不方便日后对文章进行整理，也不方便我们推广，比如推广到百度站上，进行SEO是非常不方便的。</p>
+<p>而这一款插件就可以为我们的文章生一个固定不变而且唯一的地址，就算你修改文章的title，也不会对url发生变化的插件。</p>
+<p>我们只需要<code>npm install hexo-abbrlink --save</code>即可</p>
+<p>随后在我们的主配置文件中进行相应的配置：</p>
+<figure class="highlight yml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attr">permalink:</span> <span class="hljs-string">:year/:month/:day/:abbrlink.html</span></span><br><span class="line"><span class="hljs-attr">abbrlink:</span></span><br><span class="line"><span class="hljs-attr">  alg:</span> <span class="hljs-string">crc32</span>  <span class="hljs-comment"># 算法：crc16(default) and crc32</span></span><br><span class="line"><span class="hljs-attr">  rep:</span> <span class="hljs-string">hex</span>    <span class="hljs-comment"># 进制：dec(default) and hex</span></span><br></pre></td></tr></table></figure>
+<p>在使用了这个插件后，需要执行一次<code>hexo clean &amp;&amp; hexo g</code>，否则之前的博文可能会变为undefined，需要先clean一下。</p>
+<h2 id="hexo-asset-image"><a href="#hexo-asset-image" class="headerlink" title="hexo-asset-image"></a><em>hexo</em>-asset-image</h2><p>这一款插件是为我们为文章中插入图片提供方便的，我们需要在配置文件中启用：</p>
+<figure class="highlight yml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attr">post_asset_folder:</span> <span class="hljs-literal">true</span></span><br></pre></td></tr></table></figure>
+<p>安装方法是一样的:</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-asset-image</span><br></pre></td></tr></table></figure>
+<p>安装好后当我们新建博文的时候，就会为我们在同级目录下生成一个名字为title的文件夹，存放在这个文件夹里面的图片，在我们部署后可以顺利显示。</p>
+<h2 id="hexo-generator-index-pin-top"><a href="#hexo-generator-index-pin-top" class="headerlink" title="hexo-generator-index-pin-top"></a>hexo-generator-index-pin-top</h2><p>如果你想置顶某一篇博文的话，就用的上这个插件了，安装方式不说了，直接说怎么用：</p>
+<p><img src="/2019/05/19/58c84d85/1558270888823.png" alt="1558270888823"></p>
+<p>最后在适当的地方，比如说我是在aiticles的标题处加上了置顶的代码：</p>
+<figure class="highlight html hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">%</span> <span class="hljs-attr">if</span> (<span class="hljs-attr">post.top</span>) &#123; %&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fa fa-thumb-tack"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">font</span> <span class="hljs-attr">color</span>=<span class="hljs-string">7D26CD</span>&gt;</span>置顶<span class="hljs-tag">&lt;/<span class="hljs-name">font</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"post-meta-divider"</span>&gt;</span>|<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">%</span> &#125; %&gt;</span></span><br></pre></td></tr></table></figure>
+<p>最终效果：</p>
+<p><img src="/2019/05/19/58c84d85/1558271519824.png" alt="1558271519824"></p>
+<h2 id="hexo-wordcount"><a href="#hexo-wordcount" class="headerlink" title="hexo-wordcount"></a>hexo-wordcount</h2><p>这是用于统计文章字数和阅读市场的插件，因为icarus已经有了这样的功能，所以我只提一下，</p>
+<p>配置可以这样：</p>
+<figure class="highlight yml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attr">post_wordcount:</span></span><br><span class="line"><span class="hljs-attr">  item_text:</span> <span class="hljs-literal">true</span></span><br><span class="line"><span class="hljs-attr">  wordcount:</span> <span class="hljs-literal">true</span></span><br><span class="line"><span class="hljs-attr">  min2read:</span> <span class="hljs-literal">true</span></span><br></pre></td></tr></table></figure>
+<h2 id="hexo-baidu-url-submit"><a href="#hexo-baidu-url-submit" class="headerlink" title="hexo-baidu-url-submit"></a>hexo-baidu-url-submit</h2><p>有一位大神写的特别好，我就看他配置的妥妥的，不说了，传送门：</p>
+<p><a href="https://hui-wang.info/2016/10/23/Hexo%E6%8F%92%E4%BB%B6%E4%B9%8B%E7%99%BE%E5%BA%A6%E4%B8%BB%E5%8A%A8%E6%8F%90%E4%BA%A4%E9%93%BE%E6%8E%A5/" target="_blank" rel="noopener">Hexo插件之百度主动提交链接 </a></p>
+<h2 id="hexo-blog-encrypt"><a href="#hexo-blog-encrypt" class="headerlink" title="hexo-blog-encrypt"></a>hexo-blog-encrypt</h2><p>文章加密的插件，非常好用，也非常简单：</p>
+<p>以下内容来自官方文档：</p>
+<h4 id="具体的使用方法"><a href="#具体的使用方法" class="headerlink" title="具体的使用方法"></a>具体的使用方法</h4><h5 id="首先，你需要在-config-yml-中启用该插件"><a href="#首先，你需要在-config-yml-中启用该插件" class="headerlink" title="首先，你需要在 _config.yml 中启用该插件"></a>首先，你需要在 _config.yml 中启用该插件</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Security</span><br><span class="line">##</span><br><span class="line">encrypt:</span><br><span class="line">    enable: true</span><br></pre></td></tr></table></figure>
+<h5 id="给文章添加密码："><a href="#给文章添加密码：" class="headerlink" title="给文章添加密码："></a>给文章添加密码：</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: hello world</span><br><span class="line">date: 2016-03-30 21:18:02</span><br><span class="line">tags:</span><br><span class="line">    - fdsfadsfa</span><br><span class="line">    - fdsafsdaf</span><br><span class="line">password: Mike</span><br><span class="line">abstract: Welcome to my blog, enter password to read.</span><br><span class="line">message: Welcome to my blog, enter password to read.</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<ul>
+<li>password: 是该博客加密使用的密码</li>
+<li>abstract: 是该博客的摘要，会显示在博客的列表页</li>
+<li>message: 这个是博客查看时，密码输入框上面的描述性文字</li>
+</ul>
+<h5 id="对-TOC-进行加密"><a href="#对-TOC-进行加密" class="headerlink" title="对 TOC 进行加密"></a>对 TOC 进行加密</h5><p>如果你有一篇文章使用了 TOC，你需要修改模板的部分代码。这里用 landscape 作为例子：</p>
+<ul>
+<li>你可以在 <em>hexo/themes/landscape/layout/_partial/article.ejs</em> 找到 article.ejs。</li>
+<li>然后找到 &lt;% post.content %&gt; 这段代码，通常在30行左右。</li>
+<li>使用如下的代码来替代它:</li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if(post.toc == true)&#123; %&gt;</span><br><span class="line">    &lt;div id=&quot;toc-div&quot; class=&quot;toc-article&quot; &lt;% if (post.encrypt == true) &#123; %&gt;style=&quot;display:none&quot; &lt;% &#125; %&gt;&gt;</span><br><span class="line">        &lt;strong class=&quot;toc-title&quot;&gt;Index&lt;/strong&gt;</span><br><span class="line">        &lt;% if (post.encrypt == true) &#123; %&gt;</span><br><span class="line">            &lt;%- toc(post.origin, &#123;list_number: true&#125;) %&gt;</span><br><span class="line">        &lt;% &#125; else &#123; %&gt;</span><br><span class="line">            &lt;%- toc(post.content, &#123;list_number: true&#125;) %&gt;</span><br><span class="line">        &lt;% &#125; %&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br><span class="line">&lt;%- post.content %&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="修改加密模板"><a href="#修改加密模板" class="headerlink" title="修改加密模板"></a>修改加密模板</h5><ul>
+<li>如果你对默认的主题不满意，或者希望修改默认的提示和摘要内容，你可以添加如下配置在 <em>_config.yml</em> 中。</li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># Security</span><br><span class="line">##</span><br><span class="line">encrypt:</span><br><span class="line">    enable: true</span><br><span class="line">    default_abstract: the content has been encrypted, enter the password to read.&lt;/br&gt;</span><br><span class="line">    default_message: Please enter the password to read.</span><br><span class="line">    default_template:</span><br><span class="line">        &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">        &lt;div id=&quot;hbe-security&quot;&gt;</span><br><span class="line">          &lt;div class=&quot;hbe-input-container&quot;&gt;</span><br><span class="line">          &lt;input type=&quot;password&quot; class=&quot;hbe-form-control&quot; id=&quot;pass&quot; placeholder=&quot;&#123;&#123;message&#125;&#125;&quot; /&gt;</span><br><span class="line">            &lt;label for=&quot;pass&quot;&gt;&#123;&#123;message&#125;&#125;&lt;/label&gt;</span><br><span class="line">            &lt;div class=&quot;bottom-line&quot;&gt;&lt;/div&gt;</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;div id=&quot;decryptionError&quot; style=&quot;display:none;&quot;&gt;&#123;&#123;decryptionError&#125;&#125;&lt;/div&gt;</span><br><span class="line">        &lt;div id=&quot;noContentError&quot; style=&quot;display:none;&quot;&gt;&#123;&#123;noContentError&#125;&#125;&lt;/div&gt;</span><br><span class="line">        &lt;div id=&quot;encrypt-blog&quot; style=&quot;display:none&quot;&gt;</span><br><span class="line">        &#123;&#123;content&#125;&#125;</span><br><span class="line">        &lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以看见，和上面的配置文件对比来看，多了 <strong>default_template</strong> 和 <strong>default_abstract</strong> 和 <strong>default_message</strong> 配置项。<ul>
+<li>default_abstract : 这个是指在文章列表页，我们看到的加密文章描述。当然这是对所有加密文章生效的。</li>
+<li>default_message : 这个在文章详情页的密码输入框上方的描述性文字。</li>
+<li>default_template : 这个是指在文章详情页，我们看到的输入密码阅读的模板，同理，这个也是针对所有文章的<ul>
+<li>开始的解密部分需要由 div 包裹，而且 div 的 id <strong>必须</strong> 是 ‘hbe-security’，解密后以便于隐藏。</li>
+<li>最后的 content 显示 div 的 id <strong>必须</strong> 是 ‘encrypt-blog’，同时为了好看，也希望进行隐藏。</li>
+<li>同时，必须要有一个 input 输入框，id <strong>必须</strong>是”pass”，用来供用户输入密码。</li>
+<li>输入密码之后，务必要有一个触发器，用来调用 ‘decryptAES’ 函数。样例中以 button 来触发。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果你希望对某一篇特定的文章做特殊处理，这有两种方法可以达到这个效果, 在博客的源文件添加 template 配置:</li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: hello world</span><br><span class="line">date: 2016-03-30 21:18:02</span><br><span class="line">tags:</span><br><span class="line">    - fdsfadsfa</span><br><span class="line">    - fdsafsdaf</span><br><span class="line">password: Mike</span><br><span class="line">abstract: Welcome to my blog, enter password to read.</span><br><span class="line">message: Welcome to my blog, enter password to read.</span><br><span class="line">template:</span><br><span class="line">    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;div id=&quot;hbe-security&quot;&gt;</span><br><span class="line">      &lt;div class=&quot;hbe-input-container&quot;&gt;</span><br><span class="line">      &lt;input type=&quot;password&quot; class=&quot;hbe-form-control&quot; id=&quot;pass&quot; placeholder=&quot;&#123;&#123;message&#125;&#125;&quot; /&gt;</span><br><span class="line">        &lt;label for=&quot;pass&quot;&gt;&#123;&#123;message&#125;&#125;&lt;/label&gt;</span><br><span class="line">        &lt;div class=&quot;bottom-line&quot;&gt;&lt;/div&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div id=&quot;decryptionError&quot; style=&quot;display:none;&quot;&gt;&#123;&#123;decryptionError&#125;&#125;&lt;/div&gt;</span><br><span class="line">    &lt;div id=&quot;noContentError&quot; style=&quot;display:none;&quot;&gt;&#123;&#123;noContentError&#125;&#125;&lt;/div&gt;</span><br><span class="line">    &lt;div id=&quot;encrypt-blog&quot; style=&quot;display:none&quot;&gt;</span><br><span class="line">    &#123;&#123;content&#125;&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<h5 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h5><p>如果您需要在文章解密之后调用一些代码，您可以参考以下配置：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">encrypt:</span><br><span class="line">  enable: true</span><br><span class="line">  callback: |-</span><br><span class="line">    initLightGallery()</span><br><span class="line">    initImageResize()</span><br><span class="line">    initTocBot()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在<code>callback</code> 之后的这个符号<code>|-</code>代表多行的yaml值</p>
+</blockquote>
+<p>如果您在其他js文件里面定义了函数，您可以在这里调用它们，或者您也可以在<code>callback</code>这里写上您自己的代码逻辑，比如<code>$(&#39;#someId&#39;).lightGallery()</code>，上面的<code>initXXX()</code>只是示例，您不应该直接复制上面的配置。</p>
+<h2 id="卜算子ip计数统计"><a href="#卜算子ip计数统计" class="headerlink" title="卜算子ip计数统计"></a>卜算子ip计数统计</h2><p>这个很简单，只需要加几行代码，不过我发现每次在打开网站时候都会卡这么一下，和这个貌似有关系，emmmm，所以我不是很喜欢这个。</p>
+<p>传送门：<a href="https://www.jianshu.com/p/8a8f880f40c0" target="_blank" rel="noopener">卜算子教程</a></p>
+<h2 id="leancloud-storage"><a href="#leancloud-storage" class="headerlink" title="leancloud-storage"></a>leancloud-storage</h2><p>这个比较麻烦，是添加comment评论的：Valine评论</p>
+<p>请移步查看官方文档：<a href="http://www.zhaojun.im/hexo-valine-admin/" target="_blank" rel="noopener">http://www.zhaojun.im/hexo-valine-admin/</a></p>
+<p>效果就是这样的：</p>
+<p><img src="/2019/05/19/58c84d85/1558272632454.png" alt="1558272632454"></p>
+<p>好看是挺好看，不过没人评论就很尴尬emmm。。。</p>
+<h2 id="hexo-abbrlink和hexo-asset-image冲突怎么办"><a href="#hexo-abbrlink和hexo-asset-image冲突怎么办" class="headerlink" title="hexo-abbrlink和hexo-asset-image冲突怎么办"></a>hexo-abbrlink和hexo-asset-image冲突怎么办</h2><p>在这两个同时使用的时候，图片会因为图片路由包含了文章名而无法显示，这就很难受，通通过修改<code>/node_modules/hexo-asset-image/index.js</code>修改了路由获取方式，成功显示了图片，因为修改的是依赖文件，所以当你删除了/node_modules或者你还了电脑重新拉了项目进行npm install的时候，这部分代码就没有了，记得备份好，那么我修改的内容是：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">'use strict'</span>;</span><br><span class="line"><span class="hljs-keyword">var</span> cheerio = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cheerio'</span>);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getPosition</span>(<span class="hljs-params">str, m, i</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> str.split(m, i).join(m).length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hexo.extend.filter.register(<span class="hljs-string">'after_post_render'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>)</span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> config = hexo.config;</span><br><span class="line">  <span class="hljs-keyword">if</span>(config.post_asset_folder)&#123;</span><br><span class="line">    <span class="hljs-keyword">var</span> link = data.permalink;</span><br><span class="line">	<span class="hljs-comment">// 第一处改动</span></span><br><span class="line">	link = link.replace(<span class="hljs-string">'.html'</span>, <span class="hljs-string">'/'</span>);</span><br><span class="line">	<span class="hljs-keyword">var</span> beginPos = getPosition(link, <span class="hljs-string">'/'</span>, <span class="hljs-number">3</span>) + <span class="hljs-number">1</span>;</span><br><span class="line">	<span class="hljs-comment">// In hexo 3.1.1, the permalink of "about" page is like ".../about/index.html".</span></span><br><span class="line">	<span class="hljs-keyword">var</span> endPos = link.lastIndexOf(<span class="hljs-string">'/'</span>) + <span class="hljs-number">1</span>;</span><br><span class="line">    link = link.substring(beginPos, endPos);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">var</span> toprocess = [<span class="hljs-string">'excerpt'</span>, <span class="hljs-string">'more'</span>, <span class="hljs-string">'content'</span>];</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; toprocess.length; i++)&#123;</span><br><span class="line">      <span class="hljs-keyword">var</span> key = toprocess[i];</span><br><span class="line"> </span><br><span class="line">      <span class="hljs-keyword">var</span> $ = cheerio.load(data[key], &#123;</span><br><span class="line">        ignoreWhitespace: <span class="hljs-literal">false</span>,</span><br><span class="line">        xmlMode: <span class="hljs-literal">false</span>,</span><br><span class="line">        lowerCaseTags: <span class="hljs-literal">false</span>,</span><br><span class="line">        decodeEntities: <span class="hljs-literal">false</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      $(<span class="hljs-string">'img'</span>).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="line">		<span class="hljs-comment">// For windows style path, we replace '\' to '/'.</span></span><br><span class="line">        <span class="hljs-keyword">var</span> src = $(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'src'</span>).replace(<span class="hljs-string">'\\'</span>, <span class="hljs-string">'/'</span>);</span><br><span class="line">        <span class="hljs-keyword">if</span>(!<span class="hljs-regexp">/http[s]*.*|\/\/.*/</span>.test(src))&#123;</span><br><span class="line">		  <span class="hljs-comment">// For "about" page, the first part of "src" can't be removed.</span></span><br><span class="line">		  <span class="hljs-comment">// In addition, to support multi-level local directory.</span></span><br><span class="line">		  <span class="hljs-keyword">var</span> linkArray = link.split(<span class="hljs-string">'/'</span>).filter(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">elem</span>)</span>&#123;</span><br><span class="line">		    <span class="hljs-keyword">return</span> elem != <span class="hljs-string">''</span>;</span><br><span class="line">		  &#125;);</span><br><span class="line">		  <span class="hljs-keyword">var</span> srcArray = src.split(<span class="hljs-string">'/'</span>).filter(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">elem</span>)</span>&#123;</span><br><span class="line">		    <span class="hljs-keyword">return</span> elem != <span class="hljs-string">''</span>;</span><br><span class="line">		  &#125;);</span><br><span class="line">		  <span class="hljs-keyword">if</span>(linkArray[linkArray.length - <span class="hljs-number">1</span>] == srcArray[<span class="hljs-number">0</span>]) &#123;</span><br><span class="line">		    srcArray.shift();</span><br><span class="line">		  &#125;</span><br><span class="line">		  <span class="hljs-comment">// 第二处改动</span></span><br><span class="line">		  srcArray.shift();</span><br><span class="line">          src = srcArray.join(<span class="hljs-string">'/'</span>);</span><br><span class="line">          $(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'src'</span>, <span class="hljs-string">'/'</span> + link + src);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      data[key] = $.html();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>一共两处修改，第一处是将路由中的.html变为/，这是因为我在设置文章访问路由的时候设置为了<code>permalink: :year/:month/:day/:abbrlink.html</code>，所以要去掉html换为/，气候添加了一个<code>srcArray.shift()</code>这个的作用是删除数组中的第一个元素，删除的正是中文标题的名字，这一层目录是多余的。</p>
+<p>如果你存在问题，请在下面评论，或者联系我的邮箱：<a href="mailto:925474088@qq.com" target="_blank" rel="noopener">925474088@qq.com</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7"><i class="fa fa-tag"></i></span>
+                    <a class="has-link-grey -link" href="/tags/Hexo/">Hexo<span class="has-link-grey -count">6</span></a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+            
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/wechat.png" alt="支付宝"></div>
+</a>
+
+            
+            
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.png" alt="微信"></div>
+</a>
+
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/05/20/dd549bad.html">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">JMeter介绍及使用</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/05/18/200e9e73.html">
+                <span class="level-item">将Hexo部署在CentOs服务器上</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'O8ESLQsaCTTpvf3oSaj2H9X6-gzGzoHsz',
+        app_key: 'G2oCmq7J8KBk0jCoPpQFTKMt',
+        placeholder: '看了这么久不评价一下吗？'
+    });
+</script>
+
+    </div>
+</div>
+
+
+</div>
+                
+
+<!-- 粘贴的部分 -->
+
+<!-- 修改，可选保留的栏 -->
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-4-tablet is-4-desktop is-3-widescreen has-order-3 column-left ">
+    
+    
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#前言">
+        <span class="has-mr-6">1</span>
+        <span>前言</span>
+        </a></li><li>
+        <a class="is-flex" href="#hexo-abbrlink">
+        <span class="has-mr-6">2</span>
+        <span>hexo-abbrlink</span>
+        </a></li><li>
+        <a class="is-flex" href="#hexo-asset-image">
+        <span class="has-mr-6">3</span>
+        <span>hexo-asset-image</span>
+        </a></li><li>
+        <a class="is-flex" href="#hexo-generator-index-pin-top">
+        <span class="has-mr-6">4</span>
+        <span>hexo-generator-index-pin-top</span>
+        </a></li><li>
+        <a class="is-flex" href="#hexo-wordcount">
+        <span class="has-mr-6">5</span>
+        <span>hexo-wordcount</span>
+        </a></li><li>
+        <a class="is-flex" href="#hexo-baidu-url-submit">
+        <span class="has-mr-6">6</span>
+        <span>hexo-baidu-url-submit</span>
+        </a></li><li>
+        <a class="is-flex" href="#hexo-blog-encrypt">
+        <span class="has-mr-6">7</span>
+        <span>hexo-blog-encrypt</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#具体的使用方法">
+        <span class="has-mr-6">7.1</span>
+        <span>具体的使用方法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#首先，你需要在-config-yml-中启用该插件">
+        <span class="has-mr-6">7.1.1</span>
+        <span>首先，你需要在 _config.yml 中启用该插件</span>
+        </a></li><li>
+        <a class="is-flex" href="#给文章添加密码：">
+        <span class="has-mr-6">7.1.2</span>
+        <span>给文章添加密码：</span>
+        </a></li><li>
+        <a class="is-flex" href="#对-TOC-进行加密">
+        <span class="has-mr-6">7.1.3</span>
+        <span>对 TOC 进行加密</span>
+        </a></li><li>
+        <a class="is-flex" href="#修改加密模板">
+        <span class="has-mr-6">7.1.4</span>
+        <span>修改加密模板</span>
+        </a></li><li>
+        <a class="is-flex" href="#回调">
+        <span class="has-mr-6">7.1.5</span>
+        <span>回调</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#卜算子ip计数统计">
+        <span class="has-mr-6">8</span>
+        <span>卜算子ip计数统计</span>
+        </a></li><li>
+        <a class="is-flex" href="#leancloud-storage">
+        <span class="has-mr-6">9</span>
+        <span>leancloud-storage</span>
+        </a></li><li>
+        <a class="is-flex" href="#hexo-abbrlink和hexo-asset-image冲突怎么办">
+        <span class="has-mr-6">10</span>
+        <span>hexo-abbrlink和hexo-asset-image冲突怎么办</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+    
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/java/">
+            <span class="level-start">
+                <span class="level-item">/java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/AM4/">
+            <span class="level-start">
+                <span class="level-item">AM4</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Android/">
+            <span class="level-start">
+                <span class="level-item">Android</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/English/">
+            <span class="level-start">
+                <span class="level-item">English</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/FamilyManage/">
+            <span class="level-start">
+                <span class="level-item">FamilyManage</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Go/">
+            <span class="level-start">
+                <span class="level-item">Go</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Hexo/">
+            <span class="level-start">
+                <span class="level-item">Hexo</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JVM/">
+            <span class="level-start">
+                <span class="level-item">JVM</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Java/">
+            <span class="level-start">
+                <span class="level-item">Java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Java基础/">
+            <span class="level-start">
+                <span class="level-item">Java基础</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Linux/">
+            <span class="level-start">
+                <span class="level-item">Linux</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Redis/">
+            <span class="level-start">
+                <span class="level-item">Redis</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Springbooot/">
+            <span class="level-start">
+                <span class="level-item">Springbooot</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Springboot/">
+            <span class="level-start">
+                <span class="level-item">Springboot</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue专题/">
+            <span class="level-start">
+                <span class="level-item">Vue专题</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/信/">
+            <span class="level-start">
+                <span class="level-item">信</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/动漫专栏/">
+            <span class="level-start">
+                <span class="level-item">动漫专栏</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/华为/">
+            <span class="level-start">
+                <span class="level-item">华为</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/小工具/">
+            <span class="level-start">
+                <span class="level-item">小工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/工具集/">
+            <span class="level-start">
+                <span class="level-item">工具集</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/技术文档/">
+            <span class="level-start">
+                <span class="level-item">技术文档</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/数据库/">
+            <span class="level-start">
+                <span class="level-item">数据库</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/日记/">
+            <span class="level-start">
+                <span class="level-item">日记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">41</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/消息队列/">
+            <span class="level-start">
+                <span class="level-item">消息队列</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/游戏专栏/">
+            <span class="level-start">
+                <span class="level-item">游戏专栏</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/环境搭建/">
+            <span class="level-start">
+                <span class="level-item">环境搭建</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/环境部署/">
+            <span class="level-start">
+                <span class="level-item">环境部署</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/程序员成长之路/">
+            <span class="level-start">
+                <span class="level-item">程序员成长之路</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/线程/">
+            <span class="level-start">
+                <span class="level-item">线程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/缓存/">
+            <span class="level-start">
+                <span class="level-item">缓存</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/臭臭专栏/">
+            <span class="level-start">
+                <span class="level-item">臭臭专栏</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/软件测试/">
+            <span class="level-start">
+                <span class="level-item">软件测试</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/软件项目管理/">
+            <span class="level-start">
+                <span class="level-item">软件项目管理</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/AM4/" style="font-size: 14.29px;">AM4</a> <a href="/tags/FamilyManage/" style="font-size: 17.14px;">FamilyManage</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Go/" style="font-size: 11.43px;">Go</a> <a href="/tags/HUI/" style="font-size: 10px;">HUI</a> <a href="/tags/Hexo/" style="font-size: 17.14px;">Hexo</a> <a href="/tags/JMeter/" style="font-size: 10px;">JMeter</a> <a href="/tags/JUC/" style="font-size: 10px;">JUC</a> <a href="/tags/JVM/" style="font-size: 18.57px;">JVM</a> <a href="/tags/Java/" style="font-size: 11.43px;">Java</a> <a href="/tags/Java集合框架/" style="font-size: 10px;">Java集合框架</a> <a href="/tags/Lambda/" style="font-size: 10px;">Lambda</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 12.86px;">MySQL</a> <a href="/tags/RabbitMQ/" style="font-size: 15.71px;">RabbitMQ</a> <a href="/tags/Redis/" style="font-size: 12.86px;">Redis</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Shiro/" style="font-size: 10px;">Shiro</a> <a href="/tags/StudyPlan/" style="font-size: 10px;">StudyPlan</a> <a href="/tags/Utils/" style="font-size: 10px;">Utils</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/bat/" style="font-size: 10px;">bat</a> <a href="/tags/dl4f/" style="font-size: 10px;">dl4f</a> <a href="/tags/dl4j/" style="font-size: 10px;">dl4j</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/互斥同步/" style="font-size: 10px;">互斥同步</a> <a href="/tags/信/" style="font-size: 10px;">信</a> <a href="/tags/六级考试/" style="font-size: 10px;">六级考试</a> <a href="/tags/内存模型/" style="font-size: 10px;">内存模型</a> <a href="/tags/动漫杂图/" style="font-size: 10px;">动漫杂图</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/崩坏3/" style="font-size: 11.43px;">崩坏3</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/收藏/" style="font-size: 10px;">收藏</a> <a href="/tags/日报/" style="font-size: 20px;">日报</a> <a href="/tags/日记/" style="font-size: 12.86px;">日记</a> <a href="/tags/比赛/" style="font-size: 10px;">比赛</a> <a href="/tags/线程/" style="font-size: 14.29px;">线程</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/缓存/" style="font-size: 11.43px;">缓存</a> <a href="/tags/软件测试/" style="font-size: 10px;">软件测试</a> <a href="/tags/软件项目管理/" style="font-size: 10px;">软件项目管理</a> <a href="/tags/阶段总结/" style="font-size: 10px;">阶段总结</a> <a href="/tags/集合框架/" style="font-size: 10px;">集合框架</a> <a href="/tags/饭饭/" style="font-size: 10px;">饭饭</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
+    </div>
+</div>
+
+    
+    
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            <a href="/2020/03/04/fc6bf379.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/2019/05/17/d3541f2b/zd01.jpg" alt="深入理解JVM-学习与实践（1）">
+                </p>
+            </a>
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-04T15:05:27.000Z">2020-03-04</time></div>
+                    <a href="/2020/03/04/fc6bf379.html" class="has-link-black-ter is-size-6">深入理解JVM-学习与实践（1）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            <a href="/2020/01/22/ef52c58b.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/2019/05/17/d3541f2b/zd01.jpg" alt="DeepLearning4J(二)：简易一元线性回归">
+                </p>
+            </a>
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-22T04:24:18.000Z">2020-01-22</time></div>
+                    <a href="/2020/01/22/ef52c58b.html" class="has-link-black-ter is-size-6">DeepLearning4J(二)：简易一元线性回归</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">/java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            <a href="/2020/01/21/1da953fb.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/2019/05/17/d3541f2b/zd01.jpg" alt="DeepLearning4J(一)：入门">
+                </p>
+            </a>
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-21T15:20:49.000Z">2020-01-21</time></div>
+                    <a href="/2020/01/21/1da953fb.html" class="has-link-black-ter is-size-6">DeepLearning4J(一)：入门</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Java/">Java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            <a href="/2019/10/18/e135733e.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/2019/05/17/d3541f2b/zd01.jpg" alt="华为前辈语录">
+                </p>
+            </a>
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-18T08:28:50.000Z">2019-10-18</time></div>
+                    <a href="/2019/10/18/e135733e.html" class="has-link-black-ter is-size-6">华为前辈语录</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/华为/">华为</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            <a href="/2019/10/16/68296740.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/2019/05/17/d3541f2b/zd01.jpg" alt="信、蓝">
+                </p>
+            </a>
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-16T05:52:09.000Z">2019-10-16</time></div>
+                    <a href="/2019/10/16/68296740.html" class="has-link-black-ter is-size-6">信、蓝</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/信/">信</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+    <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">30</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">44</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">15</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">18</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">14</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+    <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/AM4/">
+                        <span class="tag">AM4</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/FamilyManage/">
+                        <span class="tag">FamilyManage</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Git/">
+                        <span class="tag">Git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Go/">
+                        <span class="tag">Go</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HUI/">
+                        <span class="tag">HUI</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Hexo/">
+                        <span class="tag">Hexo</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JMeter/">
+                        <span class="tag">JMeter</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JUC/">
+                        <span class="tag">JUC</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JVM/">
+                        <span class="tag">JVM</span>
+                        <span class="tag is-grey">13</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java集合框架/">
+                        <span class="tag">Java集合框架</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Lambda/">
+                        <span class="tag">Lambda</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux/">
+                        <span class="tag">Linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/MySQL/">
+                        <span class="tag">MySQL</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/RabbitMQ/">
+                        <span class="tag">RabbitMQ</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Redis/">
+                        <span class="tag">Redis</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Servlet/">
+                        <span class="tag">Servlet</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Shiro/">
+                        <span class="tag">Shiro</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/StudyPlan/">
+                        <span class="tag">StudyPlan</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Utils/">
+                        <span class="tag">Utils</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/bat/">
+                        <span class="tag">bat</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/dl4f/">
+                        <span class="tag">dl4f</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/dl4j/">
+                        <span class="tag">dl4j</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node-js/">
+                        <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/互斥同步/">
+                        <span class="tag">互斥同步</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/信/">
+                        <span class="tag">信</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/六级考试/">
+                        <span class="tag">六级考试</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/内存模型/">
+                        <span class="tag">内存模型</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/动漫杂图/">
+                        <span class="tag">动漫杂图</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/华为/">
+                        <span class="tag">华为</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/崩坏3/">
+                        <span class="tag">崩坏3</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/总结/">
+                        <span class="tag">总结</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/收藏/">
+                        <span class="tag">收藏</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/日报/">
+                        <span class="tag">日报</span>
+                        <span class="tag is-grey">36</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/日记/">
+                        <span class="tag">日记</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/比赛/">
+                        <span class="tag">比赛</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/线程/">
+                        <span class="tag">线程</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/线程池/">
+                        <span class="tag">线程池</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/缓存/">
+                        <span class="tag">缓存</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/软件测试/">
+                        <span class="tag">软件测试</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/软件项目管理/">
+                        <span class="tag">软件项目管理</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/阶段总结/">
+                        <span class="tag">阶段总结</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/集合框架/">
+                        <span class="tag">集合框架</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/饭饭/">
+                        <span class="tag">饭饭</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/高考/">
+                        <span class="tag">高考</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+    <div class="column-right-shadow is-hidden-widescreen is-sticky">
+        
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="is-rounded" src="/images/header.png" alt="October 浩 田">
+                    </figure>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        October 浩 田
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Coding Boy
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China 中国</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        126
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        33
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        46
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <!-- <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://blog.octber.xyz/" target="_blank">
+                全家计划WebApp</a>
+        </div>
+		<div class="level">
+            <a class="level-item button is-link is-rounded" href="http://115.159.79.191:8080/" target="_blank">
+                全家通Web</a>
+        </div> -->
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/OctoberTian">
+                
+                Github  <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Coding" href="https://dev.tencent.com/u/OctCoding">
+                
+                Coding  <i class="fab fa-github"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+        
+    </div>
+    
+</div>
+
+                
+
+<!-- 粘贴的部分 -->
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <p class="is-size-7">
+                    <a class="footer-logo is-block has-mb-6" href="/">
+                        
+                        <img src="/images/mylogo.png" alt="Hexo插件使用" height="28">
+                        
+                    </a>
+                    &copy; 2020 OctoberTian&nbsp;
+                    ❤ October
+                    
+                    <br>
+                    <span id="busuanzi_container_site_uv">
+                        共<span id="busuanzi_value_site_uv">0</span>个访客
+                    </span>
+                    
+                </p>
+            </div>
+            <div class="level-end">
+                
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                    
+                    
+                    <p class="control">
+                        <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                            
+                            <i class="fab fa-creative-commons"></i>
+                            
+                        </a>
+                    </p>
+                    
+                    <p class="control">
+                        <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                            
+                            <i class="fab fa-creative-commons-by"></i>
+                            
+                        </a>
+                    </p>
+                    
+                    <p class="control">
+                        <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                            
+                            <i class="fab fa-github"></i>
+                            
+                        </a>
+                    </p>
+                    
+                </div>
+                
+            </div>
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div>
+                <div>
+                    <span id="busuanzi_container_site_pv" class="theme-info">
+                        ♫ 总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                </div>
+                <div>
+                    <span id="busuanzi_container_site_uv" class="theme-info">
+                        ♫ 访客数<span id="busuanzi_value_site_uv"></span>人次</span>
+                </div>
+            </div>
+            <span id="timeDate">载入天数...</span>
+            <script type="text/javascript">
+                var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+                document.write(unescape("%3Cspan id='cnzz_stat_icon_1277614079'%3E%3C/span%3E%3Cscript src='" +
+                    cnzz_protocol +
+                    "s23.cnzz.com/z_stat.php%3Fid%3D1277614079%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"
+                ));
+            </script>
+            <script>
+                var now = new Date();
+
+                function createtime() {
+                    var grt = new Date("5/15/2019 08:49:00"); //此处修改你的建站时间或者网站上线时间 
+                    now.setTime(now.getTime() + 250);
+                    days = (now - grt) / 1000 / 60 / 60 / 24;
+                    dnum = Math.floor(days);
+                    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+                    hnum = Math.floor(hours);
+                    if (String(hnum).length == 1) {
+                        hnum = "0" + hnum;
+                    }
+                    minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+                    mnum = Math.floor(minutes);
+                    if (String(mnum).length == 1) {
+                        mnum = "0" + mnum;
+                    }
+                    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+                    snum = Math.round(seconds);
+                    if (String(snum).length == 1) {
+                        snum = "0" + snum;
+                    }
+                    document.getElementById("timeDate").innerHTML = "♛ 本站已安全运行 " + dnum + " 天 " + hnum + " 小时 " + mnum +
+                        " 分 " + snum + " 秒";
+                }
+                setInterval("createtime()", 250);
+            </script>
+            <script>
+                (function () {
+                    var bp = document.createElement('script');
+                    var curProtocol = window.location.protocol.split(':')[0];
+                    if (curProtocol === 'https') {
+                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                    } else {
+                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                    }
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(bp, s);
+                })();
+            </script>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("ch");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+	<!--
+	雪花特效
+    <script type="text/javascript" src="/js/src/snow.js"></script>
+	-->
+    <script>
+        (function () {
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            } else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+</body>
+
+</html>

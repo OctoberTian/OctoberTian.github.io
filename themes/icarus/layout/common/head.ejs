@@ -36,5 +36,13 @@
     <%- partial('plugin/' + plugin, { head: true, plugin: get_config('plugins')[plugin] }) %>
     <% } %>
 <% } %>
-
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?628227b0cd6d7a0a49bfefde1dcf4518";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
 <%- _css('css/style') %>

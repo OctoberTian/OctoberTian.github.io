@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<!--
+点击特效
+<script src="/js/src/click.js"></script>
+-->
+<html lang="ch">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>FamilyManage开发-SpringShiro - 十月博客</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="前言FamilyManage项目的后台部分，最核心的一部分一定是安全控制和权限控制。 这一次，我们就来了解一下什么是Spring Shiro">
+<meta name="keywords" content="FamilyManage">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FamilyManage开发-SpringShiro">
+<meta property="og:url" content="https://www.octber.xyz/2019/06/07/bd0495f3.html">
+<meta property="og:site_name" content="十月博客">
+<meta property="og:description" content="前言FamilyManage项目的后台部分，最核心的一部分一定是安全控制和权限控制。 这一次，我们就来了解一下什么是Spring Shiro">
+<meta property="og:locale" content="ch">
+<meta property="og:image" content="https://www.octber.xyz/images/og_image.png">
+<meta property="og:updated_time" content="2020-03-09T14:50:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FamilyManage开发-SpringShiro">
+<meta name="twitter:description" content="前言FamilyManage项目的后台部分，最核心的一部分一定是安全控制和权限控制。 这一次，我们就来了解一下什么是Spring Shiro">
+<meta name="twitter:image" content="https://www.octber.xyz/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?628227b0cd6d7a0a49bfefde1dcf4518";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="is-3-column">
+    <!--雪花皮肤-->
+    <!-- <script type="text/javascript">
+        var windowWidth = $(window).width();
+        if (windowWidth > 480) {
+            document.write('<script type="text/javascript" src="/js/src/snow.js"></script>');
+    }
+    </script> -->
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/mylogo.png" alt="FamilyManage开发-SpringShiro" height="28">
+            
+            </a>
+        </div>
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">主页</a>
+                
+                <a class="navbar-item" href="/archives">归档</a>
+                
+                <a class="navbar-item" href="/categories">分类</a>
+                
+                <a class="navbar-item" href="/tags">标签</a>
+                
+                <a class="navbar-item" href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="My Github" href="https://github.com/OctoberTian">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-6-tablet is-6-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-06-07T09:22:53.000Z">2019-06-07</time>
+                
+                <div class="level-item">
+                    <a class="has-link-grey-link" href="/categories/FamilyManage/">FamilyManage</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    34 minutes 读完 (大约 5046 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+            
+            FamilyManage开发-SpringShiro
+            
+        </h1>
+        <div class="content">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>FamilyManage项目的后台部分，最核心的一部分一定是安全控制和权限控制。</p>
+<p>这一次，我们就来了解一下什么是Spring Shiro</p>
+<a id="more"></a>
+<h2 id="什么是Spring-Shiro"><a href="#什么是Spring-Shiro" class="headerlink" title="什么是Spring Shiro"></a>什么是Spring Shiro</h2><ul>
+<li><p>Apache Shiro 是 Java  的一个安全（权限）框架。 </p>
+</li>
+<li><p>Shiro 可以非常容易的开发出足够好的应用，其不仅可以用在 JavaSE 环境，也可以用在 JavaEE 环境。 </p>
+</li>
+<li>Shiro 可以完成：认证、授权、加密、会话管理、与Web 集成、缓存 等。</li>
+<li>下载：<a href="http://shiro.apache.org/" target="_blank" rel="noopener">http://shiro.apache.org/</a></li>
+</ul>
+<h2 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h2><p><img src="/2019/06/07/bd0495f3/1559923545984.png" alt="1559923545984"></p>
+<ul>
+<li>Authentication：身份认证/登录，验证用户是不是拥有相应的身份； </li>
+<li>Authorization：授权，即权限验证，验证某个已认证的用户是否拥有某个权限；即判断用 户是否能进行什么操作，如：验证某个用户是否拥有某个角色。或者细粒度的验证某个用户 对某个资源是否具有某个权限； </li>
+<li>Session Manager：会话管理，即用户登录后就是一次会话，在没有退出之前，它的所有 信息都在会话中；会话可以是普通 JavaSE 环境，也可以是 Web 环境的； </li>
+<li>Cryptography：加密，保护数据的安全性，如密码加密存储到数据库，而不是明文存储</li>
+<li>Web Support：Web 支持，可以非常容易的集成到Web 环境； </li>
+<li>Caching：缓存，比如用户登录后，其用户信息、拥有的角色/权限不必每次去查，这样可 以提高效率； </li>
+<li>Concurrency：Shiro 支持多线程应用的并发验证，即如在一个线程中开启另一个线程，能 把权限自动传播过去； </li>
+<li>Testing：提供测试支持； </li>
+<li>Run As：允许一个用户假装为另一个用户（如果他们允许）的身份进行访问； </li>
+<li>Remember Me：记住我，这个是非常常见的功能，即一次登录后，下次再来的话不用登 录了</li>
+</ul>
+<h2 id="Shiro架构"><a href="#Shiro架构" class="headerlink" title="Shiro架构"></a>Shiro架构</h2><ul>
+<li>Subject：应用代码直接交互的对象是 Subject，也就是说 Shiro 的对外 API 核心就是 Subject。<strong>Subject 代表了当前“用户”</strong>， 这个用户不一定 是一个具体的人，<strong>与当前应用交互的任何东西都是 Subject</strong>，如网络爬虫， 机器人等；与 Subject  的所有交互都会委托给 SecurityManager； Subject 其实是一个门面，SecurityManager 才是实际的执行者； </li>
+<li>SecurityManager：安全管理器；即所有与安全有关的操作都会与 SecurityManager 交互；且其管理着所有 Subject；可以看出它是 Shiro 的核心，它负责与 Shiro 的其他组件进行交互，它相当于 SpringMVC 中 DispatcherServlet 的角色 </li>
+<li>Realm：Shiro 从 Realm 获取安全数据（如用户、角色、权限），就是说 SecurityManager 要验证用户身份，那么它<strong>需要从 Realm 获取相应的用户</strong> 进行比较以确定用户身份是否合法；也需要从 <strong>Realm 得到用户相应的角色/ 权限</strong>进行验证用户是否能进行操作；<strong>可以把 Realm 看成 DataSource</strong>。可以有 1 个或多个 Realm，可以认为是安全实体数据源，即用于获取安全实体 的；可以是JDBC 实现，也可以是内存实现等等；由用户提供；所以一般在应用中都需要 实现自己的 Realm；</li>
+<li>Authenticator：<strong>负责 Subject 认证</strong>，是一个扩展点，可以自定义实现；可以使用认证 策略（Authentication Strategy），即什么情况下算用户认证通过了； </li>
+<li>Authorizer：授权器、即访问控制器，<strong>用来决定主体是否有权限进行相应的操作</strong>；即控制着用户能访问应用中的哪些功能；</li>
+<li>SessionManager：<strong>管理 Session 生命周期的组件</strong>；而 Shiro 并不仅仅可以用在 Web 环境，也可以用在如普通的 JavaSE 环境</li>
+<li>CacheManager：缓存控制器，来管理如用户、角色、权限等的缓存的；因为这些数据 基本上很少改变，<strong>放到缓存中后可以提高访问的性能</strong> </li>
+<li>Cryptography：密码模块，Shiro 提高了一些常见的<strong>加密组件用于如密码加密/解密</strong>。</li>
+</ul>
+<h2 id="编写Shiro配置类"><a href="#编写Shiro配置类" class="headerlink" title="编写Shiro配置类"></a>编写Shiro配置类</h2><p>Shiro配置的最重要的三个就是Subject（用户主体），WebSecurityManager（安全管理器）、Realm（自定义验证）和ShiroFilterFactory（过滤器），安全管理器通过对用户主体进行验证，而验证的方式用户可以进行自定义，如果我们还需要进行加密处理等操作，那么我们需要进行HashedCredentialsMatcher的配置</p>
+<h4 id="配置DefaultWebSecurityManager"><a href="#配置DefaultWebSecurityManager" class="headerlink" title="配置DefaultWebSecurityManager"></a>配置DefaultWebSecurityManager</h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * 权限管理，配置主要是Realm的管理认证</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-meta">@Bean</span>(name = <span class="hljs-string">"securityManager"</span>)</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> DefaultWebSecurityManager <span class="hljs-title">defaultSecurityManager</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    DefaultWebSecurityManager defaultWebSecurityManager = <span class="hljs-keyword">new</span> DefaultWebSecurityManager();</span><br><span class="line">    defaultWebSecurityManager.setRealm(shiroRealm());</span><br><span class="line">    <span class="hljs-keyword">return</span> defaultWebSecurityManager;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码中的shiroRealm()就是我们需要自定义的验证方法。</p>
+<h4 id="自定义验证方法ShiroRealm"><a href="#自定义验证方法ShiroRealm" class="headerlink" title="自定义验证方法ShiroRealm"></a>自定义验证方法ShiroRealm</h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * 自定义验证方法</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-meta">@Bean</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> ShiroRealm <span class="hljs-title">shiroRealm</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    ShiroRealm shiroRealm = <span class="hljs-keyword">new</span> ShiroRealm();</span><br><span class="line">    <span class="hljs-comment">//加入加密算法</span></span><br><span class="line">    shiroRealm.setCredentialsMatcher(shiroHashedCredentialsMatcher());</span><br><span class="line">    <span class="hljs-keyword">return</span> shiroRealm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个ShiroRealm就是我们需要自定义的验证方法，那么我现在来编写一个ShiroRealm类定制我们的验证方法，它需要继承自<strong>AuthorizingRealm</strong>，就需要实现其中的重要方法：</p>
+<p><img src="/2019/06/07/bd0495f3/1559960974117.png" alt="1559960974117"></p>
+<h5 id="1-doGetAuthenticationInfo-AuthenticationToken-token"><a href="#1-doGetAuthenticationInfo-AuthenticationToken-token" class="headerlink" title="1.doGetAuthenticationInfo(AuthenticationToken token)"></a>1.doGetAuthenticationInfo(AuthenticationToken token)</h5><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * 判断用户是否在缓存记录(即Shiro是否Remember user)和登录</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> token 该凭证来自客户端传来的用户信息</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@return</span></span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@throws</span> AuthenticationException</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">protected</span> AuthenticationInfo <span class="hljs-title">doGetAuthenticationInfo</span><span class="hljs-params">(AuthenticationToken token)</span> <span class="hljs-keyword">throws</span> AuthenticationException </span>&#123;</span><br><span class="line">    ... ...</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们通过源码进行分析：<strong>AuthenticationToken</strong>是什么东西呢？</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">AuthenticationToken</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Serializable</span></span></span><br></pre></td></tr></table></figure>
+<p>通过源码我们知道他是一个可序列化的接口类</p>
+<p>我们看它类头的注释</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * &lt;p&gt;An &lt;tt&gt;AuthenticationToken&lt;/tt&gt; is a consolidation of an account's principals and supporting</span></span><br><span class="line"><span class="hljs-comment"> * credentials submitted by a user during an authentication attempt.</span></span><br><span class="line"><span class="hljs-comment"> * &lt;p/&gt;</span></span><br><span class="line"><span class="hljs-comment"> * &lt;p&gt;The token is submitted to an &#123;<span class="hljs-doctag">@link</span> Authenticator Authenticator&#125; via the</span></span><br><span class="line"><span class="hljs-comment"> * &#123;<span class="hljs-doctag">@link</span> Authenticator#authenticate(AuthenticationToken) authenticate(token)&#125; method.  The</span></span><br><span class="line"><span class="hljs-comment"> * Authenticator then executes the authentication/log-in process.</span></span><br><span class="line"><span class="hljs-comment"> * &lt;p/&gt;</span></span><br><span class="line"><span class="hljs-comment"> * &lt;p&gt;Common implementations of an &lt;tt&gt;AuthenticationToken&lt;/tt&gt; would have username/password</span></span><br><span class="line"><span class="hljs-comment"> * pairs, X.509 Certificate, PGP key, or anything else you can think of.  The token can be</span></span><br><span class="line"><span class="hljs-comment"> * anything needed by an &#123;<span class="hljs-doctag">@link</span> Authenticator&#125; to authenticate properly.</span></span><br><span class="line"><span class="hljs-comment"> * &lt;p/&gt;</span></span><br><span class="line"><span class="hljs-comment"> * &lt;p&gt;Because applications represent user data and credentials in different ways, implementations</span></span><br><span class="line"><span class="hljs-comment"> * of this interface are application-specific.  You are free to acquire a user's principals and</span></span><br><span class="line"><span class="hljs-comment"> * credentials however you wish (e.g. web form, Swing form, fingerprint identification, etc) and</span></span><br><span class="line"><span class="hljs-comment"> * then submit them to the Shiro framework in the form of an implementation of this</span></span><br><span class="line"><span class="hljs-comment"> * interface.</span></span><br><span class="line"><span class="hljs-comment"> * &lt;p/&gt;</span></span><br><span class="line"><span class="hljs-comment"> * &lt;p&gt;If your application's authentication process is  username/password based</span></span><br><span class="line"><span class="hljs-comment"> * (like most), instead of implementing this interface yourself, take a look at the</span></span><br><span class="line"><span class="hljs-comment"> * &#123;<span class="hljs-doctag">@link</span> UsernamePasswordToken UsernamePasswordToken&#125; class, as it is probably sufficient for your needs.</span></span><br><span class="line"><span class="hljs-comment"> * &lt;p/&gt;</span></span><br><span class="line"><span class="hljs-comment"> * &lt;p&gt;RememberMe services are enabled for a token if they implement a sub-interface of this one, called</span></span><br><span class="line"><span class="hljs-comment"> * &#123;<span class="hljs-doctag">@link</span> RememberMeAuthenticationToken RememberMeAuthenticationToken&#125;.  Implement that interface if you need</span></span><br><span class="line"><span class="hljs-comment"> * RememberMe services (the &lt;tt&gt;UsernamePasswordToken&lt;/tt&gt; already implements this interface).</span></span><br><span class="line"><span class="hljs-comment"> * &lt;p/&gt;</span></span><br><span class="line"><span class="hljs-comment"> * &lt;p&gt;If you are familiar with JAAS, an &lt;tt&gt;AuthenticationToken&lt;/tt&gt; replaces the concept of a</span></span><br><span class="line"><span class="hljs-comment"> * &#123;<span class="hljs-doctag">@link</span> javax.security.auth.callback.Callback&#125;, and  defines meaningful behavior</span></span><br><span class="line"><span class="hljs-comment"> * (&lt;tt&gt;Callback&lt;/tt&gt; is just a marker interface, and of little use).  We</span></span><br><span class="line"><span class="hljs-comment"> * also think the name &lt;em&gt;AuthenticationToken&lt;/em&gt; more accurately reflects its true purpose</span></span><br><span class="line"><span class="hljs-comment"> * in a login framework, whereas &lt;em&gt;Callback&lt;/em&gt; is less obvious.</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@see</span> RememberMeAuthenticationToken</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@see</span> HostAuthenticationToken</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@see</span> UsernamePasswordToken</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@since</span> 0.1</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br></pre></td></tr></table></figure>
+<p>我们可以获得这些信息：</p>
+<ul>
+<li><p>AuthenticationToken is a consolidation of an account’s principals and supporting：它是对帐户主体和支持的整合。</p>
+</li>
+<li><p>credentials submitted by a user during an authentication attempt：用户在身份验证尝试期间提交的凭据。当然通过类名我们也能知道，这是一种凭据Token。</p>
+</li>
+<li><p>Common implementations of an AuthenticationToken would have username/password pairs, X.509 Certificate, PGP key, or anything else you can think of.  The token can be：显而易见，这个类认为实现这个接口的类，应当提供一些比如用户名/密码这种用户登录的凭证，或者是其他你认为可以验证用户的凭据</p>
+</li>
+<li><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If your application authentication process is  username/<span class="hljs-function">password <span class="hljs-title">based</span><span class="hljs-params">(like most)</span>, instead of implementing <span class="hljs-keyword">this</span> interface yourself, take a look at the </span>&#123;<span class="hljs-meta">@link</span> UsernamePasswordToken UsernamePasswordToken&#125; <span class="hljs-class"><span class="hljs-keyword">class</span>, <span class="hljs-title">as</span> <span class="hljs-title">it</span> <span class="hljs-title">is</span> <span class="hljs-title">probably</span> <span class="hljs-title">sufficient</span> <span class="hljs-title">for</span> <span class="hljs-title">your</span> <span class="hljs-title">needs</span>.</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里就是重点了，既然这个类是一个接口类，实现其类的时候说过了要注意对用户登陆的凭据进行一些处理，那么这一行注释就非常重要：他说如果你的验证过程是基于用户名/密码的方式，你可能需要看看UsernamePasswordToken这个类，他可能会给你提供你所需要的。</p>
+<ul>
+<li>再往后还有对RememberMeAuthenticationToken和Callback的陈述，显而易见。</li>
+</ul>
+<p>回头来看我们的这个类，刚刚我并没有写出这个函数内部的代码，现在来看看我是怎么写的：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">protected</span> AuthenticationInfo <span class="hljs-title">doGetAuthenticationInfo</span><span class="hljs-params">(AuthenticationToken token)</span> <span class="hljs-keyword">throws</span> AuthenticationException </span>&#123;</span><br><span class="line">        UsernamePasswordToken userToken = (UsernamePasswordToken) token;</span><br><span class="line">        User user = IUserService.findByName(userToken.getUsername());</span><br><span class="line">        <span class="hljs-keyword">if</span>(user != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-comment">//该对象会记录在Shiro中认为是info,登录和缓存判断时使用</span></span><br><span class="line">            SimpleAuthenticationInfo simpleAuthenticationInfo =</span><br><span class="line">                    <span class="hljs-keyword">new</span> SimpleAuthenticationInfo(user, user.getPassword(),EncodeUtil.getSalt(user.getUserId()),getName());</span><br><span class="line">            <span class="hljs-keyword">return</span> simpleAuthenticationInfo;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>我使用了UsernamePasswordToken，上文说过，他实现了AuthenticationToken，我的应用程序中正是使用了这种用户名+密码的验证方式，那么将token强制转化成这种类型也不为奇怪，现在我们来看看UsernamePasswordToken这个类，根据源代码：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UsernamePasswordToken</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">HostAuthenticationToken</span>, <span class="hljs-title">RememberMeAuthenticationToken</span></span></span><br></pre></td></tr></table></figure>
+<p>我们知道他实现了<strong>HostAuthenticationToken, RememberMeAuthenticationToken</strong>这两个类，而第一个又实现了AuthenticationToken，显而易见了。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">HostAuthenticationToken</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AuthenticationToken</span></span></span><br></pre></td></tr></table></figure>
+<p>它只有一个方法那就是返回客户端的host名字。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * Returns the host name of the client from where the</span></span><br><span class="line"><span class="hljs-comment"> * authentication attempt originates or if the Shiro environment cannot or</span></span><br><span class="line"><span class="hljs-comment"> * chooses not to resolve the hostname to improve performance, this method</span></span><br><span class="line"><span class="hljs-comment"> * returns the String representation of the client's IP address.</span></span><br><span class="line"><span class="hljs-comment"> * &lt;p/&gt;</span></span><br><span class="line"><span class="hljs-comment"> * When used in web environments, this value is usually the same as the</span></span><br><span class="line"><span class="hljs-comment"> * &#123;<span class="hljs-doctag">@code</span> ServletRequest.getRemoteHost()&#125; value.</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> the fully qualified name of the client from where the</span></span><br><span class="line"><span class="hljs-comment"> *         authentication attempt originates or the String representation</span></span><br><span class="line"><span class="hljs-comment"> *         of the client's IP address is hostname resolution is not</span></span><br><span class="line"><span class="hljs-comment"> *         available or disabled.</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-function">String <span class="hljs-title">getHost</span><span class="hljs-params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>看看第二个RememberMeAuthenticationToken是什么呢？</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">RememberMeAuthenticationToken</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AuthenticationToken</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * Returns &#123;<span class="hljs-doctag">@code</span> true&#125; if the submitting user wishes their identity (principal(s)) to be remembered</span></span><br><span class="line"><span class="hljs-comment">     * across sessions, &#123;<span class="hljs-doctag">@code</span> false&#125; otherwise.</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> &#123;<span class="hljs-doctag">@code</span> true&#125; if the submitting user wishes their identity (principal(s)) to be remembered</span></span><br><span class="line"><span class="hljs-comment">     *         across sessions, &#123;<span class="hljs-doctag">@code</span> false&#125; otherwise.</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">isRememberMe</span><span class="hljs-params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>显而易见他也继承了AuthenticationToken，他也只有一个方法，那就是“记住我？”，客户在一次登录后将记住，之后可以不用重复登录。或许英文更适合你的口味？</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * An &#123;<span class="hljs-doctag">@code</span> AuthenticationToken&#125; that indicates if the user wishes their identity to be remembered across sessions.</span></span><br><span class="line"><span class="hljs-comment"> * &lt;p/&gt;</span></span><br><span class="line"><span class="hljs-comment"> * Note however that when a new session is created for the corresponding user, that user's identity would be</span></span><br><span class="line"><span class="hljs-comment"> * remembered, but they are &lt;em&gt;NOT&lt;/em&gt; considered authenticated.  Please see the</span></span><br><span class="line"><span class="hljs-comment"> * &#123;<span class="hljs-doctag">@link</span> org.apache.shiro.subject.Subject#isRemembered()&#125; JavaDoc for an in-depth explanation of the semantic</span></span><br><span class="line"><span class="hljs-comment"> * differences of what it means to be remembered vs. authenticated.</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@see</span> org.apache.shiro.subject.Subject#isRemembered()</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@since</span> 0.9</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br></pre></td></tr></table></figure>
+<p>返回来看我们当前这个类UsernamePasswordToken，他能够处理“记住我”的功能同时能够知道客户端的名字，除去一些基本的构造函数，我们看看他有什么特殊函数呢？</p>
+<p>他有username/password的setter和getter，有清空凭据的clear方法，仅此而已，那么我们想在doGetAuthenticationInfo中判断用户是否在缓存记录中（是否已经“记住我”）的话，我们可以通过getUsername()的方法获得用户名，通过用户名调用Service中的方法获得指定用户。</p>
+<p>SimpleAuthenticationInf现在我们需要来看另一个东西<strong>AuthenticationInfo</strong>，因为他和上述代码中的<strong>SimpleAuthenticationInfo</strong>有关系，在我们找到对应用户的时候，我们如何处理呢？</p>
+<p>我们看源代码中的注释：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;code&gt;AuthenticationInfo&lt;/code&gt; represents a Subject's (aka user's) stored account information relevant to the</span><br><span class="line">* authentication/log-in process only.</span><br></pre></td></tr></table></figure>
+<p>他代表着一个Subject（客户主体）储存的账号信息和认证/登录过程有关。那么他和<strong>AuthenticationToken有什么区别呢？</strong></p>
+<ul>
+<li><p>AuthenticationInfo提供的是represent already-verified and stored account data，就是已经准备好的，储存好的账户信息</p>
+</li>
+<li><p>AuthenticationToken的作用是：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AuthenticationToken represents data</span><br><span class="line">* <span class="hljs-function">submitted <span class="hljs-keyword">for</span> any given login <span class="hljs-title">attempt</span> <span class="hljs-params">(which may or may not successfully match the verified and stored account</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">* &lt;code&gt;AuthenticationInfo&lt;/code&gt;)</span>.</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>他对任何的登录请求，不管能不能够通过验证进行确认和储存的信息，都会进行处理。</p>
+<p>了解了这个，我们回头看这个类：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SimpleAuthenticationInfo</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">MergableAuthenticationInfo</span>, <span class="hljs-title">SaltedAuthenticationInfo</span></span></span><br></pre></td></tr></table></figure>
+<p>就是我们刚刚提及的我们使用的这个类他实现的<strong>MergableAuthenticationInfo</strong>, <strong>SaltedAuthenticationInfo</strong>有什么特点呢？</p>
+<ul>
+<li><p>MergableAuthenticationInfo： </p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">MergableAuthenticationInfo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AuthenticationInfo</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>他就是继承自<strong>AuthenticationInfo</strong>这个类，他有什么作用呢？</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(AuthenticationInfo info)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>那就是<strong>合并</strong>，简而言之不要重复呗，相同的用户不要创建多次，我们还需要记录最新的一个即可。</p>
+<ul>
+<li><p>SaltedAuthenticationInfo：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">SaltedAuthenticationInfo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AuthenticationInfo</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>  他也是继承自<strong>AuthenticationInfo</strong>，显而易见这是一个用于“加盐”的工具，他的功能就是：</p>
+  <figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function">ByteSource <span class="hljs-title">getCredentialsSalt</span><span class="hljs-params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>  获得Salt盐，加盐是个非常重要的过程，对于安全性有了进一步的保障，如果我们进行了加盐操作，那么这个类就派得上用场了。</p>
+<p>分析过这两个了类及他们的父类，我们就理解了<strong>SimpleAuthenticationInfo</strong>是做什么的了：</p>
+<p>我们可以用他其中的构造方法，对客户配置很多属性，比如：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SimpleAuthenticationInfo</span><span class="hljs-params">(Object principal, Object hashedCredentials, ByteSource credentialsSalt, String realmName)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">this</span>.principals = <span class="hljs-keyword">new</span> SimplePrincipalCollection(principal, realmName);</span><br><span class="line">    <span class="hljs-keyword">this</span>.credentials = hashedCredentials;</span><br><span class="line">    <span class="hljs-keyword">this</span>.credentialsSalt = credentialsSalt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>设置用户对象，用户密码，盐，用户名等等，将这个对象作为<strong>doGetAuthenticationInfo</strong>函数的返回值，我们就做完了本次操作，当然如果查不到用户，返回null即可。</p>
+<h5 id="2-doGetAuthorizationInfo-PrincipalCollection-principals"><a href="#2-doGetAuthorizationInfo-PrincipalCollection-principals" class="headerlink" title="2.doGetAuthorizationInfo(PrincipalCollection principals)"></a>2.doGetAuthorizationInfo(PrincipalCollection principals)</h5><p>这个功能我们做什么呢？<strong>定义如何获取用户的角色和权限的逻辑，给shiro做权限判断。</strong></p>
+<p><strong>PrincipalCollection</strong> 是什么呢？他就是<strong>缓存中的用户凭证</strong>，你如果问我缓存怎么来的，那么你上边的一定没理解，就是<strong>doGetAuthenticationInfo(AuthenticationToken token)</strong>注入的呀！</p>
+<p>既然这个函数是<strong>定义如何获取用户的角色和权限的逻辑</strong>的，那么如何获得呢？</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String username = (String) <span class="hljs-keyword">super</span>.getAvailablePrincipal(principals);</span><br></pre></td></tr></table></figure>
+<p>我们通过super中的getAvailablePrincipal方法，获得可用的用户凭据，也就是我们的用户名，有了用户名我们就能得到这个用户的所有信息（或者为null）：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">User user = IUserService.findByName(username);</span><br><span class="line"><span class="hljs-keyword">if</span>(user != <span class="hljs-keyword">null</span>)&#123;</span><br><span class="line">    SimpleAuthorizationInfo info = <span class="hljs-keyword">new</span> SimpleAuthorizationInfo();</span><br><span class="line">    Set&lt;String&gt; roles = user.getRoleList().stream().map(role -&gt; role.getRoleName()).collect(Collectors.toSet());</span><br><span class="line">    <span class="hljs-comment">//存放用户权限</span></span><br><span class="line">    info.setRoles(roles);</span><br><span class="line">    <span class="hljs-keyword">return</span> info;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br></pre></td></tr></table></figure>
+<p>有的话那最好，我们定义他的权限角色，并setRoles设置进去，这里使用的是Set集，也就是不允许重复，返回这个info就拥有了角色，之后我们进行判断的时候就知道这个用户有哪些角色和权限能做什么事情。</p>
+<p>好了，到这里，我们就定制化了验证方法，完成了<strong>ShiroRealm</strong></p>
+<h4 id="配置ShiroFilterFactoryBean过滤器"><a href="#配置ShiroFilterFactoryBean过滤器" class="headerlink" title="配置ShiroFilterFactoryBean过滤器"></a>配置ShiroFilterFactoryBean过滤器</h4><p>过滤器，顾名思义，<strong>设置对应的过滤条件和跳转条件</strong>。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Bean</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> ShiroFilterFactoryBean <span class="hljs-title">shiroFilterFactoryBean</span><span class="hljs-params">(DefaultWebSecurityManager securityManager)</span></span></span><br></pre></td></tr></table></figure>
+<p>这个函数的返回值是<strong>ShiroFilterFactoryBean</strong>，我们来看一下源文件中的介绍：</p>
+<p><code>To prevent configuration duplication, this implementation provides the following properties to allow you to set relevant values in only one place:</code></p>
+<p>翻译过来就是：<code>为了防止配置重复，这个实现提供了以下属性，允许您只在一个地方设置相关值:</code></p>
+<p>这些属性就是：</p>
+<ul>
+<li><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setLoginUrl(String)</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setSuccessUrl(String)</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setUnauthorizedUrl(String)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>使用这三个有什么好处呢？</p>
+<p><code>Then at startup, any values specified via these 3 properties will be applied to all configured Filter instances so you don&#39;t have to specify them individually on each filter instance.  To ensure your own custom filters benefit from this convenience, your filter implementation should subclass one of the 3 mentioned earlier.</code></p>
+<p>翻译过来就是：</p>
+<p><code>然后在启动时，通过这3个属性指定的任何值都将应用于所有已配置的过滤器实例，这样您就不必在每个过滤器实例上分别指定它们。为了确保您自己的自定义过滤器能够从这种便利中获益，您的过滤器实现应该继承前面提到的三个过滤器之一。</code></p>
+<ol>
+<li>申请一个ShiroFilterFactoryBean:</li>
+</ol>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ShiroFilterFactoryBean shiroFilterFactoryBean = <span class="hljs-keyword">new</span> ShiroFilterFactoryBean();</span><br><span class="line">shiroFilterFactoryBean.setSecurityManager(securityManager);</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>定义一个Map来储存了路由规则</li>
+</ol>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, String&gt; map = <span class="hljs-keyword">new</span> LinkedHashMap&lt;&gt;();</span><br><span class="line"><span class="hljs-comment">// 比如静态资源</span></span><br><span class="line">map.put(<span class="hljs-string">"/*.html"</span>,<span class="hljs-string">"anon"</span>);</span><br><span class="line">map.put(<span class="hljs-string">"/**/*.css"</span>,<span class="hljs-string">"anon"</span>);</span><br><span class="line">map.put(<span class="hljs-string">"/**/*.js"</span>,<span class="hljs-string">"anon"</span>);</span><br><span class="line">map.put(<span class="hljs-string">"/**/*.png"</span>,<span class="hljs-string">"anon"</span>);</span><br><span class="line">map.put(<span class="hljs-string">"/**/*.jpg"</span>,<span class="hljs-string">"anon"</span>);</span><br><span class="line">map.put(<span class="hljs-string">"/**/*.jpeg"</span>,<span class="hljs-string">"anon"</span>);</span><br><span class="line">map.put(<span class="hljs-string">"/**/*.html"</span>,<span class="hljs-string">"anon"</span>);</span><br><span class="line"></span><br><span class="line">shiroFilterFactoryBean.setFilterChainDefinitionMap(map);</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>设置登录页面</li>
+</ol>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shiroFilterFactoryBean.setLoginUrl(<span class="hljs-string">"/*/login"</span>);</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>返回return</li>
+</ol>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">return</span> shiroFilterFactoryBean;</span><br></pre></td></tr></table></figure>
+<h4 id="配置ShiroRealm的bean"><a href="#配置ShiroRealm的bean" class="headerlink" title="配置ShiroRealm的bean"></a>配置ShiroRealm的bean</h4><p>上文提到配置自定义的ShiroRealm,我们需要在ShiroConfig中将其作为bean注入</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 自定义验证方法加入到容器中</span></span><br><span class="line"><span class="hljs-comment">     * 当前使用的不是框架默认的简单密码匹配方法</span></span><br><span class="line"><span class="hljs-comment">     * 该方是MD5加盐的对称加密算法</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> ShiroRealm</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-meta">@Bean</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> ShiroRealm <span class="hljs-title">shiroRealm</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">      ShiroRealm shiroRealm = <span class="hljs-keyword">new</span> ShiroRealm();</span><br><span class="line">      <span class="hljs-comment">//加入加密算法</span></span><br><span class="line">      shiroRealm.setCredentialsMatcher(shiroHashedCredentialsMatcher());</span><br><span class="line">        <span class="hljs-keyword">return</span> shiroRealm;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>代码中提到的setCredentialsMatcher,也是下一步要谈到的</p>
+<h4 id="配置密码校验规则HashedCredentialsMatcher"><a href="#配置密码校验规则HashedCredentialsMatcher" class="headerlink" title="配置密码校验规则HashedCredentialsMatcher"></a>配置密码校验规则HashedCredentialsMatcher</h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 密码校验规则HashedCredentialsMatcher</span></span><br><span class="line"><span class="hljs-comment">     * 这个类是为了对密码进行编码的</span></span><br><span class="line"><span class="hljs-comment">     * 防止密码在数据库里明码保存 ,当然在登陆认证的时候</span></span><br><span class="line"><span class="hljs-comment">     * 这个类也负责对form里输入的密码进行编码</span></span><br><span class="line"><span class="hljs-comment">     * 处理认证匹配处理器：如果自定义需要实现继承HashedCredentialsMatcher</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-meta">@Bean</span>(<span class="hljs-string">"hashedCredentialsMatcher"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> HashedCredentialsMatcher <span class="hljs-title">shiroHashedCredentialsMatcher</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        HashedCredentialsMatcher credentialsMatcher = <span class="hljs-keyword">new</span> HashedCredentialsMatcher();</span><br><span class="line">        <span class="hljs-comment">//指定加密方式为MD5</span></span><br><span class="line">        credentialsMatcher.setHashAlgorithmName(<span class="hljs-string">"MD5"</span>);</span><br><span class="line">        <span class="hljs-comment">//加密次数</span></span><br><span class="line">        credentialsMatcher.setHashIterations(<span class="hljs-number">1024</span>);</span><br><span class="line">        credentialsMatcher.setStoredCredentialsHexEncoded(<span class="hljs-keyword">true</span>);</span><br><span class="line">        <span class="hljs-keyword">return</span> credentialsMatcher;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>来了解一下HashedCredentialsMatcher是什么?<a href="http://shiro.apache.org/static/1.3.0/apidocs/org/apache/shiro/authc/credential/HashedCredentialsMatcher.html" target="_blank" rel="noopener">官网地址</a></p>
+<ol>
+<li>实现的之类:</li>
+</ol>
+<p><a href="http://shiro.apache.org/static/1.3.0/apidocs/org/apache/shiro/authc/credential/Md2CredentialsMatcher.html" target="_blank" rel="noopener">Md2CredentialsMatcher</a>, <a href="http://shiro.apache.org/static/1.3.0/apidocs/org/apache/shiro/authc/credential/Md5CredentialsMatcher.html" target="_blank" rel="noopener">Md5CredentialsMatcher</a>, <a href="http://shiro.apache.org/static/1.3.0/apidocs/org/apache/shiro/authc/credential/Sha1CredentialsMatcher.html" target="_blank" rel="noopener">Sha1CredentialsMatcher</a>, <a href="http://shiro.apache.org/static/1.3.0/apidocs/org/apache/shiro/authc/credential/Sha256CredentialsMatcher.html" target="_blank" rel="noopener">Sha256CredentialsMatcher</a>, <a href="http://shiro.apache.org/static/1.3.0/apidocs/org/apache/shiro/authc/credential/Sha384CredentialsMatcher.html" target="_blank" rel="noopener">Sha384CredentialsMatcher</a>, <a href="http://shiro.apache.org/static/1.3.0/apidocs/org/apache/shiro/authc/credential/Sha512CredentialsMatcher.html" target="_blank" rel="noopener">Sha512CredentialsMatcher</a></p>
+<ol start="2">
+<li><p>证书散列是保护用户私有凭据(密码、密钥等)时最常见的安全技术之一。大多数开发人员从来不想以普通的形式存储用户的凭据，任何人都可以查看，因此他们通常会在将用户的凭据保存到数据存储区之前对其进行散列。</p>
+<p>这个类(及其子类)功能如下：</p>
+<ol>
+<li>散列<code>AuthenticationToken</code>用户在登录期间提供的凭据。</li>
+<li>将此散列值直接与<code>AuthenticationInfo</code>存储在系统中的凭据(存储帐户凭据预计已经以散列形式出现)。</li>
+<li>如果这两个值是<a href="http://shiro.apache.org/static/1.3.0/apidocs/org/apache/shiro/authc/credential/SimpleCredentialsMatcher.html#equals-java.lang.Object-java.lang.Object-" target="_blank" rel="noopener"><code>equal</code></a>，则提交的凭据匹配，否则不匹配。</li>
+</ol>
+<p>过程很好理解,但是我们还应当继续使用”加盐”</p>
+</li>
+<li><p>盐渍和多重散列迭代</p>
+<p>因为简单的散列通常对安全的应用程序不够好，这个类也支持‘盐析’和多个散列迭代。请读这篇精彩的文章</p>
+<p>散列Java文章</p>
+<p>若要了解盐渍和多次迭代，以及您可能需要使用它们的原因，请执行以下操作。(注：第5条“为何加盐？”和6“加强对抗攻击者的攻击”)。我们还应该注意到，Shiro的所有Hash实现(例如，<code>Md5Hash`</code>Sha1Hash`等)通过重载构造函数支持盐析和多个散列迭代。</p>
+</li>
+</ol>
+<p>来看一下我使用到的Api</p>
+<table>
+<thead>
+<tr>
+<th><code>void</code></th>
+<th style="text-align:left"><code>setHashAlgorithmName(String hashAlgorithmName)</code>设置<code>Hash</code> <a href="http://shiro.apache.org/static/1.3.0/apidocs/org/apache/shiro/crypto/hash/Hash.html#getAlgorithmName--" target="_blank" rel="noopener"><code>algorithmName</code></a>在为凭据匹配执行散列时使用。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>void</code></td>
+<td style="text-align:left"><code>setHashIterations(int hashIterations)</code>设置提交的次数。<code>AuthenticationToken</code>在与系统中存储的凭据进行比较之前，将对其凭证进行散列。</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>void</code></th>
+<th><code>setStoredCredentialsHexEncoded(boolean storedCredentialsHexEncoded)</code>如果系统存储的凭据散列是否已编码，则设置指示符。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>我们使用这样的加密方式,配置到ShiroRealm中去</p>
+<blockquote>
+<p>这样,最基本的配置就告一段落,很多地方还是需要修改的,日后再谈</p>
+</blockquote>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7"><i class="fa fa-tag"></i></span>
+                    <a class="has-link-grey -link" href="/tags/FamilyManage/">FamilyManage<span class="has-link-grey -count">6</span></a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+            
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/wechat.png" alt="支付宝"></div>
+</a>
+
+            
+            
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.png" alt="微信"></div>
+</a>
+
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/06/09/e0c3e4ae.html">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">关于在杭州滨江区租房的一些建议</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/06/07/9739c085.html">
+                <span class="level-item">FamilyManage开发-Springboot后端</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'O8ESLQsaCTTpvf3oSaj2H9X6-gzGzoHsz',
+        app_key: 'G2oCmq7J8KBk0jCoPpQFTKMt',
+        placeholder: '看了这么久不评价一下吗？'
+    });
+</script>
+
+    </div>
+</div>
+
+
+</div>
+                
+
+<!-- 粘贴的部分 -->
+
+<!-- 修改，可选保留的栏 -->
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-4-tablet is-4-desktop is-3-widescreen has-order-3 column-left ">
+    
+    
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#前言">
+        <span class="has-mr-6">1</span>
+        <span>前言</span>
+        </a></li><li>
+        <a class="is-flex" href="#什么是Spring-Shiro">
+        <span class="has-mr-6">2</span>
+        <span>什么是Spring Shiro</span>
+        </a></li><li>
+        <a class="is-flex" href="#基本功能">
+        <span class="has-mr-6">3</span>
+        <span>基本功能</span>
+        </a></li><li>
+        <a class="is-flex" href="#Shiro架构">
+        <span class="has-mr-6">4</span>
+        <span>Shiro架构</span>
+        </a></li><li>
+        <a class="is-flex" href="#编写Shiro配置类">
+        <span class="has-mr-6">5</span>
+        <span>编写Shiro配置类</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#配置DefaultWebSecurityManager">
+        <span class="has-mr-6">5.1</span>
+        <span>配置DefaultWebSecurityManager</span>
+        </a></li><li>
+        <a class="is-flex" href="#自定义验证方法ShiroRealm">
+        <span class="has-mr-6">5.2</span>
+        <span>自定义验证方法ShiroRealm</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-doGetAuthenticationInfo-AuthenticationToken-token">
+        <span class="has-mr-6">5.2.1</span>
+        <span>1.doGetAuthenticationInfo(AuthenticationToken token)</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-doGetAuthorizationInfo-PrincipalCollection-principals">
+        <span class="has-mr-6">5.2.2</span>
+        <span>2.doGetAuthorizationInfo(PrincipalCollection principals)</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#配置ShiroFilterFactoryBean过滤器">
+        <span class="has-mr-6">5.3</span>
+        <span>配置ShiroFilterFactoryBean过滤器</span>
+        </a></li><li>
+        <a class="is-flex" href="#配置ShiroRealm的bean">
+        <span class="has-mr-6">5.4</span>
+        <span>配置ShiroRealm的bean</span>
+        </a></li><li>
+        <a class="is-flex" href="#配置密码校验规则HashedCredentialsMatcher">
+        <span class="has-mr-6">5.5</span>
+        <span>配置密码校验规则HashedCredentialsMatcher</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+    
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/java/">
+            <span class="level-start">
+                <span class="level-item">/java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/AM4/">
+            <span class="level-start">
+                <span class="level-item">AM4</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Android/">
+            <span class="level-start">
+                <span class="level-item">Android</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/English/">
+            <span class="level-start">
+                <span class="level-item">English</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/FamilyManage/">
+            <span class="level-start">
+                <span class="level-item">FamilyManage</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Go/">
+            <span class="level-start">
+                <span class="level-item">Go</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Hexo/">
+            <span class="level-start">
+                <span class="level-item">Hexo</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JVM/">
+            <span class="level-start">
+                <span class="level-item">JVM</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Java/">
+            <span class="level-start">
+                <span class="level-item">Java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Java基础/">
+            <span class="level-start">
+                <span class="level-item">Java基础</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Linux/">
+            <span class="level-start">
+                <span class="level-item">Linux</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Redis/">
+            <span class="level-start">
+                <span class="level-item">Redis</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Springbooot/">
+            <span class="level-start">
+                <span class="level-item">Springbooot</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Springboot/">
+            <span class="level-start">
+                <span class="level-item">Springboot</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue专题/">
+            <span class="level-start">
+                <span class="level-item">Vue专题</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/信/">
+            <span class="level-start">
+                <span class="level-item">信</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/动漫专栏/">
+            <span class="level-start">
+                <span class="level-item">动漫专栏</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/华为/">
+            <span class="level-start">
+                <span class="level-item">华为</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/小工具/">
+            <span class="level-start">
+                <span class="level-item">小工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/工具集/">
+            <span class="level-start">
+                <span class="level-item">工具集</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/技术文档/">
+            <span class="level-start">
+                <span class="level-item">技术文档</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/数据库/">
+            <span class="level-start">
+                <span class="level-item">数据库</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/日记/">
+            <span class="level-start">
+                <span class="level-item">日记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">41</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/消息队列/">
+            <span class="level-start">
+                <span class="level-item">消息队列</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/游戏专栏/">
+            <span class="level-start">
+                <span class="level-item">游戏专栏</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/环境搭建/">
+            <span class="level-start">
+                <span class="level-item">环境搭建</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/环境部署/">
+            <span class="level-start">
+                <span class="level-item">环境部署</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/程序员成长之路/">
+            <span class="level-start">
+                <span class="level-item">程序员成长之路</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/线程/">
+            <span class="level-start">
+                <span class="level-item">线程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/缓存/">
+            <span class="level-start">
+                <span class="level-item">缓存</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/臭臭专栏/">
+            <span class="level-start">
+                <span class="level-item">臭臭专栏</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/软件测试/">
+            <span class="level-start">
+                <span class="level-item">软件测试</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/软件项目管理/">
+            <span class="level-start">
+                <span class="level-item">软件项目管理</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/AM4/" style="font-size: 14.29px;">AM4</a> <a href="/tags/FamilyManage/" style="font-size: 17.14px;">FamilyManage</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Go/" style="font-size: 11.43px;">Go</a> <a href="/tags/HUI/" style="font-size: 10px;">HUI</a> <a href="/tags/Hexo/" style="font-size: 17.14px;">Hexo</a> <a href="/tags/JMeter/" style="font-size: 10px;">JMeter</a> <a href="/tags/JUC/" style="font-size: 10px;">JUC</a> <a href="/tags/JVM/" style="font-size: 18.57px;">JVM</a> <a href="/tags/Java/" style="font-size: 11.43px;">Java</a> <a href="/tags/Java集合框架/" style="font-size: 10px;">Java集合框架</a> <a href="/tags/Lambda/" style="font-size: 10px;">Lambda</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 12.86px;">MySQL</a> <a href="/tags/RabbitMQ/" style="font-size: 15.71px;">RabbitMQ</a> <a href="/tags/Redis/" style="font-size: 12.86px;">Redis</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Shiro/" style="font-size: 10px;">Shiro</a> <a href="/tags/StudyPlan/" style="font-size: 10px;">StudyPlan</a> <a href="/tags/Utils/" style="font-size: 10px;">Utils</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/bat/" style="font-size: 10px;">bat</a> <a href="/tags/dl4f/" style="font-size: 10px;">dl4f</a> <a href="/tags/dl4j/" style="font-size: 10px;">dl4j</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/互斥同步/" style="font-size: 10px;">互斥同步</a> <a href="/tags/信/" style="font-size: 10px;">信</a> <a href="/tags/六级考试/" style="font-size: 10px;">六级考试</a> <a href="/tags/内存模型/" style="font-size: 10px;">内存模型</a> <a href="/tags/动漫杂图/" style="font-size: 10px;">动漫杂图</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/崩坏3/" style="font-size: 11.43px;">崩坏3</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/收藏/" style="font-size: 10px;">收藏</a> <a href="/tags/日报/" style="font-size: 20px;">日报</a> <a href="/tags/日记/" style="font-size: 12.86px;">日记</a> <a href="/tags/比赛/" style="font-size: 10px;">比赛</a> <a href="/tags/线程/" style="font-size: 14.29px;">线程</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/缓存/" style="font-size: 11.43px;">缓存</a> <a href="/tags/软件测试/" style="font-size: 10px;">软件测试</a> <a href="/tags/软件项目管理/" style="font-size: 10px;">软件项目管理</a> <a href="/tags/阶段总结/" style="font-size: 10px;">阶段总结</a> <a href="/tags/集合框架/" style="font-size: 10px;">集合框架</a> <a href="/tags/饭饭/" style="font-size: 10px;">饭饭</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
+    </div>
+</div>
+
+    
+    
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            <a href="/2020/03/04/fc6bf379.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/2019/05/17/d3541f2b/zd01.jpg" alt="深入理解JVM-学习与实践（1）">
+                </p>
+            </a>
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-04T15:05:27.000Z">2020-03-04</time></div>
+                    <a href="/2020/03/04/fc6bf379.html" class="has-link-black-ter is-size-6">深入理解JVM-学习与实践（1）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            <a href="/2020/01/22/ef52c58b.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/2019/05/17/d3541f2b/zd01.jpg" alt="DeepLearning4J(二)：简易一元线性回归">
+                </p>
+            </a>
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-22T04:24:18.000Z">2020-01-22</time></div>
+                    <a href="/2020/01/22/ef52c58b.html" class="has-link-black-ter is-size-6">DeepLearning4J(二)：简易一元线性回归</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">/java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            <a href="/2020/01/21/1da953fb.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/2019/05/17/d3541f2b/zd01.jpg" alt="DeepLearning4J(一)：入门">
+                </p>
+            </a>
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-21T15:20:49.000Z">2020-01-21</time></div>
+                    <a href="/2020/01/21/1da953fb.html" class="has-link-black-ter is-size-6">DeepLearning4J(一)：入门</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Java/">Java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            <a href="/2019/10/18/e135733e.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/2019/05/17/d3541f2b/zd01.jpg" alt="华为前辈语录">
+                </p>
+            </a>
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-18T08:28:50.000Z">2019-10-18</time></div>
+                    <a href="/2019/10/18/e135733e.html" class="has-link-black-ter is-size-6">华为前辈语录</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/华为/">华为</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            <a href="/2019/10/16/68296740.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/2019/05/17/d3541f2b/zd01.jpg" alt="信、蓝">
+                </p>
+            </a>
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-16T05:52:09.000Z">2019-10-16</time></div>
+                    <a href="/2019/10/16/68296740.html" class="has-link-black-ter is-size-6">信、蓝</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/信/">信</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+    <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">30</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">44</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">15</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">18</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">14</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+    <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/AM4/">
+                        <span class="tag">AM4</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/FamilyManage/">
+                        <span class="tag">FamilyManage</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Git/">
+                        <span class="tag">Git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Go/">
+                        <span class="tag">Go</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HUI/">
+                        <span class="tag">HUI</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Hexo/">
+                        <span class="tag">Hexo</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JMeter/">
+                        <span class="tag">JMeter</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JUC/">
+                        <span class="tag">JUC</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JVM/">
+                        <span class="tag">JVM</span>
+                        <span class="tag is-grey">13</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java集合框架/">
+                        <span class="tag">Java集合框架</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Lambda/">
+                        <span class="tag">Lambda</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux/">
+                        <span class="tag">Linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/MySQL/">
+                        <span class="tag">MySQL</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/RabbitMQ/">
+                        <span class="tag">RabbitMQ</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Redis/">
+                        <span class="tag">Redis</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Servlet/">
+                        <span class="tag">Servlet</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Shiro/">
+                        <span class="tag">Shiro</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/StudyPlan/">
+                        <span class="tag">StudyPlan</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Utils/">
+                        <span class="tag">Utils</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/bat/">
+                        <span class="tag">bat</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/dl4f/">
+                        <span class="tag">dl4f</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/dl4j/">
+                        <span class="tag">dl4j</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node-js/">
+                        <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/互斥同步/">
+                        <span class="tag">互斥同步</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/信/">
+                        <span class="tag">信</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/六级考试/">
+                        <span class="tag">六级考试</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/内存模型/">
+                        <span class="tag">内存模型</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/动漫杂图/">
+                        <span class="tag">动漫杂图</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/华为/">
+                        <span class="tag">华为</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/崩坏3/">
+                        <span class="tag">崩坏3</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/总结/">
+                        <span class="tag">总结</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/收藏/">
+                        <span class="tag">收藏</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/日报/">
+                        <span class="tag">日报</span>
+                        <span class="tag is-grey">36</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/日记/">
+                        <span class="tag">日记</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/比赛/">
+                        <span class="tag">比赛</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/线程/">
+                        <span class="tag">线程</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/线程池/">
+                        <span class="tag">线程池</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/缓存/">
+                        <span class="tag">缓存</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/软件测试/">
+                        <span class="tag">软件测试</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/软件项目管理/">
+                        <span class="tag">软件项目管理</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/阶段总结/">
+                        <span class="tag">阶段总结</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/集合框架/">
+                        <span class="tag">集合框架</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/饭饭/">
+                        <span class="tag">饭饭</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/高考/">
+                        <span class="tag">高考</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+    <div class="column-right-shadow is-hidden-widescreen is-sticky">
+        
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="is-rounded" src="/images/header.png" alt="October 浩 田">
+                    </figure>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        October 浩 田
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Coding Boy
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China 中国</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        126
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        33
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        46
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <!-- <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://blog.octber.xyz/" target="_blank">
+                全家计划WebApp</a>
+        </div>
+		<div class="level">
+            <a class="level-item button is-link is-rounded" href="http://115.159.79.191:8080/" target="_blank">
+                全家通Web</a>
+        </div> -->
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/OctoberTian">
+                
+                Github  <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Coding" href="https://dev.tencent.com/u/OctCoding">
+                
+                Coding  <i class="fab fa-github"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+        
+    </div>
+    
+</div>
+
+                
+
+<!-- 粘贴的部分 -->
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <p class="is-size-7">
+                    <a class="footer-logo is-block has-mb-6" href="/">
+                        
+                        <img src="/images/mylogo.png" alt="FamilyManage开发-SpringShiro" height="28">
+                        
+                    </a>
+                    &copy; 2020 OctoberTian&nbsp;
+                    ❤ October
+                    
+                    <br>
+                    <span id="busuanzi_container_site_uv">
+                        共<span id="busuanzi_value_site_uv">0</span>个访客
+                    </span>
+                    
+                </p>
+            </div>
+            <div class="level-end">
+                
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                    
+                    
+                    <p class="control">
+                        <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                            
+                            <i class="fab fa-creative-commons"></i>
+                            
+                        </a>
+                    </p>
+                    
+                    <p class="control">
+                        <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                            
+                            <i class="fab fa-creative-commons-by"></i>
+                            
+                        </a>
+                    </p>
+                    
+                    <p class="control">
+                        <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                            
+                            <i class="fab fa-github"></i>
+                            
+                        </a>
+                    </p>
+                    
+                </div>
+                
+            </div>
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div>
+                <div>
+                    <span id="busuanzi_container_site_pv" class="theme-info">
+                        ♫ 总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                </div>
+                <div>
+                    <span id="busuanzi_container_site_uv" class="theme-info">
+                        ♫ 访客数<span id="busuanzi_value_site_uv"></span>人次</span>
+                </div>
+            </div>
+            <span id="timeDate">载入天数...</span>
+            <script type="text/javascript">
+                var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+                document.write(unescape("%3Cspan id='cnzz_stat_icon_1277614079'%3E%3C/span%3E%3Cscript src='" +
+                    cnzz_protocol +
+                    "s23.cnzz.com/z_stat.php%3Fid%3D1277614079%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"
+                ));
+            </script>
+            <script>
+                var now = new Date();
+
+                function createtime() {
+                    var grt = new Date("5/15/2019 08:49:00"); //此处修改你的建站时间或者网站上线时间 
+                    now.setTime(now.getTime() + 250);
+                    days = (now - grt) / 1000 / 60 / 60 / 24;
+                    dnum = Math.floor(days);
+                    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+                    hnum = Math.floor(hours);
+                    if (String(hnum).length == 1) {
+                        hnum = "0" + hnum;
+                    }
+                    minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+                    mnum = Math.floor(minutes);
+                    if (String(mnum).length == 1) {
+                        mnum = "0" + mnum;
+                    }
+                    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+                    snum = Math.round(seconds);
+                    if (String(snum).length == 1) {
+                        snum = "0" + snum;
+                    }
+                    document.getElementById("timeDate").innerHTML = "♛ 本站已安全运行 " + dnum + " 天 " + hnum + " 小时 " + mnum +
+                        " 分 " + snum + " 秒";
+                }
+                setInterval("createtime()", 250);
+            </script>
+            <script>
+                (function () {
+                    var bp = document.createElement('script');
+                    var curProtocol = window.location.protocol.split(':')[0];
+                    if (curProtocol === 'https') {
+                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                    } else {
+                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                    }
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(bp, s);
+                })();
+            </script>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("ch");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+	<!--
+	雪花特效
+    <script type="text/javascript" src="/js/src/snow.js"></script>
+	-->
+    <script>
+        (function () {
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            } else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+</body>
+
+</html>

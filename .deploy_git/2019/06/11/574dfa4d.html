@@ -1,0 +1,2445 @@
+<!DOCTYPE html>
+<!--
+点击特效
+<script src="/js/src/click.js"></script>
+-->
+<html lang="ch">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>软件测试-基于问题驱动模式 - 十月博客</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="前言《软件测试-基于问题驱动模式》课本复习">
+<meta name="keywords" content="软件测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件测试-基于问题驱动模式">
+<meta property="og:url" content="https://www.octber.xyz/2019/06/11/574dfa4d.html">
+<meta property="og:site_name" content="十月博客">
+<meta property="og:description" content="前言《软件测试-基于问题驱动模式》课本复习">
+<meta property="og:locale" content="ch">
+<meta property="og:image" content="https://www.octber.xyz/images/og_image.png">
+<meta property="og:updated_time" content="2020-03-09T14:50:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件测试-基于问题驱动模式">
+<meta name="twitter:description" content="前言《软件测试-基于问题驱动模式》课本复习">
+<meta name="twitter:image" content="https://www.octber.xyz/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?628227b0cd6d7a0a49bfefde1dcf4518";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="is-3-column">
+    <!--雪花皮肤-->
+    <!-- <script type="text/javascript">
+        var windowWidth = $(window).width();
+        if (windowWidth > 480) {
+            document.write('<script type="text/javascript" src="/js/src/snow.js"></script>');
+    }
+    </script> -->
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/mylogo.png" alt="软件测试-基于问题驱动模式" height="28">
+            
+            </a>
+        </div>
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">主页</a>
+                
+                <a class="navbar-item" href="/archives">归档</a>
+                
+                <a class="navbar-item" href="/categories">分类</a>
+                
+                <a class="navbar-item" href="/tags">标签</a>
+                
+                <a class="navbar-item" href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="My Github" href="https://github.com/OctoberTian">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-6-tablet is-6-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-06-11T05:16:57.000Z">2019-06-11</time>
+                
+                <div class="level-item">
+                    <a class="has-link-grey-link" href="/categories/软件测试/">软件测试</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    an hour 读完 (大约 7537 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+            
+            软件测试-基于问题驱动模式
+            
+        </h1>
+        <div class="content">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>《软件测试-基于问题驱动模式》课本复习</p>
+<a id="more"></a>
+<h1 id="第一章-软件测试入门"><a href="#第一章-软件测试入门" class="headerlink" title="第一章:软件测试入门"></a>第一章:软件测试入门</h1><h2 id="软件测试的概念"><a href="#软件测试的概念" class="headerlink" title="软件测试的概念"></a>软件测试的概念</h2><p>软件测试是贯穿整个软件开发生命周期对软件产品进行验证和确认的活动过程。尽快尽早的发现软件中的缺陷，也是对软件产品质量的评估从而提供质量有关的信息。</p>
+<h2 id="软件缺陷的概念"><a href="#软件缺陷的概念" class="headerlink" title="软件缺陷的概念"></a>软件缺陷的概念</h2><p>软件缺陷，即软件中存在的任何一种破坏正常运行能力的问题、错误，其结果会导致软件产品在某种程度上不能满足用户的需要，软件缺陷分为程序内部的错误和程序外部的失效；软件缺陷不仅是程序的错误，还应该包括需求、设计中存在的问题。</p>
+<h2 id="软件质量的概念"><a href="#软件质量的概念" class="headerlink" title="软件质量的概念"></a>软件质量的概念</h2><p>系统、组件或过程满足特定需求的程度，和满足客户/用户需求或期望的程度。质量分为内部质量、外部质量和使用质量。</p>
+<h2 id="产品-使用质量模型及其属性"><a href="#产品-使用质量模型及其属性" class="headerlink" title="产品/使用质量模型及其属性"></a>产品/使用质量模型及其属性</h2><ol>
+<li>内部/外部质量模型及其属性</li>
+</ol>
+<p><img src="/2019/06/11/574dfa4d/1560230857396.png" alt="内部/外部质量模型及其属性"></p>
+<ol start="2">
+<li>使用质量模型及其属性</li>
+</ol>
+<p><img src="/2019/06/11/574dfa4d/1560230984129.png" alt="使用质量模型及其属性"></p>
+<h2 id="软件测试的价值与定义"><a href="#软件测试的价值与定义" class="headerlink" title="软件测试的价值与定义"></a>软件测试的价值与定义</h2><h2 id="辩证的理解测试"><a href="#辩证的理解测试" class="headerlink" title="辩证的理解测试"></a>辩证的理解测试</h2><h3 id="狭义-广义"><a href="#狭义-广义" class="headerlink" title="狭义/广义"></a>狭义/广义</h3><h4 id="狭义的软件测试"><a href="#狭义的软件测试" class="headerlink" title="狭义的软件测试"></a>狭义的软件测试</h4><p>只有动态的执行软件时进行测试</p>
+<h4 id="广义的软件测试"><a href="#广义的软件测试" class="headerlink" title="广义的软件测试"></a>广义的软件测试</h4><p>包括静态测试和动态测试在内的各种测试的总称</p>
+<h3 id="静态-动态"><a href="#静态-动态" class="headerlink" title="静态/动态"></a>静态/动态</h3><h4 id="静态测试"><a href="#静态测试" class="headerlink" title="静态测试"></a>静态测试</h4><p>包括需求、设计和代码等的评审。引入静态测试意义重大，能够尽早的发现问题，极大地降低软件开发成本。不需要运行软件系统，而是对软件的半成品（如需求文档、设计文档、代码）进行评审，即开展需求评审、设计评审、代码评审等活动。</p>
+<h4 id="动态测试"><a href="#动态测试" class="headerlink" title="动态测试"></a>动态测试</h4><p>需要运行软件才能完成测试的一种形式</p>
+<h2 id="软件测试的层次"><a href="#软件测试的层次" class="headerlink" title="软件测试的层次"></a>软件测试的层次</h2><p>一共有四层：</p>
+<ul>
+<li>单元测试</li>
+<li>集成测试</li>
+<li>系统测试</li>
+<li>验收测试</li>
+</ul>
+<h2 id="软件测试的类型"><a href="#软件测试的类型" class="headerlink" title="软件测试的类型"></a>软件测试的类型</h2><ol>
+<li>按测试的对象或范围分类，如单元测试、文档测试、系统测试等）</li>
+<li>按测试目的分类，如功能测试、回归测试、性能测试、可靠性测试、安全性测试和兼容性测试等</li>
+<li>根据测试过程中被测软件是否被执行，分为静态测试和动 态测试</li>
+<li>根据是否针对系统的内部结构和具体实现算法来完成测试 ，可分为白盒测试和黑盒测试</li>
+</ol>
+<h2 id="软件测试和SQA的区别和联系"><a href="#软件测试和SQA的区别和联系" class="headerlink" title="软件测试和SQA的区别和联系"></a>软件测试和SQA的区别和联系</h2><p><img src="/2019/06/11/574dfa4d/1560231529988.png" alt="1560231529988"></p>
+<h1 id="第二章：需求与设计评审"><a href="#第二章：需求与设计评审" class="headerlink" title="第二章：需求与设计评审"></a>第二章：需求与设计评审</h1><h2 id="静态测试（评审）形式及其流程"><a href="#静态测试（评审）形式及其流程" class="headerlink" title="静态测试（评审）形式及其流程"></a>静态测试（评审）形式及其流程</h2><p>评审的形式：互为评审、走查和会议评审等不同形式</p>
+<h2 id="软件需求的层次"><a href="#软件需求的层次" class="headerlink" title="软件需求的层次"></a>软件需求的层次</h2><p><img src="/2019/06/11/574dfa4d/1560231928229.png" alt="1560231928229"></p>
+<p>其中业务层次又包括：</p>
+<p><img src="/2019/06/11/574dfa4d/1560231947506.png" alt="1560231947506"></p>
+<ul>
+<li><strong>业务需求</strong>：解决什么关键问题，核心的诉求是什么，达到什么目标，相当于产品的愿景。</li>
+<li><strong>用户角色需求/干系人需求</strong>：相关利益者的需求，每个用户角色有什么特定的需求。从用户行为去分析，即对应用例和用户故事，运维、技术支持等相关人员的需求，一般也可以并入用户角色的需求。</li>
+<li><strong>功能性和非功能需求</strong>：软件为了满足上述也无需求，及相关利益者的需求，而具备的功能和非功能性（系统）的能力。</li>
+</ul>
+<h2 id="需求与设计评审标准"><a href="#需求与设计评审标准" class="headerlink" title="需求与设计评审标准"></a>需求与设计评审标准</h2><h3 id="正确性"><a href="#正确性" class="headerlink" title="正确性"></a>正确性</h3><p>检查在任意条件下软件系统需求定义，以及其说明的正确性</p>
+<h3 id="完备性"><a href="#完备性" class="headerlink" title="完备性"></a>完备性</h3><p>涵盖系统需求的功能，性能，输入/输出，条件限制、应用范围等的程度，覆盖率越高，完备性越好</p>
+<h3 id="易理解性"><a href="#易理解性" class="headerlink" title="易理解性"></a>易理解性</h3><p>文档的描述性被理解的容易程度，包括清晰性。</p>
+<h3 id="一致性"><a href="#一致性" class="headerlink" title="一致性"></a>一致性</h3><p>所定义的需求之间没有相互排斥、冲突和矛盾，前后一致</p>
+<h3 id="易测试性"><a href="#易测试性" class="headerlink" title="易测试性"></a>易测试性</h3><p>容易进行相关测试</p>
+<h3 id="易追溯性"><a href="#易追溯性" class="headerlink" title="易追溯性"></a>易追溯性</h3><p>每一项需求定义可确定其来源</p>
+<h2 id="设计评审的层次"><a href="#设计评审的层次" class="headerlink" title="设计评审的层次"></a>设计评审的层次</h2><p><img src="/2019/06/11/574dfa4d/1560232716313.png" alt="1560232716313"></p>
+<h2 id="设计评审方法"><a href="#设计评审方法" class="headerlink" title="设计评审方法"></a>设计评审方法</h2><ul>
+<li><p>从高层到底层</p>
+</li>
+<li><p>不断从测试角度去问开发 </p>
+</li>
+<li><p>借助UML等建模工具 </p>
+</li>
+</ul>
+<h1 id="第三章：单元测试"><a href="#第三章：单元测试" class="headerlink" title="第三章：单元测试"></a>第三章：单元测试</h1><h2 id="单元测试的概念和主要形式"><a href="#单元测试的概念和主要形式" class="headerlink" title="单元测试的概念和主要形式"></a>单元测试的概念和主要形式</h2><p><strong>单元测试</strong>是针对软件的基本工作单元，进行正确性检验的 测试工作。</p>
+<h2 id="单元测试中类测试的分类"><a href="#单元测试中类测试的分类" class="headerlink" title="单元测试中类测试的分类"></a>单元测试中类测试的分类</h2><ul>
+<li><p>动态测试</p>
+<ul>
+<li>方法内测试</li>
+<li>方法间测试</li>
+</ul>
+<p>在测试类功能实现时，应该首先保证<strong>类成员方法的正确性</strong>，<strong>类方法的正确行为</strong>只是类能够实现要求的功能基础。</p>
+</li>
+<li><p>静态测试</p>
+<p>首先需要保证要测试的类有完整和正确的<strong>说明</strong>，并且已经在<strong>模型环境</strong>下进行了测试，类的规格说明使用<strong>对象约束语言</strong>、<strong>自然语言</strong>或<strong>状态图表示</strong>，不同语言的规范进行相应代码规范的评审，这是类的静态代码评审。</p>
+</li>
+</ul>
+<h2 id="单元测试的方法"><a href="#单元测试的方法" class="headerlink" title="单元测试的方法"></a>单元测试的方法</h2><h3 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h3><p>实现设计好的测试数据、执行条件以及预期执行结果称为测试用例</p>
+<h3 id="白盒测试"><a href="#白盒测试" class="headerlink" title="白盒测试"></a>白盒测试</h3><p>通过被测单元的内部结构来设计测试用例来进行的测试</p>
+<h3 id="黑盒测试"><a href="#黑盒测试" class="headerlink" title="黑盒测试"></a>黑盒测试</h3><p>不关注内部代码，仅从程序功能和性能上考量是否满足需求而设计测试用例来进行的测试，一般为接口测试或集成测试</p>
+<h3 id="单元代码的自动化测试的步骤"><a href="#单元代码的自动化测试的步骤" class="headerlink" title="单元代码的自动化测试的步骤"></a>单元代码的自动化测试的步骤</h3><ol>
+<li><p>设计测试用例</p>
+<p>从单纯分析程序结构入手，画出或者直接从详细设计文档中得到<strong>程序流程图</strong>，尝试设计测试用例（选用某种<strong>覆盖方法</strong>）<strong>覆盖</strong>所有的代码行。</p>
+<p><strong>覆盖方法</strong>：</p>
+<ul>
+<li><p><strong>语句覆盖</strong></p>
+<p>需要设计足够多的测试用例，使得程序将会执行被测方法中所有的语句，覆盖该方法的所有语句，比如程序中的if/else分支，要全部执行测试到。</p>
+<p><code>语句覆盖是逻辑覆盖中的一种，逻辑覆盖就是通过对程序逻辑结构的遍历，实现程序覆盖的一种白盒测试技术。</code></p>
+</li>
+<li><p><strong>条件覆盖</strong></p>
+<p>对判定条件也要进行分解，当一个判定条件中有&amp;&amp;或者||其他时要进行分解，对每个条件都进行测试覆盖。</p>
+<p>如：if(x&gt;=3&amp;&amp;y==0)分解为</p>
+<ul>
+<li>x&gt;=3为真/假</li>
+<li>y==0为真/假</li>
+</ul>
+</li>
+<li><p><strong>分支覆盖</strong>(判定覆盖)</p>
+<p>通过设计执行足够多的测试用例，使得程序中的每个<strong>判定表达式</strong>的值为真和为假的分支都要至少执行依次测试</p>
+</li>
+<li><p><strong>多重条件覆盖</strong>(条件组合覆盖)</p>
+<p>是为了解决<strong>短路操作符</strong>，使得每个条件都执行到，参照下面备注的例子，就是让y==0也能执行到，此时x&gt;=3是成立的，也就是x&gt;=3能否成立都要安排测试用例，以保证y==0能够被测试到，进行条件的全覆盖测试。</p>
+</li>
+<li><p><strong>路径覆盖</strong></p>
+<p>比如有两个if/else条件，那么就是2×2=4中路径，每一条路径与后边路径的组合都要覆盖到。</p>
+</li>
+</ul>
+</li>
+<li><p>编写测试代码</p>
+<p>编写测试脚本</p>
+</li>
+<li><p>执行测试</p>
+<p>执行测试代码即可</p>
+</li>
+</ol>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.备注：回归测试：</span><br><span class="line">是指修改了旧代码后重新进行测试，测试代码不变，以确认修改后的代码没有产生新的错误，或导致其他代码发生错误，就叫回归测试</span><br><span class="line"></span><br><span class="line">2.备注：短路操作符</span><br><span class="line">出现类似if(x&gt;=3 &amp;&amp; y==0)这样的判断条件时，当编译器执行到x&gt;=3不成立时，就不会去判断y==0这一条件，直接跳过，即便有错，也检查不到了。</span><br></pre></td></tr></table></figure>
+<h1 id="第四章：持续集成测试"><a href="#第四章：持续集成测试" class="headerlink" title="第四章：持续集成测试"></a>第四章：持续集成测试</h1><h2 id="集成测试的概念"><a href="#集成测试的概念" class="headerlink" title="集成测试的概念"></a>集成测试的概念</h2><p>一种旨在暴露<strong>单元接口之间</strong>、<strong>组件/系统间</strong>交互或协同工作时所存在的缺陷的测试。</p>
+<h2 id="集成测试的层次"><a href="#集成测试的层次" class="headerlink" title="集成测试的层次"></a>集成测试的层次</h2><ol>
+<li>软件单元与软件单元的集成测试 </li>
+<li>软件子系统和子系统的集成测试 </li>
+<li>软件系统和第三方系统的集成测试 </li>
+<li>软件系统和硬件的集成测试 </li>
+</ol>
+<h2 id="集成测试的模式"><a href="#集成测试的模式" class="headerlink" title="集成测试的模式"></a>集成测试的模式</h2><h3 id="非渐增式测试模式（已完成测试的模块）"><a href="#非渐增式测试模式（已完成测试的模块）" class="headerlink" title="非渐增式测试模式（已完成测试的模块）"></a>非渐增式测试模式（已完成测试的模块）</h3><p>先分别测试每个模块，再把所有模块按设计 </p>
+<p>要求放在一起组成所要的程序，如大棒模式(Big-bang Integration)</p>
+<h3 id="渐增式测试模式（已完成测试的模块）"><a href="#渐增式测试模式（已完成测试的模块）" class="headerlink" title="渐增式测试模式（已完成测试的模块）"></a>渐增式测试模式（已完成测试的模块）</h3><p>把下一个要测试的模块同已经测试好的模块结合起 </p>
+<p>来进行测试，测试完以后再把下一个已测试的模块结合进来测试… </p>
+<h3 id="持续集成（针对新增的代码）"><a href="#持续集成（针对新增的代码）" class="headerlink" title="持续集成（针对新增的代码）"></a>持续集成（针对新增的代码）</h3><p>每日新增的代码，集成到最新的项目中时，就会进行测试，使得项目在每天都会有一次或多次的测试过程。</p>
+<h2 id="集成测试的特点"><a href="#集成测试的特点" class="headerlink" title="集成测试的特点"></a>集成测试的特点</h2><p>集成测试侧重于对<strong>接口</strong>的测试，数据驱动脚本。</p>
+<ul>
+<li>接口之间传递的参数是否 一致(个数、属性、量纲) </li>
+<li>全局变量引用是否一致 </li>
+<li>数据流一致性处理 </li>
+<li>缓冲区数据的处理</li>
+</ul>
+<h2 id="接口测试要点"><a href="#接口测试要点" class="headerlink" title="接口测试要点"></a>接口测试要点</h2><ul>
+<li><p>接口中所有的参数的不同类型的有效值都要被测试 </p>
+</li>
+<li><p>参数的每个错误类型都要准备一个异常用例</p>
+<p>如缺省值、类型错误、范围错误、参数超过最大位数、无效值、 参数的关联性检查等 </p>
+</li>
+<li><p>把每个参数单独作为条件来进行测试，再进行多条件 </p>
+</li>
+</ul>
+<p>关联组合测试</p>
+<h2 id="集成测试发展历程"><a href="#集成测试发展历程" class="headerlink" title="集成测试发展历程"></a>集成测试发展历程</h2><p><img src="/2019/06/11/574dfa4d/1560236704213.png" alt="1560236704213"></p>
+<h2 id="持续集成的内涵（内容）"><a href="#持续集成的内涵（内容）" class="headerlink" title="持续集成的内涵（内容）"></a>持续集成的内涵（内容）</h2><ul>
+<li><p>持续检查（用工具扫描分析代码） </p>
+</li>
+<li><p>持续构建（Build） </p>
+</li>
+<li><p>持续部署 </p>
+</li>
+<li><p>持续验证、测试 </p>
+</li>
+<li><p>持续集成环境（基础设施） </p>
+</li>
+<li><p>持续报告</p>
+</li>
+</ul>
+<h2 id="测试金字塔"><a href="#测试金字塔" class="headerlink" title="测试金字塔"></a>测试金字塔</h2><p><img src="/2019/06/11/574dfa4d/1560237097645.png" alt="1560237097645"></p>
+<h2 id="自动化测试的过程"><a href="#自动化测试的过程" class="headerlink" title="自动化测试的过程"></a>自动化测试的过程</h2><ol>
+<li><p><strong>自动部署</strong></p>
+<p>方法：</p>
+<ul>
+<li><p>借助插件：deploy plugin</p>
+</li>
+<li><p>编写脚本：shell脚本、winsows批处理、python脚本等</p>
+</li>
+</ul>
+</li>
+<li><p><strong>构建前实现自动静态分析</strong></p>
+<p>方法和自动部署一样，自动静态测试报告- Sonar工具生成报告</p>
+</li>
+<li><p><strong>构建后实现自动验证</strong></p>
+<ul>
+<li>系统功能</li>
+<li>性能测试</li>
+</ul>
+</li>
+</ol>
+<p>完成测试要依赖相应的测试工具，还需要做相应的配置。</p>
+<h2 id="持续集成过程使用到的工具"><a href="#持续集成过程使用到的工具" class="headerlink" title="持续集成过程使用到的工具"></a>持续集成过程使用到的工具</h2><ol>
+<li>代码库/版本管理工具：<ul>
+<li>Git</li>
+<li>SVN</li>
+<li>CVS</li>
+</ul>
+</li>
+<li><p>构建工具</p>
+<ul>
+<li>Ant</li>
+<li>Maven</li>
+<li>Gradle</li>
+</ul>
+</li>
+<li><p>代码静态分析工具</p>
+<pre><code>- FindBugs
+- PMD
+</code></pre></li>
+<li><p>测试工具</p>
+<ul>
+<li>JUnit</li>
+<li>Selenium</li>
+</ul>
+</li>
+<li><p>持续集成调度工具</p>
+<ul>
+<li>Jenkins</li>
+<li>Travis CI</li>
+</ul>
+</li>
+</ol>
+<h1 id="第五章：系统功能测试"><a href="#第五章：系统功能测试" class="headerlink" title="第五章：系统功能测试"></a>第五章：系统功能测试</h1><h2 id="系统功能测试的内容"><a href="#系统功能测试的内容" class="headerlink" title="系统功能测试的内容"></a>系统功能测试的内容</h2><ul>
+<li>功能</li>
+<li>逻辑</li>
+<li>接口</li>
+<li>界面</li>
+<li>数据</li>
+<li>操作</li>
+<li>平台</li>
+</ul>
+<h2 id="软件需求的层次-1"><a href="#软件需求的层次-1" class="headerlink" title="软件需求的层次"></a>软件需求的层次</h2><p><img src="/2019/06/11/574dfa4d/1560238596674.png" alt="1560238596674"></p>
+<p><strong>业务需求：</strong></p>
+<p><img src="/2019/06/11/574dfa4d/1560238643753.png" alt="1560238643753"></p>
+<h2 id="测试用例设计方法"><a href="#测试用例设计方法" class="headerlink" title="测试用例设计方法"></a>测试用例设计方法</h2><h3 id="等价类划分方法"><a href="#等价类划分方法" class="headerlink" title="等价类划分方法"></a>等价类划分方法</h3><p><strong>等价类是某个输入域的子集，在该子集中每个输入数据的作用是等效的。</strong>将输入数据分成若干个子集，从每个子集选取一个代表性的数据作为测试用例。</p>
+<p>基于对输入或输出的情况的评估，然后划分成两个或更多的子集来进行测试，即他所有可能的输入数据（有效的或者无效的）划分成若干个等价类，从每个等价类中选择一定的代表值进行测试，如果用这个等价类中的代表值作为测试用例未发现程序错误，那么该类中其他的数据（测试用例）也不会发生程序的错误。</p>
+<ul>
+<li><p>有效等价类</p>
+<p>完全满足程序规格说明、有意义的输入数据所构成的集合。</p>
+<p><strong>意义</strong>：检验程序是否满足规格说明所规定的功能和性能。</p>
+</li>
+<li><p>无效等价类</p>
+<p>不满足程序规格说明、无效的输入数据所构成的集合</p>
+<p><strong>意义</strong>：可以测试程序/系统的容错性——对异常输入情况的处理。</p>
+</li>
+</ul>
+<p><code>在程序设计中，不仅要保证所有有效的数据输入能产生正确的输出，还要保证错误的输入或者无效输入中能够有异常保护</code></p>
+<h3 id="边界值分析方法"><a href="#边界值分析方法" class="headerlink" title="边界值分析方法"></a>边界值分析方法</h3><p>取边界值进行测试分析，取最靠近边界的两个值作为测试的数据。</p>
+<h3 id="决策表方法"><a href="#决策表方法" class="headerlink" title="决策表方法"></a>决策表方法</h3><p>借助表格方式完成对输入条件的组合设计，已达到完全组合覆盖的测试效果。</p>
+<p>比如在某一网页登录过程中：</p>
+<p><img src="/2019/06/11/574dfa4d/1560239840902.png" alt="1560239840902"></p>
+<p>上述判定表可以看出来用户名、密码、验证码有一个输入错误就和标准版没有关系了，所以我们还可以进行判定表判定条件的优化：</p>
+<p><img src="/2019/06/11/574dfa4d/1560240189571.png" alt="1560240189571"></p>
+<p>继续看，我们发现用户名或密码有一个错误，只需要考虑验证码，于是我们还可以优化：</p>
+<p><img src="/2019/06/11/574dfa4d/1560240222809.png" alt="1560240222809"></p>
+<h2 id="决策表测试爆炸时的优化方法"><a href="#决策表测试爆炸时的优化方法" class="headerlink" title="决策表测试爆炸时的优化方法"></a>决策表测试爆炸时的优化方法</h2><h3 id="两两组合方法（Pairwise）"><a href="#两两组合方法（Pairwise）" class="headerlink" title="两两组合方法（Pairwise）"></a>两两组合方法（Pairwise）</h3><h3 id="正交试验设计法"><a href="#正交试验设计法" class="headerlink" title="正交试验设计法"></a>正交试验设计法</h3><p><img src="/2019/06/11/574dfa4d/1560242227465.png" alt="1560242227465"></p>
+<h2 id="基于用例-场景的测试方法"><a href="#基于用例-场景的测试方法" class="headerlink" title="基于用例/场景的测试方法"></a>基于用例/场景的测试方法</h2><p>基于一个核心场景，考虑不同的条件，或者不同的测试数据，进行分析设计用例观察对应的结果。</p>
+<p>如：用户登录时，是否是第一次登录，密码长度，用户名长度等等</p>
+<h2 id="回归测试的策略"><a href="#回归测试的策略" class="headerlink" title="回归测试的策略"></a>回归测试的策略</h2><h3 id="基于风险策略来选择回归测试用例"><a href="#基于风险策略来选择回归测试用例" class="headerlink" title="基于风险策略来选择回归测试用例"></a>基于风险策略来选择回归测试用例</h3><p><code>优先变动大的代码进行测试</code></p>
+<p>即判断哪些区域受修改的代码影响的可能性大，受到影响的可能性越大，越要优先考虑。如果测试用例没有收到影响，这些用例就不选择。</p>
+<h3 id="基于操作剖面选择测试"><a href="#基于操作剖面选择测试" class="headerlink" title="基于操作剖面选择测试"></a>基于操作剖面选择测试</h3><p><code>优先测试较为重要的，使用频繁的功能</code></p>
+<p>如果测试用例的构造是基于用户功能特性组织的，测试用例的分布情况反映了系统的实际使用情况，则选择这种策略。优先选择那些最重要的，或者最频繁使用的功能所关联的测试用例，有助于尽早发现那些对质量有明显影响的故障，而放弃次要功能关联的测试用例。</p>
+<h3 id="采用代码相依性（相互依赖的关系）分析"><a href="#采用代码相依性（相互依赖的关系）分析" class="headerlink" title="采用代码相依性（相互依赖的关系）分析"></a>采用代码相依性（相互依赖的关系）分析</h3><p><code>优先测试和变动代码有关联的代码</code></p>
+<p>了解代码依赖的关系，建立代码和测试用例的映射关系，这样但某些代码做了修改时，就能过根据代码的相依性了解到哪些代码收到了影响，再根据代码和测试用例的映射关系来选择回归测试用例，这样的策略（方法），更客观更准确。</p>
+<h2 id="最常用的功能测试工具"><a href="#最常用的功能测试工具" class="headerlink" title="最常用的功能测试工具"></a>最常用的功能测试工具</h2><h3 id="组合测试的工具"><a href="#组合测试的工具" class="headerlink" title="组合测试的工具"></a>组合测试的工具</h3><ul>
+<li>CTE-XL</li>
+<li>ACTS</li>
+</ul>
+<h3 id="面向接口的Web测试工具"><a href="#面向接口的Web测试工具" class="headerlink" title="面向接口的Web测试工具"></a>面向接口的Web测试工具</h3><ul>
+<li>JMeter：一般是性能测试用具，也可以做面向接口的功能测试</li>
+<li>SoapUI：面向接口的功能测试工具</li>
+</ul>
+<h3 id="Web自动化测试工具"><a href="#Web自动化测试工具" class="headerlink" title="Web自动化测试工具"></a>Web自动化测试工具</h3><ul>
+<li>Selenium+WebDriver工具</li>
+</ul>
+<h1 id="第六章：系统性能测试"><a href="#第六章：系统性能测试" class="headerlink" title="第六章：系统性能测试"></a>第六章：系统性能测试</h1><h2 id="性能测试的概念和目标"><a href="#性能测试的概念和目标" class="headerlink" title="性能测试的概念和目标"></a>性能测试的概念和目标</h2><p><strong>性能测试</strong>（performance test）就是为了发现系统性能问题或获 取系统性能相关指标而进行的测试。一般在<strong>真实环境</strong>、<strong>特定负载</strong> 条件下，通过<strong>工具模拟</strong>实际软件系统的运行及其操作，同时监控性能各项指标，最后对测试结果进行分析以确定系统的性能状况。 </p>
+<ul>
+<li><p>获取系统性能某些指标数据 </p>
+</li>
+<li><p>为了验证系统是否达到用户提出的性能指标 </p>
+</li>
+<li><p>发现系统中存在的性能瓶颈，优化系统的性能 </p>
+</li>
+</ul>
+<h2 id="性能测试的类型"><a href="#性能测试的类型" class="headerlink" title="性能测试的类型"></a>性能测试的类型</h2><h3 id="性能基准测试"><a href="#性能基准测试" class="headerlink" title="性能基准测试"></a>性能基准测试</h3><p>在系统<strong>标准配置</strong>下获得有关的性能指标数据，作为将来性能改进的<strong>基线(Baseline)</strong> </p>
+<h3 id="性能验证测试"><a href="#性能验证测试" class="headerlink" title="性能验证测试"></a>性能验证测试</h3><p>验证系统<strong>是否达到事先已定义</strong>的系统性能 指标、能否满足系统的性能需求 </p>
+<h3 id="性能规划测试"><a href="#性能规划测试" class="headerlink" title="性能规划测试"></a>性能规划测试</h3><p>在<strong>多种特定</strong>的环境下，获得不同配置的系统性能指标，从而决定系统部署的软硬件配置选型 </p>
+<h3 id="容量测试"><a href="#容量测试" class="headerlink" title="容量测试"></a>容量测试</h3><p>可以看作性能的测试一种，因为<strong>系统的容量可以看作是系统性能指标之一</strong> </p>
+<h2 id="压力-负载测试"><a href="#压力-负载测试" class="headerlink" title="压力/负载测试"></a>压力/负载测试</h2><p><strong>压力测试</strong> (Stress test)，也称为强度测试、负载测试。压力测试是模拟实际应用的软硬件环境 </p>
+<p>及用户使用过程的高负载、异常负载、超长时间运行，以检查程序对异常情况的抵抗能力，找出 </p>
+<p><strong>性能瓶颈、不稳定或不可靠等问题</strong> </p>
+<ul>
+<li><p>并发性能测试 （<strong>ramp-up</strong>）</p>
+<ul>
+<li><p><strong>稳定性压力测试</strong></p>
+<p>在选定的高负载下，持续运行24H以上的压力测试。这类测试可以归为性能测试范围内，其质量标准是各项性能指标在指定范围内，而且无内存泄漏，无系统崩溃，无功能性故障。</p>
+</li>
+<li><p><strong>破坏性压力测试</strong></p>
+<p>通过不断加载的手断，快速造成系统的崩溃，让问题尽快的暴露出来，具有明显的破快特征，是对稳定性压力测试的补充，更容易暴露导致系统问题的真正原因，可以喝容量测试结合起来进行，另一个目的是使得系统出故障，然后检验系统是否能够恢复，如果能恢复，其恢复的时间有多长，根据这个结果可以分析出系统的可恢复性是否满足设计的要求。</p>
+</li>
+</ul>
+</li>
+<li><p>疲劳强度测试 </p>
+<ul>
+<li><p><strong>渗入测试</strong>（soak test）</p>
+<p>通过长时间运行，使问题逐渐渗透出来，从而发现内存泄漏、垃圾收集（GC）或系统的其他问题，以检验系统的健壮性。</p>
+</li>
+<li><p><strong>峰谷测试</strong>（peak-rest test）</p>
+<p>采用高低突变加载方式进行，先加载到高水平的负载，然后急剧降低负载，稍微平息一段时间， 再加载到高水平的负载，重复这样过程，容易发现问题的蛛丝马迹，最终找到问题的根源。</p>
+</li>
+</ul>
+</li>
+<li><p>大数据量测试 </p>
+<ul>
+<li><p><strong>独立的数据量测试</strong> </p>
+<p>针对某些系统存储、传输、统计、查询等业务进行大数据量测试 </p>
+</li>
+<li><p><strong>综合数据量测试</strong> </p>
+<p>和压力性能测试、负载性能测试、并发性能测试、疲劳性能测试相结合的综合测试方案 </p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="负载"><a href="#负载" class="headerlink" title="负载"></a>负载</h2><ul>
+<li><p>每次请求发送的数据量 (Request Per Second, <strong>RPS</strong>) </p>
+</li>
+<li><p><strong>并发连接数</strong> (Simultaneous Connections, SC)  </p>
+</li>
+<li><p><strong>思考时间</strong>（thinking time），用户发出请求之间的间隔时间 </p>
+</li>
+<li><p><em>RPS + SC + Thinking Time</em> <strong><em>= Concurrent users</em></strong></p>
+</li>
+</ul>
+<h2 id="负载-加载模式"><a href="#负载-加载模式" class="headerlink" title="负载/加载模式"></a>负载/加载模式</h2><p><img src="/2019/06/11/574dfa4d/1560244762578.png" alt="1560244762578"></p>
+<h2 id="主要性能指标"><a href="#主要性能指标" class="headerlink" title="主要性能指标"></a>主要性能指标</h2><ul>
+<li><p>系统/事务平均响应时间（Average System/Transaction Response Time） </p>
+</li>
+<li><p>事务/交易处理效率（Transactions per second，TPS） </p>
+</li>
+<li><p>Page View (PV): 用户向Server发送请求，Server处理这样一次真实的请求 </p>
+</li>
+<li><p>连接时间（Connect Time）、发送时间（Sent Time） </p>
+</li>
+<li><p>处理时间（Process Time）、页面下载时间 </p>
+</li>
+<li><p><strong>吞吐率（Throughput）每秒服务器处理的HTTP申请数</strong> </p>
+</li>
+<li><p>每秒点击次数(Hits per Second) </p>
+</li>
+<li>每秒SSL连接数 (SSLs Per Second) </li>
+<li>内存和CPU使用率 </li>
+</ul>
+<h2 id="性能测试设计和执行过程"><a href="#性能测试设计和执行过程" class="headerlink" title="性能测试设计和执行过程"></a>性能测试设计和执行过程</h2><p>首先确定模拟并发的用户数量（往往根据详细设计Base Line），选定加载方式（一次加载，递增加载，高低突变，随机加载），模拟用户操作（使用BadBoy录制脚本可以导出成JMeter的测试脚本），使用性能测试工具（JMeter）设计脚本，在工具中配置并发的线程数（模拟的用户数），配置加载方式，进行测试，得到测试报告（吞吐量，异常率等等）。</p>
+<h2 id="性能测试工具"><a href="#性能测试工具" class="headerlink" title="性能测试工具"></a>性能测试工具</h2><p><strong>JMeter</strong> (<a href="http://jmeter.apache.org" target="_blank" rel="noopener">http://jmeter.apache.org</a>) 性能测试工具 </p>
+<p><strong>Apache Flood</strong> （<a href="http://httpd.apache.org/test/flood/）Web性能测试工具" target="_blank" rel="noopener">http://httpd.apache.org/test/flood/）Web性能测试工具</a> </p>
+<p><strong>Gatling</strong>(<a href="http://gatling-tool.org" target="_blank" rel="noopener">http://gatling-tool.org</a> )Scala－based的Web性能测试工具 </p>
+<p><strong>Grinder</strong>（<a href="http://grinder.sourceforge.net/）分布式Web性能测试工具" target="_blank" rel="noopener">http://grinder.sourceforge.net/）分布式Web性能测试工具</a> </p>
+<p><strong>nGrinder</strong>（<a href="http://naver.github.io/ngrinder/" target="_blank" rel="noopener">http://naver.github.io/ngrinder/</a> ）企业级Web性能测试工具 </p>
+<p><strong>Siege</strong>（<a href="http://www.joedog.org/JoeDog/Siege）Web压力测试和评测工具。" target="_blank" rel="noopener">http://www.joedog.org/JoeDog/Siege）Web压力测试和评测工具。</a> </p>
+<p><strong>DBMonster</strong> (<a href="http://sourceforge.net/projects/dbmonster/" target="_blank" rel="noopener">http://sourceforge.net/projects/dbmonster/</a> )数据库压力测试工具 </p>
+<h1 id="第七章：系统安全性测试"><a href="#第七章：系统安全性测试" class="headerlink" title="第七章：系统安全性测试"></a>第七章：系统安全性测试</h1><h2 id="安全性测试的概念"><a href="#安全性测试的概念" class="headerlink" title="安全性测试的概念"></a>安全性测试的概念</h2><p>这里的“安全性”是指信息安全，指计算机系统或网络保护用户数据隐秘，完整，保护数据正常传输和抵御黑客、病毒的能力，而不是指系统整体的安全性。</p>
+<h2 id="安全测试的基本方法"><a href="#安全测试的基本方法" class="headerlink" title="安全测试的基本方法"></a>安全测试的基本方法</h2><h3 id="安全漏洞测试方法"><a href="#安全漏洞测试方法" class="headerlink" title="安全漏洞测试方法"></a>安全漏洞测试方法</h3><h4 id="SAST静态应用安全测试"><a href="#SAST静态应用安全测试" class="headerlink" title="SAST静态应用安全测试"></a>SAST静态应用安全测试</h4><p>只不运行被测试程序，仅仅通过分析检查应用软件源代码或字节码，以发现应用软件的安全性漏洞。</p>
+<h4 id="DAST动态应用安全测试"><a href="#DAST动态应用安全测试" class="headerlink" title="DAST动态应用安全测试"></a>DAST动态应用安全测试</h4><p>通过运行程序来检查应用软件的安全性问题，侧重从系统外部接口来进行针对性的测试，暴露应用程序接口的安全性漏洞，测试发现的问题，一般能够直观的展示出来，测试手段包括：手工的渗透测试，DAST的工具的动态扫描检查和两者的结合。</p>
+<h4 id="IAST交互式应用安全测试"><a href="#IAST交互式应用安全测试" class="headerlink" title="IAST交互式应用安全测试"></a>IAST交互式应用安全测试</h4><p>前两者有一定局限性，如SAST误报率比较高，无法进行业务逻辑的相关安全性测试。IAST整合了前两者的方法，降低了误报率，发送更多安全漏洞，提高测试效率。操作难度比较大。</p>
+<h4 id="RASP运行时应用自我保护"><a href="#RASP运行时应用自我保护" class="headerlink" title="RASP运行时应用自我保护"></a>RASP运行时应用自我保护</h4><p>重写软件让软件可以在运行时被监控，可以检测到应用程序在运行时可能遇到的安全风险（如试图往内存中写入大量数据、未经授权试图访问数据库），从而自动发送警告信息，或实时中止会话。</p>
+<h4 id="模糊测试方法"><a href="#模糊测试方法" class="headerlink" title="模糊测试方法"></a>模糊测试方法</h4><p>使用大量半随机的数据（对数据进行变异或由模糊控制器自动产生数据），作为应用程序的输入，以程序是否出现异常行为/结果为标志，来发现应用程序中可能存在的安全漏洞。</p>
+<h3 id="安全性功能测试方法"><a href="#安全性功能测试方法" class="headerlink" title="安全性功能测试方法"></a>安全性功能测试方法</h3><p>参考第五章</p>
+<h3 id="静态代码分析方法"><a href="#静态代码分析方法" class="headerlink" title="静态代码分析方法"></a>静态代码分析方法</h3><h3 id="动态渗透测试方法"><a href="#动态渗透测试方法" class="headerlink" title="动态渗透测试方法"></a>动态渗透测试方法</h3><h2 id="安全软件开发生命周期（7个接触点）"><a href="#安全软件开发生命周期（7个接触点）" class="headerlink" title="安全软件开发生命周期（7个接触点）"></a>安全软件开发生命周期（7个接触点）</h2><ol>
+<li>滥用案例</li>
+<li>安全需求</li>
+<li>体系结构风险分析</li>
+<li>基于风险的安全性测试</li>
+<li>代码评审</li>
+<li>渗透测试（<strong>OWASP ZAP</strong>）</li>
+<li>安全运维</li>
+</ol>
+<h2 id="五个安全级别中各级别要做哪些安全测试"><a href="#五个安全级别中各级别要做哪些安全测试" class="headerlink" title="五个安全级别中各级别要做哪些安全测试"></a>五个安全级别中各级别要做哪些安全测试</h2><p><img src="/2019/06/11/574dfa4d/1560246938635.png" alt="1560246938635"></p>
+<h1 id="第八章：移动APP的测试"><a href="#第八章：移动APP的测试" class="headerlink" title="第八章：移动APP的测试"></a>第八章：移动APP的测试</h1><h2 id="移动应用的特点"><a href="#移动应用的特点" class="headerlink" title="移动应用的特点"></a>移动应用的特点</h2><ul>
+<li><p>Android/iOS native &amp; Web View 混合 </p>
+</li>
+<li><p>更新很快 </p>
+</li>
+<li><p>对用户体验要求高 </p>
+</li>
+<li><p>网络连接不稳定 </p>
+</li>
+<li><p>降低流量 </p>
+</li>
+<li><p>降低功耗</p>
+</li>
+</ul>
+<h2 id="移动应用主要做哪些测试"><a href="#移动应用主要做哪些测试" class="headerlink" title="移动应用主要做哪些测试"></a>移动应用主要做哪些测试</h2><ul>
+<li><p>兼容性测 </p>
+</li>
+<li><p>交互性测试 </p>
+</li>
+<li><p>用户体验测试 </p>
+</li>
+<li><p>耗电量测试 </p>
+</li>
+<li><p>网络流量测试 </p>
+</li>
+<li><p>网络连接测试 </p>
+</li>
+<li><p>性能测试 </p>
+</li>
+<li><p>稳定性测试</p>
+</li>
+</ul>
+<h2 id="移动应用的专项测试"><a href="#移动应用的专项测试" class="headerlink" title="移动应用的专项测试"></a>移动应用的专项测试</h2><ul>
+<li>耗电量测试</li>
+<li>流量测试</li>
+</ul>
+<h2 id="移动应用端的性能测试"><a href="#移动应用端的性能测试" class="headerlink" title="移动应用端的性能测试"></a>移动应用端的性能测试</h2><ul>
+<li>web前端的性能测试</li>
+<li>移动App端native性能测试</li>
+<li>后台服务器性能测试</li>
+</ul>
+<h2 id="移动应用端测试工具"><a href="#移动应用端测试工具" class="headerlink" title="移动应用端测试工具"></a>移动应用端测试工具</h2><h3 id="自动化测试工具"><a href="#自动化测试工具" class="headerlink" title="自动化测试工具"></a>自动化测试工具</h3><p>Android</p>
+<ul>
+<li>Calabash</li>
+<li>Robotium</li>
+<li>Appium</li>
+<li>UI AutoMator</li>
+</ul>
+<p>IOS</p>
+<ul>
+<li>UI Automation</li>
+<li>Frank</li>
+</ul>
+<h3 id="专项测试工具"><a href="#专项测试工具" class="headerlink" title="专项测试工具"></a>专项测试工具</h3><p>Android</p>
+<ul>
+<li>GSam Battary Monitor Pro  电量测试</li>
+</ul>
+<p>IOS</p>
+<ul>
+<li>Xcode Instruments的两个工具</li>
+</ul>
+<h3 id="性能测试工具-1"><a href="#性能测试工具-1" class="headerlink" title="性能测试工具"></a>性能测试工具</h3><p>略</p>
+<h1 id="第九章：基于模型的软件测试"><a href="#第九章：基于模型的软件测试" class="headerlink" title="第九章：基于模型的软件测试"></a>第九章：基于模型的软件测试</h1><h2 id="基于模型的测试方法（MBT）的概念"><a href="#基于模型的测试方法（MBT）的概念" class="headerlink" title="基于模型的测试方法（MBT）的概念"></a>基于模型的测试方法（MBT）的概念</h2><p>通过构建能够正确描述被测软件系统功能特性的模型，然后基于这个模型，产生测试用例，并执行这些测试用例的过程。</p>
+<h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><ol>
+<li>为被测试系统（SUT）建模</li>
+<li>基于模型产生测试用例</li>
+<li>将抽象的测试具体化使得测试用例具有可执行性</li>
+<li>执行测试</li>
+<li>分析测试结果</li>
+</ol>
+<p><img src="/2019/06/11/574dfa4d/1560247896534.png" alt="1560247896534"></p>
+<h2 id="有限状态机"><a href="#有限状态机" class="headerlink" title="有限状态机"></a>有限状态机</h2><p>有限状态机（ Finite State Machine ，FSM）是对象行为建 模的工具，以描述对象在其生命周期内所经历的状态序列， 以及如何响应来自外界的各种事件</p>
+<p><img src="/2019/06/11/574dfa4d/1560247960342.png" alt="1560247960342"></p>
+<h2 id="因果图"><a href="#因果图" class="headerlink" title="因果图"></a>因果图</h2><p>不能根据输入条件的组合，直接确定所产生的结果，需要进行因果分析因果分析是通过因果图来完成因果图就是逻辑分析的图形化方法。</p>
+<p><strong>因果图的基本关系</strong>：</p>
+<p><img src="/2019/06/11/574dfa4d/1560248033217.png" alt="1560248033217"></p>
+<h1 id="第十章：测试与缺陷管理"><a href="#第十章：测试与缺陷管理" class="headerlink" title="第十章：测试与缺陷管理"></a>第十章：测试与缺陷管理</h1><h2 id="测试计划包括哪些内容"><a href="#测试计划包括哪些内容" class="headerlink" title="测试计划包括哪些内容"></a>测试计划包括哪些内容</h2><ul>
+<li>明确测试目标</li>
+<li>分析与确定测试范围</li>
+<li>识别测试项及其优先级</li>
+<li>识别测试风险，采取相应对策</li>
+<li>测试工作量估算</li>
+<li>测试资源、进度等安排</li>
+<li>测试阶段出入准则</li>
+</ul>
+<p><strong>前三者是测试需求分析</strong></p>
+<h2 id="测试套件-用例的概念"><a href="#测试套件-用例的概念" class="headerlink" title="测试套件/用例的概念"></a>测试套件/用例的概念</h2><h2 id="缺陷的生命周期"><a href="#缺陷的生命周期" class="headerlink" title="缺陷的生命周期"></a>缺陷的生命周期</h2><h3 id="软件缺陷的生命周期"><a href="#软件缺陷的生命周期" class="headerlink" title="软件缺陷的生命周期"></a>软件缺陷的生命周期</h3><ul>
+<li><p>一个软件缺陷被 发现、报告到这个缺陷被修复、验证 直至最后关闭的完整过程</p>
+</li>
+<li><p>缺陷生命周期是各类开发人员一起参 与、协同测试的过程</p>
+</li>
+<li><p>软件缺陷一旦发现，应进入严密监控 之中，直至其关闭，及时修正缺陷， 缩短软件测试的进程，提高软件质量、 减少成本</p>
+</li>
+</ul>
+<h3 id="基本的缺陷生命周期"><a href="#基本的缺陷生命周期" class="headerlink" title="基本的缺陷生命周期"></a>基本的缺陷生命周期</h3><p><img src="/2019/06/11/574dfa4d/1560248298747.png" alt="1560248298747"></p>
+<h2 id="缺陷的基本属性"><a href="#缺陷的基本属性" class="headerlink" title="缺陷的基本属性"></a>缺陷的基本属性</h2><ul>
+<li>严重性（severity）衡量缺陷对客户满意度的影响程度 示例：致命的/fatal、严重的/critical、一般的/major、微小的/minor</li>
+<li>优先级 (Priority)：指缺陷被修复的紧急程度</li>
+</ul>
+<p>其他属性：</p>
+<ul>
+<li>缺陷标识（ID）</li>
+<li>缺陷类型（type），如功能、UI、性能、文档</li>
+<li>缺陷产生可能性（frequency）/可再现的概率 </li>
+<li>缺陷来源（source）：需求、设计、编码 </li>
+<li>缺陷原因（cause）：数据格式、计算错误、接口参数、 变量定义与引用等 </li>
+<li>附加信息：Trace Log／图片／录制这个操作过程</li>
+</ul>
+<h2 id="缺陷的两类（不同维度）基本分析"><a href="#缺陷的两类（不同维度）基本分析" class="headerlink" title="缺陷的两类（不同维度）基本分析"></a>缺陷的两类（不同维度）基本分析</h2><ul>
+<li><p>测试对象剖面的风险</p>
+<p>测试对象比较复杂，在测试的广度和深度。</p>
+</li>
+<li><p>测试操作剖面的风险</p>
+<p>测试操作过程中存在的各种风险，如测试环境和真实环境差异较大，测试流程不够完善导致测试执行难以控制、回归测试中以空间换时间的策略等。</p>
+</li>
+</ul>
+<p><code>风险识别的有效方法是通过头脑风暴、缺陷分析等方法把存在的风险都列出来，建立风险项目检查表。在测试过程中按照风险内容进行逐项检查、逐个确认，确定当前项目存在的潜在风险。</code></p>
+<h2 id="控制风险的对策"><a href="#控制风险的对策" class="headerlink" title="控制风险的对策"></a>控制风险的对策</h2><ol>
+<li>消除执行风险</li>
+<li>降低进度风险</li>
+<li>减少人员风险</li>
+</ol>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7"><i class="fa fa-tag"></i></span>
+                    <a class="has-link-grey -link" href="/tags/软件测试/">软件测试<span class="has-link-grey -count">1</span></a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+            
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/wechat.png" alt="支付宝"></div>
+</a>
+
+            
+            
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.png" alt="微信"></div>
+</a>
+
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/06/13/cd362e12.html">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">软件项目管理-敏捷先锋朱少民</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/06/10/3f6b53b0.html">
+                <span class="level-item">FamilyManage-Springboot注解-RequestMapping详解</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'O8ESLQsaCTTpvf3oSaj2H9X6-gzGzoHsz',
+        app_key: 'G2oCmq7J8KBk0jCoPpQFTKMt',
+        placeholder: '看了这么久不评价一下吗？'
+    });
+</script>
+
+    </div>
+</div>
+
+
+</div>
+                
+
+<!-- 粘贴的部分 -->
+
+<!-- 修改，可选保留的栏 -->
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-4-tablet is-4-desktop is-3-widescreen has-order-3 column-left ">
+    
+    
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><ul class="menu-list"><li>
+        <a class="is-flex" href="#前言">
+        <span class="has-mr-6">1.1</span>
+        <span>前言</span>
+        </a></li></ul><li>
+        <a class="is-flex" href="#第一章-软件测试入门">
+        <span class="has-mr-6">2</span>
+        <span>第一章:软件测试入门</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#软件测试的概念">
+        <span class="has-mr-6">2.1</span>
+        <span>软件测试的概念</span>
+        </a></li><li>
+        <a class="is-flex" href="#软件缺陷的概念">
+        <span class="has-mr-6">2.2</span>
+        <span>软件缺陷的概念</span>
+        </a></li><li>
+        <a class="is-flex" href="#软件质量的概念">
+        <span class="has-mr-6">2.3</span>
+        <span>软件质量的概念</span>
+        </a></li><li>
+        <a class="is-flex" href="#产品-使用质量模型及其属性">
+        <span class="has-mr-6">2.4</span>
+        <span>产品/使用质量模型及其属性</span>
+        </a></li><li>
+        <a class="is-flex" href="#软件测试的价值与定义">
+        <span class="has-mr-6">2.5</span>
+        <span>软件测试的价值与定义</span>
+        </a></li><li>
+        <a class="is-flex" href="#辩证的理解测试">
+        <span class="has-mr-6">2.6</span>
+        <span>辩证的理解测试</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#狭义-广义">
+        <span class="has-mr-6">2.6.1</span>
+        <span>狭义/广义</span>
+        </a></li><li>
+        <a class="is-flex" href="#静态-动态">
+        <span class="has-mr-6">2.6.2</span>
+        <span>静态/动态</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#软件测试的层次">
+        <span class="has-mr-6">2.7</span>
+        <span>软件测试的层次</span>
+        </a></li><li>
+        <a class="is-flex" href="#软件测试的类型">
+        <span class="has-mr-6">2.8</span>
+        <span>软件测试的类型</span>
+        </a></li><li>
+        <a class="is-flex" href="#软件测试和SQA的区别和联系">
+        <span class="has-mr-6">2.9</span>
+        <span>软件测试和SQA的区别和联系</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#第二章：需求与设计评审">
+        <span class="has-mr-6">3</span>
+        <span>第二章：需求与设计评审</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#静态测试（评审）形式及其流程">
+        <span class="has-mr-6">3.1</span>
+        <span>静态测试（评审）形式及其流程</span>
+        </a></li><li>
+        <a class="is-flex" href="#软件需求的层次">
+        <span class="has-mr-6">3.2</span>
+        <span>软件需求的层次</span>
+        </a></li><li>
+        <a class="is-flex" href="#需求与设计评审标准">
+        <span class="has-mr-6">3.3</span>
+        <span>需求与设计评审标准</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#正确性">
+        <span class="has-mr-6">3.3.1</span>
+        <span>正确性</span>
+        </a></li><li>
+        <a class="is-flex" href="#完备性">
+        <span class="has-mr-6">3.3.2</span>
+        <span>完备性</span>
+        </a></li><li>
+        <a class="is-flex" href="#易理解性">
+        <span class="has-mr-6">3.3.3</span>
+        <span>易理解性</span>
+        </a></li><li>
+        <a class="is-flex" href="#一致性">
+        <span class="has-mr-6">3.3.4</span>
+        <span>一致性</span>
+        </a></li><li>
+        <a class="is-flex" href="#易测试性">
+        <span class="has-mr-6">3.3.5</span>
+        <span>易测试性</span>
+        </a></li><li>
+        <a class="is-flex" href="#易追溯性">
+        <span class="has-mr-6">3.3.6</span>
+        <span>易追溯性</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#设计评审的层次">
+        <span class="has-mr-6">3.4</span>
+        <span>设计评审的层次</span>
+        </a></li><li>
+        <a class="is-flex" href="#设计评审方法">
+        <span class="has-mr-6">3.5</span>
+        <span>设计评审方法</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#第三章：单元测试">
+        <span class="has-mr-6">4</span>
+        <span>第三章：单元测试</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#单元测试的概念和主要形式">
+        <span class="has-mr-6">4.1</span>
+        <span>单元测试的概念和主要形式</span>
+        </a></li><li>
+        <a class="is-flex" href="#单元测试中类测试的分类">
+        <span class="has-mr-6">4.2</span>
+        <span>单元测试中类测试的分类</span>
+        </a></li><li>
+        <a class="is-flex" href="#单元测试的方法">
+        <span class="has-mr-6">4.3</span>
+        <span>单元测试的方法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#测试用例">
+        <span class="has-mr-6">4.3.1</span>
+        <span>测试用例</span>
+        </a></li><li>
+        <a class="is-flex" href="#白盒测试">
+        <span class="has-mr-6">4.3.2</span>
+        <span>白盒测试</span>
+        </a></li><li>
+        <a class="is-flex" href="#黑盒测试">
+        <span class="has-mr-6">4.3.3</span>
+        <span>黑盒测试</span>
+        </a></li><li>
+        <a class="is-flex" href="#单元代码的自动化测试的步骤">
+        <span class="has-mr-6">4.3.4</span>
+        <span>单元代码的自动化测试的步骤</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#第四章：持续集成测试">
+        <span class="has-mr-6">5</span>
+        <span>第四章：持续集成测试</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#集成测试的概念">
+        <span class="has-mr-6">5.1</span>
+        <span>集成测试的概念</span>
+        </a></li><li>
+        <a class="is-flex" href="#集成测试的层次">
+        <span class="has-mr-6">5.2</span>
+        <span>集成测试的层次</span>
+        </a></li><li>
+        <a class="is-flex" href="#集成测试的模式">
+        <span class="has-mr-6">5.3</span>
+        <span>集成测试的模式</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#非渐增式测试模式（已完成测试的模块）">
+        <span class="has-mr-6">5.3.1</span>
+        <span>非渐增式测试模式（已完成测试的模块）</span>
+        </a></li><li>
+        <a class="is-flex" href="#渐增式测试模式（已完成测试的模块）">
+        <span class="has-mr-6">5.3.2</span>
+        <span>渐增式测试模式（已完成测试的模块）</span>
+        </a></li><li>
+        <a class="is-flex" href="#持续集成（针对新增的代码）">
+        <span class="has-mr-6">5.3.3</span>
+        <span>持续集成（针对新增的代码）</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#集成测试的特点">
+        <span class="has-mr-6">5.4</span>
+        <span>集成测试的特点</span>
+        </a></li><li>
+        <a class="is-flex" href="#接口测试要点">
+        <span class="has-mr-6">5.5</span>
+        <span>接口测试要点</span>
+        </a></li><li>
+        <a class="is-flex" href="#集成测试发展历程">
+        <span class="has-mr-6">5.6</span>
+        <span>集成测试发展历程</span>
+        </a></li><li>
+        <a class="is-flex" href="#持续集成的内涵（内容）">
+        <span class="has-mr-6">5.7</span>
+        <span>持续集成的内涵（内容）</span>
+        </a></li><li>
+        <a class="is-flex" href="#测试金字塔">
+        <span class="has-mr-6">5.8</span>
+        <span>测试金字塔</span>
+        </a></li><li>
+        <a class="is-flex" href="#自动化测试的过程">
+        <span class="has-mr-6">5.9</span>
+        <span>自动化测试的过程</span>
+        </a></li><li>
+        <a class="is-flex" href="#持续集成过程使用到的工具">
+        <span class="has-mr-6">5.10</span>
+        <span>持续集成过程使用到的工具</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#第五章：系统功能测试">
+        <span class="has-mr-6">6</span>
+        <span>第五章：系统功能测试</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#系统功能测试的内容">
+        <span class="has-mr-6">6.1</span>
+        <span>系统功能测试的内容</span>
+        </a></li><li>
+        <a class="is-flex" href="#软件需求的层次-1">
+        <span class="has-mr-6">6.2</span>
+        <span>软件需求的层次</span>
+        </a></li><li>
+        <a class="is-flex" href="#测试用例设计方法">
+        <span class="has-mr-6">6.3</span>
+        <span>测试用例设计方法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#等价类划分方法">
+        <span class="has-mr-6">6.3.1</span>
+        <span>等价类划分方法</span>
+        </a></li><li>
+        <a class="is-flex" href="#边界值分析方法">
+        <span class="has-mr-6">6.3.2</span>
+        <span>边界值分析方法</span>
+        </a></li><li>
+        <a class="is-flex" href="#决策表方法">
+        <span class="has-mr-6">6.3.3</span>
+        <span>决策表方法</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#决策表测试爆炸时的优化方法">
+        <span class="has-mr-6">6.4</span>
+        <span>决策表测试爆炸时的优化方法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#两两组合方法（Pairwise）">
+        <span class="has-mr-6">6.4.1</span>
+        <span>两两组合方法（Pairwise）</span>
+        </a></li><li>
+        <a class="is-flex" href="#正交试验设计法">
+        <span class="has-mr-6">6.4.2</span>
+        <span>正交试验设计法</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#基于用例-场景的测试方法">
+        <span class="has-mr-6">6.5</span>
+        <span>基于用例/场景的测试方法</span>
+        </a></li><li>
+        <a class="is-flex" href="#回归测试的策略">
+        <span class="has-mr-6">6.6</span>
+        <span>回归测试的策略</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#基于风险策略来选择回归测试用例">
+        <span class="has-mr-6">6.6.1</span>
+        <span>基于风险策略来选择回归测试用例</span>
+        </a></li><li>
+        <a class="is-flex" href="#基于操作剖面选择测试">
+        <span class="has-mr-6">6.6.2</span>
+        <span>基于操作剖面选择测试</span>
+        </a></li><li>
+        <a class="is-flex" href="#采用代码相依性（相互依赖的关系）分析">
+        <span class="has-mr-6">6.6.3</span>
+        <span>采用代码相依性（相互依赖的关系）分析</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#最常用的功能测试工具">
+        <span class="has-mr-6">6.7</span>
+        <span>最常用的功能测试工具</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#组合测试的工具">
+        <span class="has-mr-6">6.7.1</span>
+        <span>组合测试的工具</span>
+        </a></li><li>
+        <a class="is-flex" href="#面向接口的Web测试工具">
+        <span class="has-mr-6">6.7.2</span>
+        <span>面向接口的Web测试工具</span>
+        </a></li><li>
+        <a class="is-flex" href="#Web自动化测试工具">
+        <span class="has-mr-6">6.7.3</span>
+        <span>Web自动化测试工具</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#第六章：系统性能测试">
+        <span class="has-mr-6">7</span>
+        <span>第六章：系统性能测试</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#性能测试的概念和目标">
+        <span class="has-mr-6">7.1</span>
+        <span>性能测试的概念和目标</span>
+        </a></li><li>
+        <a class="is-flex" href="#性能测试的类型">
+        <span class="has-mr-6">7.2</span>
+        <span>性能测试的类型</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#性能基准测试">
+        <span class="has-mr-6">7.2.1</span>
+        <span>性能基准测试</span>
+        </a></li><li>
+        <a class="is-flex" href="#性能验证测试">
+        <span class="has-mr-6">7.2.2</span>
+        <span>性能验证测试</span>
+        </a></li><li>
+        <a class="is-flex" href="#性能规划测试">
+        <span class="has-mr-6">7.2.3</span>
+        <span>性能规划测试</span>
+        </a></li><li>
+        <a class="is-flex" href="#容量测试">
+        <span class="has-mr-6">7.2.4</span>
+        <span>容量测试</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#压力-负载测试">
+        <span class="has-mr-6">7.3</span>
+        <span>压力/负载测试</span>
+        </a></li><li>
+        <a class="is-flex" href="#负载">
+        <span class="has-mr-6">7.4</span>
+        <span>负载</span>
+        </a></li><li>
+        <a class="is-flex" href="#负载-加载模式">
+        <span class="has-mr-6">7.5</span>
+        <span>负载/加载模式</span>
+        </a></li><li>
+        <a class="is-flex" href="#主要性能指标">
+        <span class="has-mr-6">7.6</span>
+        <span>主要性能指标</span>
+        </a></li><li>
+        <a class="is-flex" href="#性能测试设计和执行过程">
+        <span class="has-mr-6">7.7</span>
+        <span>性能测试设计和执行过程</span>
+        </a></li><li>
+        <a class="is-flex" href="#性能测试工具">
+        <span class="has-mr-6">7.8</span>
+        <span>性能测试工具</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#第七章：系统安全性测试">
+        <span class="has-mr-6">8</span>
+        <span>第七章：系统安全性测试</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#安全性测试的概念">
+        <span class="has-mr-6">8.1</span>
+        <span>安全性测试的概念</span>
+        </a></li><li>
+        <a class="is-flex" href="#安全测试的基本方法">
+        <span class="has-mr-6">8.2</span>
+        <span>安全测试的基本方法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#安全漏洞测试方法">
+        <span class="has-mr-6">8.2.1</span>
+        <span>安全漏洞测试方法</span>
+        </a></li><li>
+        <a class="is-flex" href="#安全性功能测试方法">
+        <span class="has-mr-6">8.2.2</span>
+        <span>安全性功能测试方法</span>
+        </a></li><li>
+        <a class="is-flex" href="#静态代码分析方法">
+        <span class="has-mr-6">8.2.3</span>
+        <span>静态代码分析方法</span>
+        </a></li><li>
+        <a class="is-flex" href="#动态渗透测试方法">
+        <span class="has-mr-6">8.2.4</span>
+        <span>动态渗透测试方法</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#安全软件开发生命周期（7个接触点）">
+        <span class="has-mr-6">8.3</span>
+        <span>安全软件开发生命周期（7个接触点）</span>
+        </a></li><li>
+        <a class="is-flex" href="#五个安全级别中各级别要做哪些安全测试">
+        <span class="has-mr-6">8.4</span>
+        <span>五个安全级别中各级别要做哪些安全测试</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#第八章：移动APP的测试">
+        <span class="has-mr-6">9</span>
+        <span>第八章：移动APP的测试</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#移动应用的特点">
+        <span class="has-mr-6">9.1</span>
+        <span>移动应用的特点</span>
+        </a></li><li>
+        <a class="is-flex" href="#移动应用主要做哪些测试">
+        <span class="has-mr-6">9.2</span>
+        <span>移动应用主要做哪些测试</span>
+        </a></li><li>
+        <a class="is-flex" href="#移动应用的专项测试">
+        <span class="has-mr-6">9.3</span>
+        <span>移动应用的专项测试</span>
+        </a></li><li>
+        <a class="is-flex" href="#移动应用端的性能测试">
+        <span class="has-mr-6">9.4</span>
+        <span>移动应用端的性能测试</span>
+        </a></li><li>
+        <a class="is-flex" href="#移动应用端测试工具">
+        <span class="has-mr-6">9.5</span>
+        <span>移动应用端测试工具</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#自动化测试工具">
+        <span class="has-mr-6">9.5.1</span>
+        <span>自动化测试工具</span>
+        </a></li><li>
+        <a class="is-flex" href="#专项测试工具">
+        <span class="has-mr-6">9.5.2</span>
+        <span>专项测试工具</span>
+        </a></li><li>
+        <a class="is-flex" href="#性能测试工具-1">
+        <span class="has-mr-6">9.5.3</span>
+        <span>性能测试工具</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#第九章：基于模型的软件测试">
+        <span class="has-mr-6">10</span>
+        <span>第九章：基于模型的软件测试</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#基于模型的测试方法（MBT）的概念">
+        <span class="has-mr-6">10.1</span>
+        <span>基于模型的测试方法（MBT）的概念</span>
+        </a></li><li>
+        <a class="is-flex" href="#基本原理">
+        <span class="has-mr-6">10.2</span>
+        <span>基本原理</span>
+        </a></li><li>
+        <a class="is-flex" href="#有限状态机">
+        <span class="has-mr-6">10.3</span>
+        <span>有限状态机</span>
+        </a></li><li>
+        <a class="is-flex" href="#因果图">
+        <span class="has-mr-6">10.4</span>
+        <span>因果图</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#第十章：测试与缺陷管理">
+        <span class="has-mr-6">11</span>
+        <span>第十章：测试与缺陷管理</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#测试计划包括哪些内容">
+        <span class="has-mr-6">11.1</span>
+        <span>测试计划包括哪些内容</span>
+        </a></li><li>
+        <a class="is-flex" href="#测试套件-用例的概念">
+        <span class="has-mr-6">11.2</span>
+        <span>测试套件/用例的概念</span>
+        </a></li><li>
+        <a class="is-flex" href="#缺陷的生命周期">
+        <span class="has-mr-6">11.3</span>
+        <span>缺陷的生命周期</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#软件缺陷的生命周期">
+        <span class="has-mr-6">11.3.1</span>
+        <span>软件缺陷的生命周期</span>
+        </a></li><li>
+        <a class="is-flex" href="#基本的缺陷生命周期">
+        <span class="has-mr-6">11.3.2</span>
+        <span>基本的缺陷生命周期</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#缺陷的基本属性">
+        <span class="has-mr-6">11.4</span>
+        <span>缺陷的基本属性</span>
+        </a></li><li>
+        <a class="is-flex" href="#缺陷的两类（不同维度）基本分析">
+        <span class="has-mr-6">11.5</span>
+        <span>缺陷的两类（不同维度）基本分析</span>
+        </a></li><li>
+        <a class="is-flex" href="#控制风险的对策">
+        <span class="has-mr-6">11.6</span>
+        <span>控制风险的对策</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+    
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/java/">
+            <span class="level-start">
+                <span class="level-item">/java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/AM4/">
+            <span class="level-start">
+                <span class="level-item">AM4</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Android/">
+            <span class="level-start">
+                <span class="level-item">Android</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/English/">
+            <span class="level-start">
+                <span class="level-item">English</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/FamilyManage/">
+            <span class="level-start">
+                <span class="level-item">FamilyManage</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Go/">
+            <span class="level-start">
+                <span class="level-item">Go</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Hexo/">
+            <span class="level-start">
+                <span class="level-item">Hexo</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JVM/">
+            <span class="level-start">
+                <span class="level-item">JVM</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Java/">
+            <span class="level-start">
+                <span class="level-item">Java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Java基础/">
+            <span class="level-start">
+                <span class="level-item">Java基础</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Linux/">
+            <span class="level-start">
+                <span class="level-item">Linux</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Redis/">
+            <span class="level-start">
+                <span class="level-item">Redis</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Springbooot/">
+            <span class="level-start">
+                <span class="level-item">Springbooot</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Springboot/">
+            <span class="level-start">
+                <span class="level-item">Springboot</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue专题/">
+            <span class="level-start">
+                <span class="level-item">Vue专题</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/信/">
+            <span class="level-start">
+                <span class="level-item">信</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/动漫专栏/">
+            <span class="level-start">
+                <span class="level-item">动漫专栏</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/华为/">
+            <span class="level-start">
+                <span class="level-item">华为</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/小工具/">
+            <span class="level-start">
+                <span class="level-item">小工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/工具集/">
+            <span class="level-start">
+                <span class="level-item">工具集</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/技术文档/">
+            <span class="level-start">
+                <span class="level-item">技术文档</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/数据库/">
+            <span class="level-start">
+                <span class="level-item">数据库</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/日记/">
+            <span class="level-start">
+                <span class="level-item">日记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">41</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/消息队列/">
+            <span class="level-start">
+                <span class="level-item">消息队列</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/游戏专栏/">
+            <span class="level-start">
+                <span class="level-item">游戏专栏</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/环境搭建/">
+            <span class="level-start">
+                <span class="level-item">环境搭建</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/环境部署/">
+            <span class="level-start">
+                <span class="level-item">环境部署</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/程序员成长之路/">
+            <span class="level-start">
+                <span class="level-item">程序员成长之路</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/线程/">
+            <span class="level-start">
+                <span class="level-item">线程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/缓存/">
+            <span class="level-start">
+                <span class="level-item">缓存</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/臭臭专栏/">
+            <span class="level-start">
+                <span class="level-item">臭臭专栏</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/软件测试/">
+            <span class="level-start">
+                <span class="level-item">软件测试</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/软件项目管理/">
+            <span class="level-start">
+                <span class="level-item">软件项目管理</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/AM4/" style="font-size: 14.29px;">AM4</a> <a href="/tags/FamilyManage/" style="font-size: 17.14px;">FamilyManage</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Go/" style="font-size: 11.43px;">Go</a> <a href="/tags/HUI/" style="font-size: 10px;">HUI</a> <a href="/tags/Hexo/" style="font-size: 17.14px;">Hexo</a> <a href="/tags/JMeter/" style="font-size: 10px;">JMeter</a> <a href="/tags/JUC/" style="font-size: 10px;">JUC</a> <a href="/tags/JVM/" style="font-size: 18.57px;">JVM</a> <a href="/tags/Java/" style="font-size: 11.43px;">Java</a> <a href="/tags/Java集合框架/" style="font-size: 10px;">Java集合框架</a> <a href="/tags/Lambda/" style="font-size: 10px;">Lambda</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 12.86px;">MySQL</a> <a href="/tags/RabbitMQ/" style="font-size: 15.71px;">RabbitMQ</a> <a href="/tags/Redis/" style="font-size: 12.86px;">Redis</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Shiro/" style="font-size: 10px;">Shiro</a> <a href="/tags/StudyPlan/" style="font-size: 10px;">StudyPlan</a> <a href="/tags/Utils/" style="font-size: 10px;">Utils</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/bat/" style="font-size: 10px;">bat</a> <a href="/tags/dl4f/" style="font-size: 10px;">dl4f</a> <a href="/tags/dl4j/" style="font-size: 10px;">dl4j</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/互斥同步/" style="font-size: 10px;">互斥同步</a> <a href="/tags/信/" style="font-size: 10px;">信</a> <a href="/tags/六级考试/" style="font-size: 10px;">六级考试</a> <a href="/tags/内存模型/" style="font-size: 10px;">内存模型</a> <a href="/tags/动漫杂图/" style="font-size: 10px;">动漫杂图</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/崩坏3/" style="font-size: 11.43px;">崩坏3</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/收藏/" style="font-size: 10px;">收藏</a> <a href="/tags/日报/" style="font-size: 20px;">日报</a> <a href="/tags/日记/" style="font-size: 12.86px;">日记</a> <a href="/tags/比赛/" style="font-size: 10px;">比赛</a> <a href="/tags/线程/" style="font-size: 14.29px;">线程</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/缓存/" style="font-size: 11.43px;">缓存</a> <a href="/tags/软件测试/" style="font-size: 10px;">软件测试</a> <a href="/tags/软件项目管理/" style="font-size: 10px;">软件项目管理</a> <a href="/tags/阶段总结/" style="font-size: 10px;">阶段总结</a> <a href="/tags/集合框架/" style="font-size: 10px;">集合框架</a> <a href="/tags/饭饭/" style="font-size: 10px;">饭饭</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
+    </div>
+</div>
+
+    
+    
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            <a href="/2020/03/04/fc6bf379.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/2019/05/17/d3541f2b/zd01.jpg" alt="深入理解JVM-学习与实践（1）">
+                </p>
+            </a>
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-04T15:05:27.000Z">2020-03-04</time></div>
+                    <a href="/2020/03/04/fc6bf379.html" class="has-link-black-ter is-size-6">深入理解JVM-学习与实践（1）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            <a href="/2020/01/22/ef52c58b.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/2019/05/17/d3541f2b/zd01.jpg" alt="DeepLearning4J(二)：简易一元线性回归">
+                </p>
+            </a>
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-22T04:24:18.000Z">2020-01-22</time></div>
+                    <a href="/2020/01/22/ef52c58b.html" class="has-link-black-ter is-size-6">DeepLearning4J(二)：简易一元线性回归</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">/java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            <a href="/2020/01/21/1da953fb.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/2019/05/17/d3541f2b/zd01.jpg" alt="DeepLearning4J(一)：入门">
+                </p>
+            </a>
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-21T15:20:49.000Z">2020-01-21</time></div>
+                    <a href="/2020/01/21/1da953fb.html" class="has-link-black-ter is-size-6">DeepLearning4J(一)：入门</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Java/">Java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            <a href="/2019/10/18/e135733e.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/2019/05/17/d3541f2b/zd01.jpg" alt="华为前辈语录">
+                </p>
+            </a>
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-18T08:28:50.000Z">2019-10-18</time></div>
+                    <a href="/2019/10/18/e135733e.html" class="has-link-black-ter is-size-6">华为前辈语录</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/华为/">华为</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            <a href="/2019/10/16/68296740.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/2019/05/17/d3541f2b/zd01.jpg" alt="信、蓝">
+                </p>
+            </a>
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-16T05:52:09.000Z">2019-10-16</time></div>
+                    <a href="/2019/10/16/68296740.html" class="has-link-black-ter is-size-6">信、蓝</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/信/">信</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+    <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">30</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">44</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">15</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">18</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">14</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+    <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/AM4/">
+                        <span class="tag">AM4</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/FamilyManage/">
+                        <span class="tag">FamilyManage</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Git/">
+                        <span class="tag">Git</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Go/">
+                        <span class="tag">Go</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HUI/">
+                        <span class="tag">HUI</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Hexo/">
+                        <span class="tag">Hexo</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JMeter/">
+                        <span class="tag">JMeter</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JUC/">
+                        <span class="tag">JUC</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JVM/">
+                        <span class="tag">JVM</span>
+                        <span class="tag is-grey">13</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java集合框架/">
+                        <span class="tag">Java集合框架</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Lambda/">
+                        <span class="tag">Lambda</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux/">
+                        <span class="tag">Linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/MySQL/">
+                        <span class="tag">MySQL</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/RabbitMQ/">
+                        <span class="tag">RabbitMQ</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Redis/">
+                        <span class="tag">Redis</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Servlet/">
+                        <span class="tag">Servlet</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Shiro/">
+                        <span class="tag">Shiro</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/StudyPlan/">
+                        <span class="tag">StudyPlan</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Utils/">
+                        <span class="tag">Utils</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/bat/">
+                        <span class="tag">bat</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/dl4f/">
+                        <span class="tag">dl4f</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/dl4j/">
+                        <span class="tag">dl4j</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/node-js/">
+                        <span class="tag">node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/互斥同步/">
+                        <span class="tag">互斥同步</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/信/">
+                        <span class="tag">信</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/六级考试/">
+                        <span class="tag">六级考试</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/内存模型/">
+                        <span class="tag">内存模型</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/动漫杂图/">
+                        <span class="tag">动漫杂图</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/华为/">
+                        <span class="tag">华为</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/崩坏3/">
+                        <span class="tag">崩坏3</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/总结/">
+                        <span class="tag">总结</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/收藏/">
+                        <span class="tag">收藏</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/日报/">
+                        <span class="tag">日报</span>
+                        <span class="tag is-grey">36</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/日记/">
+                        <span class="tag">日记</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/比赛/">
+                        <span class="tag">比赛</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/线程/">
+                        <span class="tag">线程</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/线程池/">
+                        <span class="tag">线程池</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/缓存/">
+                        <span class="tag">缓存</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/软件测试/">
+                        <span class="tag">软件测试</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/软件项目管理/">
+                        <span class="tag">软件项目管理</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/阶段总结/">
+                        <span class="tag">阶段总结</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/集合框架/">
+                        <span class="tag">集合框架</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/饭饭/">
+                        <span class="tag">饭饭</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/高考/">
+                        <span class="tag">高考</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+    <div class="column-right-shadow is-hidden-widescreen is-sticky">
+        
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="is-rounded" src="/images/header.png" alt="October 浩 田">
+                    </figure>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        October 浩 田
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Coding Boy
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China 中国</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        126
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        33
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        46
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <!-- <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://blog.octber.xyz/" target="_blank">
+                全家计划WebApp</a>
+        </div>
+		<div class="level">
+            <a class="level-item button is-link is-rounded" href="http://115.159.79.191:8080/" target="_blank">
+                全家通Web</a>
+        </div> -->
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/OctoberTian">
+                
+                Github  <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Coding" href="https://dev.tencent.com/u/OctCoding">
+                
+                Coding  <i class="fab fa-github"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+        
+    </div>
+    
+</div>
+
+                
+
+<!-- 粘贴的部分 -->
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <p class="is-size-7">
+                    <a class="footer-logo is-block has-mb-6" href="/">
+                        
+                        <img src="/images/mylogo.png" alt="软件测试-基于问题驱动模式" height="28">
+                        
+                    </a>
+                    &copy; 2020 OctoberTian&nbsp;
+                    ❤ October
+                    
+                    <br>
+                    <span id="busuanzi_container_site_uv">
+                        共<span id="busuanzi_value_site_uv">0</span>个访客
+                    </span>
+                    
+                </p>
+            </div>
+            <div class="level-end">
+                
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                    
+                    
+                    <p class="control">
+                        <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                            
+                            <i class="fab fa-creative-commons"></i>
+                            
+                        </a>
+                    </p>
+                    
+                    <p class="control">
+                        <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                            
+                            <i class="fab fa-creative-commons-by"></i>
+                            
+                        </a>
+                    </p>
+                    
+                    <p class="control">
+                        <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                            
+                            <i class="fab fa-github"></i>
+                            
+                        </a>
+                    </p>
+                    
+                </div>
+                
+            </div>
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div>
+                <div>
+                    <span id="busuanzi_container_site_pv" class="theme-info">
+                        ♫ 总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                </div>
+                <div>
+                    <span id="busuanzi_container_site_uv" class="theme-info">
+                        ♫ 访客数<span id="busuanzi_value_site_uv"></span>人次</span>
+                </div>
+            </div>
+            <span id="timeDate">载入天数...</span>
+            <script type="text/javascript">
+                var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+                document.write(unescape("%3Cspan id='cnzz_stat_icon_1277614079'%3E%3C/span%3E%3Cscript src='" +
+                    cnzz_protocol +
+                    "s23.cnzz.com/z_stat.php%3Fid%3D1277614079%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"
+                ));
+            </script>
+            <script>
+                var now = new Date();
+
+                function createtime() {
+                    var grt = new Date("5/15/2019 08:49:00"); //此处修改你的建站时间或者网站上线时间 
+                    now.setTime(now.getTime() + 250);
+                    days = (now - grt) / 1000 / 60 / 60 / 24;
+                    dnum = Math.floor(days);
+                    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+                    hnum = Math.floor(hours);
+                    if (String(hnum).length == 1) {
+                        hnum = "0" + hnum;
+                    }
+                    minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+                    mnum = Math.floor(minutes);
+                    if (String(mnum).length == 1) {
+                        mnum = "0" + mnum;
+                    }
+                    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+                    snum = Math.round(seconds);
+                    if (String(snum).length == 1) {
+                        snum = "0" + snum;
+                    }
+                    document.getElementById("timeDate").innerHTML = "♛ 本站已安全运行 " + dnum + " 天 " + hnum + " 小时 " + mnum +
+                        " 分 " + snum + " 秒";
+                }
+                setInterval("createtime()", 250);
+            </script>
+            <script>
+                (function () {
+                    var bp = document.createElement('script');
+                    var curProtocol = window.location.protocol.split(':')[0];
+                    if (curProtocol === 'https') {
+                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                    } else {
+                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                    }
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(bp, s);
+                })();
+            </script>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("ch");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+	<!--
+	雪花特效
+    <script type="text/javascript" src="/js/src/snow.js"></script>
+	-->
+    <script>
+        (function () {
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            } else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+</body>
+
+</html>

@@ -80,13 +80,13 @@ theme: icarus
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
--
+# -
   type: git
   repo: 
     github: https://github.com/OctoberTian/OctoberTian.github.io.git
     # coding: https://git.dev.tencent.com/OctCoding/my.octber.xyz.git
     # myServer: root@115.159.79.191:/www/server/nginx/octber.blog
-  branch: master
+  branch: gh-pages
 # -
 #   type: baidu_url_submitter ## 百度站长提交
 live2d:
