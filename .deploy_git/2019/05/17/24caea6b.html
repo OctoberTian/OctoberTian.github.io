@@ -229,7 +229,7 @@
 <figure class="highlight html hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">%</span> <span class="hljs-attr">page.posts.each</span>(<span class="hljs-attr">function</span>(<span class="hljs-attr">post</span>)&#123; %&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">%-</span> <span class="hljs-attr">partial</span>('<span class="hljs-attr">common</span>/<span class="hljs-attr">article</span>', &#123; <span class="hljs-attr">post</span>, <span class="hljs-attr">index:</span> <span class="hljs-attr">true</span> &#125;) %&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">%</span> &#125;); %&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">%</span> <span class="hljs-attr">if</span> (<span class="hljs-attr">page.total</span> &gt;</span> 1) &#123; %&gt;</span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">%-</span> <span class="hljs-attr">partial</span>('<span class="hljs-attr">common</span>/<span class="hljs-attr">paginator</span>') %&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">%</span> &#125; %&gt;</span></span><br></pre></td></tr></table></figure>
 <p>这一块什么意思？首先是一个循环语句，因为首页要显示出近期发布的几篇文章，引入局部模块的时候使用了<a href="http://www.linux2me.com/2015/06/06/Hexo_Docs3.html#%EF%BC%883%EF%BC%89Local_Variables%EF%BC%88%E6%9C%AC%E5%9C%B0%E5%8F%98%E9%87%8F%EF%BC%89" target="_blank" rel="noopener">Local Variables（本地变量）</a>的相关内容，这里是将<code>post页面变量</code>赋值给了本地变量<code>item</code>，换句话说，在<code>_partial/article.ejs</code>这个文件中所有的<code>item</code>变量都指的是<code>post页面变量</code>，里面使用了很多页面变量的一些键值，参考这里<a href="http://www.linux2me.com/2015/06/06/Hexo_Docs3.html#%EF%BC%882%EF%BC%89%E9%A1%B5%E9%9D%A2%E5%8F%98%E9%87%8F" target="_blank" rel="noopener">页面变量</a>看<code>article.ejs</code>的代码就容易多了。</p>
 <h4 id="布局（Layout）"><a href="#布局（Layout）" class="headerlink" title="布局（Layout）"></a>布局（Layout）</h4><p>Hexo 有三种默认布局：post、page 和 draft，它们分别对应不同的路径，而您自定义的其他布局和 post 相同，都将储存到 source/_posts 文件夹。</p>
-<p><img src="/2019/05/17/24caea6b/1558056731910.png" alt="1558056731910"></p>
+<p><img src="/2019/05/17/Hexo常用命令/1558056731910.png" alt="1558056731910"></p>
 <p>默认为post布局，page是页面，draft是草稿。</p>
 <h2 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 <p>生成静态文件。我们常常简写为<code>hexo g</code>，因为Coding/Github Pagas帮我们部署的正是静态文件，所以我们在每一次发布的时候都需要生成静态文件。</p>
@@ -302,9 +302,9 @@
 <p>和之前的用法相似，我们使用<code>hexo d -g</code>也是可以的</p>
 <h2 id="render"><a href="#render" class="headerlink" title="render"></a>render</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo render &lt;file1&gt; [file2] ...</span><br></pre></td></tr></table></figure>
 <p>渲染文件。将我们的文章渲染成单个html文件。</p>
-<p><img src="/2019/05/17/24caea6b/1558057423466.png" alt="1558057423466"></p>
+<p><img src="/2019/05/17/Hexo常用命令/1558057423466.png" alt="1558057423466"></p>
 <p>最终打开hexo.html是这样的</p>
-<p><img src="/2019/05/17/24caea6b/1558057442147.png" alt="1558057442147"></p>
+<p><img src="/2019/05/17/Hexo常用命令/1558057442147.png" alt="1558057442147"></p>
 <p>效果并不是很好，没有很多css的包装，只是阅读还是可以的。</p>
 <table>
 <thead>
@@ -328,7 +328,7 @@
 <p><strong>毒比较大的时候，建议clean一下</strong></p>
 <h2 id="list"><a href="#list" class="headerlink" title="list"></a>list</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo list &lt;type&gt;</span><br></pre></td></tr></table></figure>
 <p>列出网站资料。这个就很有意思了，可以选用的type有<code>page, post, route, tag, category</code></p>
-<p><img src="/2019/05/17/24caea6b/1558057613134.png" alt="1558057613134"></p>
+<p><img src="/2019/05/17/Hexo常用命令/1558057613134.png" alt="1558057613134"></p>
 <h2 id="version"><a href="#version" class="headerlink" title="version"></a>version</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo version</span><br></pre></td></tr></table></figure>
 <p>显示 Hexo 版本。</p>
 <h2 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h2><h3 id="安全模式"><a href="#安全模式" class="headerlink" title="安全模式"></a>安全模式</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --safe</span><br></pre></td></tr></table></figure>
@@ -344,7 +344,7 @@
 <h3 id="自定义-CWD"><a href="#自定义-CWD" class="headerlink" title="自定义 CWD"></a>自定义 CWD</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --cwd /path/to/cwd</span><br></pre></td></tr></table></figure>
 <p>自定义当前工作目录（Current working directory）的路径。</p>
 <p>本次博文就先到这里，部分内容摘自官方文档。</p>
-<p><img src="/2019/05/17/24caea6b/1558057833295.png" alt="1558057833295"></p>
+<p><img src="/2019/05/17/Hexo常用命令/1558057833295.png" alt="1558057833295"></p>
 
         </div>
         

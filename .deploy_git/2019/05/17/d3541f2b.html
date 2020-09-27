@@ -203,7 +203,7 @@
         </h1>
         <div class="content">
             <h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>Hexo是一个快速、简洁而且高效的博客框架，他的优点也正是官网（<a href="https://hexo.io/zh-cn/）所说的：" target="_blank" rel="noopener">https://hexo.io/zh-cn/）所说的：</a></p>
-<p><img src="/2019/05/17/d3541f2b/1558023921436.png" alt="1558023921436"></p>
+<p><img src="/2019/05/17/Hexo-Github或Hexo-Coding-配置与部署/1558023921436.png" alt="1558023921436"></p>
 <ul>
 <li><p>hexo 可以理解为是基于node.js制作的一个博客工具，不是我们理解的一个开源的博客系统。其中的差别，有点意思。</p>
 </li>
@@ -215,7 +215,7 @@
 <a id="more"></a>
 </li>
 </ul>
-<h2 id="Hexo的源码结构"><a href="#Hexo的源码结构" class="headerlink" title="Hexo的源码结构"></a>Hexo的源码结构</h2><p><img src="/2019/05/17/d3541f2b/1558024364396.png" alt="1558024364396"></p>
+<h2 id="Hexo的源码结构"><a href="#Hexo的源码结构" class="headerlink" title="Hexo的源码结构"></a>Hexo的源码结构</h2><p><img src="/2019/05/17/Hexo-Github或Hexo-Coding-配置与部署/1558024364396.png" alt="1558024364396"></p>
 <h2 id="Hexo的安装"><a href="#Hexo的安装" class="headerlink" title="Hexo的安装"></a>Hexo的安装</h2><h4 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h4><ul>
 <li><a href="http://nodejs.org/" target="_blank" rel="noopener">Node.js</a> (Should be at least nodejs 6.9)</li>
 <li><a href="http://git-scm.com/" target="_blank" rel="noopener">Git</a></li>
@@ -232,28 +232,28 @@
 </li>
 </ol>
 <h2 id="Hexo基本配置"><a href="#Hexo基本配置" class="headerlink" title="Hexo基本配置"></a>Hexo基本配置</h2><p>请看我的另一篇博文《Hexo配置文件详解》</p>
-<h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h4 id="首先创建一个项目"><a href="#首先创建一个项目" class="headerlink" title="首先创建一个项目"></a>首先创建一个项目</h4><p><img src="/2019/05/17/d3541f2b/1558024909072.png" alt="1558024909072"></p>
+<h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h4 id="首先创建一个项目"><a href="#首先创建一个项目" class="headerlink" title="首先创建一个项目"></a>首先创建一个项目</h4><p><img src="/2019/05/17/Hexo-Github或Hexo-Coding-配置与部署/1558024909072.png" alt="1558024909072"></p>
 <p>建议生成默认的README文件</p>
-<p><img src="/2019/05/17/d3541f2b/1558024942064.png" alt="1558024942064"></p>
+<p><img src="/2019/05/17/Hexo-Github或Hexo-Coding-配置与部署/1558024942064.png" alt="1558024942064"></p>
 <p>随后Create即可，进入Settings页面</p>
-<p><img src="/2019/05/17/d3541f2b/1558024980623.png" alt="1558024980623"></p>
+<p><img src="/2019/05/17/Hexo-Github或Hexo-Coding-配置与部署/1558024980623.png" alt="1558024980623"></p>
 <p>我们可以看到一个强大的功能：Github Pages</p>
-<p><img src="/2019/05/17/d3541f2b/1558025026126.png" alt="1558025026126"></p>
+<p><img src="/2019/05/17/Hexo-Github或Hexo-Coding-配置与部署/1558025026126.png" alt="1558025026126"></p>
 <p>Github Pages会自动部署我们的静态网页，我们可以通过<a href="http://youname.github.io来访问，当然如果你有已经备案过的域名，添加一个CNAME解析便可以使用自己的域名访问，注意我们可以使用一级域名，或者www和blog的二级域名，官方建议使用一级域名。" target="_blank" rel="noopener">http://youname.github.io来访问，当然如果你有已经备案过的域名，添加一个CNAME解析便可以使用自己的域名访问，注意我们可以使用一级域名，或者www和blog的二级域名，官方建议使用一级域名。</a></p>
-<p><img src="/2019/05/17/d3541f2b/1558025144096.png" alt="1558025144096"></p>
+<p><img src="/2019/05/17/Hexo-Github或Hexo-Coding-配置与部署/1558025144096.png" alt="1558025144096"></p>
 <h2 id="Coding配置"><a href="#Coding配置" class="headerlink" title="Coding配置"></a>Coding配置</h2><p>与Github类似，需要注意的是，仓库名为<code>你的coding名.coding.me</code>,其他略。</p>
 <h2 id="Hexo配置deploy"><a href="#Hexo配置deploy" class="headerlink" title="Hexo配置deploy"></a>Hexo配置deploy</h2><p>在项目根目录的_config.yml中配置deploy设置</p>
 <figure class="highlight yml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attr">deploy:</span></span><br><span class="line"><span class="hljs-attr">  type:</span> <span class="hljs-string">git</span></span><br><span class="line"><span class="hljs-attr">  repo:</span> </span><br><span class="line"><span class="hljs-attr">    github:</span> <span class="hljs-string">git@github.com:OctoberTian/OctoberTian.github.io.git</span></span><br><span class="line"><span class="hljs-attr">    coding:</span> <span class="hljs-string">git@git.dev.tencent.com:OctCoding/OctCoding.coding.me.git</span></span><br><span class="line"><span class="hljs-attr">  branch:</span> <span class="hljs-string">master</span></span><br></pre></td></tr></table></figure>
 <p>通过这一层配置，我们可以通过<code>hexo d</code>（等价于<code>hexo deploy</code>）命令将我们修改的内容推送到github上和coding上，这里使用SSH，使用Https也可以，建议使用SSH公钥。</p>
 <h4 id="SSH公钥"><a href="#SSH公钥" class="headerlink" title="SSH公钥"></a>SSH公钥</h4><p>我们以Coding为例，如何在自己的电脑上部署SSH。（详情可查看官方文档：<a href="https://coding.net/help/doc/git/ssh-key.html）" target="_blank" rel="noopener">https://coding.net/help/doc/git/ssh-key.html）</a></p>
 <p>进入个人设置，我们可以看到SSH公钥的功能</p>
-<p><img src="/2019/05/17/d3541f2b/1558025539273.png" alt="1558025539273"></p>
+<p><img src="/2019/05/17/Hexo-Github或Hexo-Coding-配置与部署/1558025539273.png" alt="1558025539273"></p>
 <p>点击SSH公钥进入我们可以新增公钥：</p>
-<p><img src="/2019/05/17/d3541f2b/1558025570660.png" alt="1558025570660"></p>
+<p><img src="/2019/05/17/Hexo-Github或Hexo-Coding-配置与部署/1558025570660.png" alt="1558025570660"></p>
 <p>这就要求我们电脑本地设置SSH公钥，并获取公钥内容</p>
 <h4 id="随机位置打开git-bash"><a href="#随机位置打开git-bash" class="headerlink" title="随机位置打开git bash"></a>随机位置打开git bash</h4><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">cd</span> ~/.ssh</span><br><span class="line">cat id_rsa.pub <span class="hljs-comment">#查看共要内容</span></span><br></pre></td></tr></table></figure>
 <p>如果看到下图，表明你已经生成过公钥：</p>
-<p><img src="/2019/05/17/d3541f2b/1558025696873.png" alt="1558025696873"></p>
+<p><img src="/2019/05/17/Hexo-Github或Hexo-Coding-配置与部署/1558025696873.png" alt="1558025696873"></p>
 <p>直接查看id_rsa.pub复制内容到coding即可完成配置</p>
 <p>如果没有目录，我们来创建公钥：</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="hljs-string">"your global email"</span> </span><br><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>

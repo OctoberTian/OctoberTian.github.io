@@ -206,12 +206,12 @@
 <a id="more"></a>
 <h1 id="编码-解码"><a href="#编码-解码" class="headerlink" title="编码/解码"></a>编码/解码</h1><p>Shiro 提供了 base64 和 16 进制字符串编码 / 解码的 API 支持，方便一些编码解码操作。Shiro 内部的一些数据的存储 / 表示都使用了 base64 和 16 进制字符串。<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="hljs-string">"hello"</span>; </span><br><span class="line">String base64Encoded = Base64.encodeToString(str.getBytes()); String str2 = Base64.decodeToString(base64Encoded); Assert.assertEquals(str, str2);</span><br></pre></td></tr></table></figure></p>
 <p>通过debug,我们逐步查看:<br>hello字符串首先被转换成byte类型,传入函数:</p>
-<p><img src="/2019/06/19/3a76d525/1560908997513.png" alt="1560908997513"></p>
+<p><img src="/2019/06/19/Springboot-Shiro-编码-加密.assets/1560908997513.png" alt="1560908997513"></p>
 <p>加密过后会生成:(这个过程可以参看下面Base64编码的讲解,博客中间的很清楚)</p>
-<p><img src="/2019/06/19/3a76d525/1560909234406.png" alt="1560909234406"></p>
+<p><img src="/2019/06/19/Springboot-Shiro-编码-加密.assets/1560909234406.png" alt="1560909234406"></p>
 <p>编码过后变为 5 × 8 ÷ 6 = 7,但为什么会有8个呢,就是因为出现了位数不足的问题:</p>
-<p><img src="/2019/06/19/3a76d525/1560909870526.png" alt="1560909870526"></p>
-<p>所以最后出现的结果为hello=&gt;<img src="/2019/06/19/3a76d525/1560909903478.png" alt="1560909903478"></p>
+<p><img src="/2019/06/19/Springboot-Shiro-编码-加密.assets/1560909870526.png" alt="1560909870526"></p>
+<p>所以最后出现的结果为hello=&gt;<img src="/2019/06/19/Springboot-Shiro-编码-加密.assets/1560909903478.png" alt="1560909903478"></p>
 <p>有一个等于号,一共是八位,这个过程就看完了</p>
 <h2 id="Base64编码"><a href="#Base64编码" class="headerlink" title="Base64编码"></a>Base64编码</h2><p>目前Base64已经成为网络上常见的传输8Bit字节代码的编码方式之一。在做支付系统时，系统之间的报文交互都需要使用Base64对明文进行转码，然后再进行签名或加密，之后再进行（或再次Base64）传输。</p>
 <p>在参数传输的过程中经常遇到的一种情况：使用全英文的没问题，但一旦涉及到中文就会出现乱码情况。与此类似，网络上传输的字符并不全是可打印的字符，比如二进制文件、图片等。Base64的出现就是为了解决此问题，它是基于64个可打印的字符来表示二进制的数据的一种方法。</p>
@@ -239,13 +239,13 @@
 <li><p>为什么使用3个字节一组呢？因为6和8的最小公倍数为24，三个字节正好24个二进制位，每6个bit位一组，恰好能够分为4组。</p>
 </li>
 </ul>
-<p><img src="/2019/06/19/3a76d525/1560909636567.png" alt="1560909636567"></p>
+<p><img src="/2019/06/19/Springboot-Shiro-编码-加密.assets/1560909636567.png" alt="1560909636567"></p>
 <p>详细内容还请参看下面的博文</p>
 <h3 id="特别鸣谢"><a href="#特别鸣谢" class="headerlink" title="特别鸣谢"></a>特别鸣谢</h3><p>作者：二师兄-公众号-程序新视界<br>来源：CSDN<br>原文：<a href="https://blog.csdn.net/wo541075754/article/details/81734770" target="_blank" rel="noopener">https://blog.csdn.net/wo541075754/article/details/81734770</a><br>版权声明：本文为博主原创文章，转载请附上博文链接！</p>
 <h1 id="散列算法"><a href="#散列算法" class="headerlink" title="散列算法"></a>散列算法</h1><p>Base64是一种编码方式,它并不能进行加密,因为他的过程是可逆的,我告诉你我的密码的base64,你可以哪去转换为明文,所以并不能使用base64进行加密</p>
 <p>散列算法一般用于生成数据的摘要信息，是一种<strong>不可逆的算法</strong>，一般适合存储密码之类的数据，常见的散列算法如 <strong>MD5、SHA</strong> 等。一般进行散列时最好提供一个 <strong>salt（盐）</strong>，比如加密密码 “admin”，产生的散列值是 “21232f297a57a5a743894a0e4a801fc3”，可以到一些 md5 解密网站很容易的通过散列值得到密码 “admin”，<strong>即如果直接对密码进行散列相对来说破解更容易</strong>，此时我们可以加一些只有系统知道的干扰数据，如用户名和 ID（即盐）；这样散列的对象是 “<strong>密码 + 用户名 +ID”</strong>，这样生成的散列值相对来说更难破解。</p>
 <p>而我们往往要通过Base64的方式,我们可以看到Md5Hash的静态方法</p>
-<p><img src="/2019/06/19/3a76d525/1560910528059.png" alt="1560910528059"></p>
+<p><img src="/2019/06/19/Springboot-Shiro-编码-加密.assets/1560910528059.png" alt="1560910528059"></p>
 <p>我们可以通过这个方法进行加密</p>
 <figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Test</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Md5Code</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    String str = <span class="hljs-string">"hello"</span>;</span><br><span class="line">    String salt = <span class="hljs-string">"123"</span>;</span><br><span class="line">    String md5 = <span class="hljs-keyword">new</span> Md5Hash(str, salt).toString();<span class="hljs-comment">//还可以转换为 toBase64()/toHex()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如上代码通过盐 “123”MD5 散列 “hello”。另外散列时还可以指定散列次数，如 2 次表示：md5(md5(str))：“new Md5Hash(str, salt, 2).toString()”。</p>

@@ -203,18 +203,18 @@
         </h1>
         <div class="content">
             <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><a id="more"></a>
-<h2 id="JDK组成"><a href="#JDK组成" class="headerlink" title="JDK组成"></a>JDK组成</h2><p><img src="/2019/07/30/33d27aa6/1565789655457.png" alt="1565789655457"></p>
+<h2 id="JDK组成"><a href="#JDK组成" class="headerlink" title="JDK组成"></a>JDK组成</h2><p><img src="/2019/07/30/深入理解JVM/1565789655457.png" alt="1565789655457"></p>
 <p>最下面的Java HotSpot VM就是Java虚拟机,JDK比JRE多的其实就是一些工具类,而JRE包含了Java虚拟机和一些核心类库,Java虚拟机有很多种实现方式,IBM,Google等大公司都有其实现,现在主要以Oracle的为主</p>
-<h2 id="Java文件的运行"><a href="#Java文件的运行" class="headerlink" title="Java文件的运行"></a>Java文件的运行</h2><p><img src="/2019/07/30/33d27aa6/1565789805594.png" alt="1565789805594"></p>
+<h2 id="Java文件的运行"><a href="#Java文件的运行" class="headerlink" title="Java文件的运行"></a>Java文件的运行</h2><p><img src="/2019/07/30/深入理解JVM/1565789805594.png" alt="1565789805594"></p>
 <p>一个Java代码,首先通过Javac编译生成字节码文件(.class),随后交予JVM进行执行,生成对应平台的二进制机器码,所以JDK有很多版本,对windows的版本,对Linux的版本等等,最终生成的机器码是不一样的,正因为一份字节码文件可以通过JVM适配不同的平台,所以Java能够实现”一次编写,到处运行”的功能</p>
-<h2 id="JVM组成"><a href="#JVM组成" class="headerlink" title="JVM组成"></a>JVM组成</h2><p><img src="/2019/07/30/33d27aa6/1565790010904.png" alt="1565790010904"></p>
+<h2 id="JVM组成"><a href="#JVM组成" class="headerlink" title="JVM组成"></a>JVM组成</h2><p><img src="/2019/07/30/深入理解JVM/1565790010904.png" alt="1565790010904"></p>
 <h3 id="JVM包括三部分"><a href="#JVM包括三部分" class="headerlink" title="JVM包括三部分:"></a>JVM包括三部分:</h3><ol>
 <li>类安装子系统</li>
 <li>执行引擎</li>
 <li>运行时数据区(内存模型)</li>
 </ol>
 <h3 id="栈-线程"><a href="#栈-线程" class="headerlink" title="栈(线程)"></a>栈(线程)</h3><p>在main的主线程中,每个函数的局部范围都会开辟一块栈帧内存区,并保证先进后出,最上面的往往是优先级最高,作用范围最小的,里面可能有局部变量表等</p>
-<p><img src="/2019/07/30/33d27aa6/1565790390091.png" alt="1565790390091"></p>
+<p><img src="/2019/07/30/深入理解JVM/1565790390091.png" alt="1565790390091"></p>
 
         </div>
         

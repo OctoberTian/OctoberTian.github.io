@@ -209,12 +209,12 @@
 <p><strong>防火墙设置</strong></p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service iptables status</span><br></pre></td></tr></table></figure>
 <p>结果：</p>
-<p><img src="/2019/05/18/93d3366f/1558177489923.png" alt="1558177489923"></p>
+<p><img src="/2019/05/18/CentOS配置MySQL填坑-Linux防火墙和外部访问/1558177489923.png" alt="1558177489923"></p>
 <p>显然，提示我们iptables.service不存在，CentOS7默认的防火墙不是iptables，而是firewalle</p>
 <p>######停止firewalld服务</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br></pre></td></tr></table></figure>
 <p>结果：</p>
-<p><img src="/2019/05/18/93d3366f/1558177562417.png" alt="1558177562417"></p>
+<p><img src="/2019/05/18/CentOS配置MySQL填坑-Linux防火墙和外部访问/1558177562417.png" alt="1558177562417"></p>
 <p>没有提示错误就是对咯，我们继续</p>
 <p>######禁用firewalld服务</p>
  <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl mask firewalld</span><br></pre></td></tr></table></figure>
@@ -226,24 +226,24 @@
 <li>该服务无法进行systemctl enable/disable操作</li>
 </ol>
 <p>结果：</p>
-<p><img src="/2019/05/18/93d3366f/1558177723126.png" alt="1558177723126"></p>
+<p><img src="/2019/05/18/CentOS配置MySQL填坑-Linux防火墙和外部访问/1558177723126.png" alt="1558177723126"></p>
 <p>如果我们要开启的话，开启命令为：</p>
  <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl unmask firewalld</span><br></pre></td></tr></table></figure>
 <p>执行结果为：</p>
-<p><img src="/2019/05/18/93d3366f/1558177822294.png" alt="1558177822294"></p>
+<p><img src="/2019/05/18/CentOS配置MySQL填坑-Linux防火墙和外部访问/1558177822294.png" alt="1558177822294"></p>
 <p>随后我们就需要<strong>安装iptables-services</strong></p>
  <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install iptables-services</span><br></pre></td></tr></table></figure>
 <p>结果为：</p>
-<p><img src="/2019/05/18/93d3366f/1558177911413.png" alt="1558177911413"></p>
+<p><img src="/2019/05/18/CentOS配置MySQL填坑-Linux防火墙和外部访问/1558177911413.png" alt="1558177911413"></p>
 <p>期间需要输入一个y即可，表示yes！ </p>
 <p><strong>设置开机启动</strong></p>
  <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="hljs-built_in">enable</span> iptables</span><br></pre></td></tr></table></figure>
 <p>结果为：</p>
-<p><img src="/2019/05/18/93d3366f/1558177961960.png" alt="1558177961960"> </p>
+<p><img src="/2019/05/18/CentOS配置MySQL填坑-Linux防火墙和外部访问/1558177961960.png" alt="1558177961960"> </p>
 <p>然后查看状态</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service iptables status</span><br></pre></td></tr></table></figure>
 <p>iptables：未运行防火墙。</p>
-<p><img src="/2019/05/18/93d3366f/1558178033672.png" alt="1558178033672"></p>
+<p><img src="/2019/05/18/CentOS配置MySQL填坑-Linux防火墙和外部访问/1558178033672.png" alt="1558178033672"></p>
 <p>我们可以看到，并未启动。<strong>开启防火墙</strong></p>
  <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service iptables start</span><br></pre></td></tr></table></figure>
 <p>我们现在需要，关闭防火墙，来开放端口：</p>
@@ -255,13 +255,13 @@
 <h4 id="设置MySQL的Root权限"><a href="#设置MySQL的Root权限" class="headerlink" title="设置MySQL的Root权限"></a>设置MySQL的Root权限</h4><p>在本地进入MySQL：</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h localhost -u root -p</span><br></pre></td></tr></table></figure>
 <p>随后输入密码进入，结果：</p>
-<p><img src="/2019/05/18/93d3366f/1558178341078.png" alt="1558178341078"></p>
+<p><img src="/2019/05/18/CentOS配置MySQL填坑-Linux防火墙和外部访问/1558178341078.png" alt="1558178341078"></p>
 <p>输入赋予权限的代码即可</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT ALL PRIVILEGES ON *.* TO <span class="hljs-string">'root'</span>@<span class="hljs-string">'%'</span> IDENTIFIED BY <span class="hljs-string">'password'</span> WITH GRANT OPTION;</span><br></pre></td></tr></table></figure>
 <p>这句话意思很简单，赋予root所有权限到*.*也就是所有访问，而不是localhost，通过一个password验证就可以登录。</p>
 <p>显示<code>Query OK, 0 rows affected, 1 warning (0.01 sec)</code>大功告成</p>
 <p>这样我们的MySQL就算完全部署好了。我们在自己的电脑上连接成功：</p>
-<p><img src="/2019/05/18/93d3366f/1558178482576.png" alt="1558178482576"></p>
+<p><img src="/2019/05/18/CentOS配置MySQL填坑-Linux防火墙和外部访问/1558178482576.png" alt="1558178482576"></p>
 <h2 id="转载一篇优秀的博文"><a href="#转载一篇优秀的博文" class="headerlink" title="转载一篇优秀的博文"></a>转载一篇优秀的博文</h2><p><code>转自：http://blog.csdn.net/huxu981598436/article/details/54864260</code></p>
 <h4 id="开启端口命令"><a href="#开启端口命令" class="headerlink" title="开启端口命令"></a>开启端口命令</h4><p>输入firewall-cmd –query-port=6379/tcp，如果返回结果为no，那么证明6379端口确实没有开启。</p>
 <p>输入firewall-cmd –add-port=6379/tcp，将6379端口开启，返回success。</p>
@@ -321,7 +321,7 @@
 <h5 id="删除规则"><a href="#删除规则" class="headerlink" title="删除规则"></a>删除规则</h5><p>iptables -D INPUT 2</p>
 <p>删除INPUT链编号为2的规则</p>
 <h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>服务器使用两年了，MySQL的部署也搞过很多次，其实建议大家使用Docker进行部署，是最好的，之前的博客使用wordpress也记录过，可惜由于数据库没有备份好，丢失了数据，现在再一次进行记录。</p>
-<p><img src="/2019/05/18/93d3366f/1558178672859.png" alt="1558178672859"></p>
+<p><img src="/2019/05/18/CentOS配置MySQL填坑-Linux防火墙和外部访问/1558178672859.png" alt="1558178672859"></p>
 
         </div>
         

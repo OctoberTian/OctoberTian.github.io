@@ -210,7 +210,7 @@
 <li>感谢<a href="https://my.oschina.net/xinxingegeya" target="_blank" rel="noopener">秋风醉了</a>文章对我的指导</li>
 </ol>
 </blockquote>
-<h2 id="1-MySQL逻辑架构"><a href="#1-MySQL逻辑架构" class="headerlink" title="1.MySQL逻辑架构"></a>1.MySQL逻辑架构</h2><p><img src="/2019/08/06/22a6a8ad/1565093579490.png" alt="1565093579490"></p>
+<h2 id="1-MySQL逻辑架构"><a href="#1-MySQL逻辑架构" class="headerlink" title="1.MySQL逻辑架构"></a>1.MySQL逻辑架构</h2><p><img src="/2019/08/06/MySQL底层原理简析/1565093579490.png" alt="1565093579490"></p>
 <blockquote>
 <p>MySQL的逻辑结构分为三层，分别为：<strong>客户端层</strong>、<strong>核心服务层</strong>、<strong>存储引擎层</strong>：</p>
 </blockquote>
@@ -220,7 +220,7 @@
 <h2 id="2-MySQL逻辑流程"><a href="#2-MySQL逻辑流程" class="headerlink" title="2.MySQL逻辑流程"></a>2.MySQL逻辑流程</h2><blockquote>
 <p>一条SQL语句的执行流程是什么样的呢?</p>
 </blockquote>
-<p><img src="/2019/08/06/22a6a8ad/1565093772612.png" alt="1565093772612"></p>
+<p><img src="/2019/08/06/MySQL底层原理简析/1565093772612.png" alt="1565093772612"></p>
 <h3 id="2-1-客户端和服务端的通信协议"><a href="#2-1-客户端和服务端的通信协议" class="headerlink" title="2.1 客户端和服务端的通信协议"></a>2.1 客户端和服务端的通信协议</h3><p>​       <code>mysql</code>客户端和服务器的通信协议是<strong>半双工的</strong>，这意味着在任何时刻，要么由服务器向客户端发送数据，要么由客户端向服务器发送数据，这两个动作不能同时发生。<strong>所以我们无法也无须将一个消息切成小块独立来发送。</strong></p>
 <p>​       这种协议让<code>mysql</code>通信简单快速，但也从很多地方限制了<code>mysql</code>。一个明显的限制是没法进行流量控制。一旦一端开始发送消息，另一端要接收完整个消息才能响应它。</p>
 <p>​       客户端用一个单独的数据包将查询传给服务器。<strong>一旦客户端发送了请求，他能做的事情就只是等待结果了</strong>。</p>
@@ -254,8 +254,8 @@
 </ul>
 <h3 id="2-4-查询优化"><a href="#2-4-查询优化" class="headerlink" title="2.4 查询优化"></a>2.4 查询优化</h3><p>经过前面的步骤生成的语法树被认为是<strong>合法</strong>的了，并且由<strong>优化器</strong>将其转化成<strong>查询计划</strong>。多数情况下，一条查询可以有<strong>很多种执行方式</strong>，最后都返回相应的结果。优化器的作用就是<strong>找到这其中最好的执行计划</strong>。</p>
 <p><code>MySQL</code>使用基于<strong>成本</strong>的优化器，它尝试预测一个查询使用某种执行计划时的<strong>成本</strong>，并选择其中成本最小的一个。在<code>MySQL</code>可以通过查询当前会话的<code>last_query_cost</code>的值来得到其计算当前查询的成本。</p>
-<p><img src="/2019/08/06/22a6a8ad/1565095829774.png" alt="1565095829774"></p>
-<p><img src="/2019/08/06/22a6a8ad/1565095808207.png" alt="1565095808207"></p>
+<p><img src="/2019/08/06/MySQL底层原理简析/1565095829774.png" alt="1565095829774"></p>
+<p><img src="/2019/08/06/MySQL底层原理简析/1565095808207.png" alt="1565095808207"></p>
 <h3 id="2-5-查询执行引擎"><a href="#2-5-查询执行引擎" class="headerlink" title="2.5 查询执行引擎"></a>2.5 查询执行引擎</h3><p>在完成解析和优化阶段以后，<code>MySQL</code>会生成对应的执行计划，查询执行引擎根据执行计划给出的指令逐步执行得出结果。整个执行过程的大部分操作均是通过<strong>调用存储引擎实现的接口</strong>来完成，这些接口被称为<code>handler API</code>。查询过程中的每一张表由一个<code>handler</code>实例表示。实际上，<code>MySQL</code>在查询优化阶段就为每一张表创建了一个<code>handler</code>实例，优化器可以根据这些实例的接口来获取表的相关信息，包括表的所有列名、索引统计信息等。<strong>存储引擎接口</strong>提供了非常丰富的功能，但其底层仅有几十个接口，这些接口像搭积木一样完成了一次查询的大部分操作。</p>
 <h3 id="2-6结果数据返回"><a href="#2-6结果数据返回" class="headerlink" title="2.6结果数据返回"></a>2.6结果数据返回</h3><p>查询执行的最后一个阶段就是将结果返回给客户端。即使查询不到数据，<code>MySQL</code>仍然会返回这个查询的相关信息，比如该查询影响到的行数以及执行时间等。</p>
 <p>如果查询缓存被打开且这个查询可以被缓存，<code>MySQL</code>也会将结果存放到缓存中。</p>
@@ -268,7 +268,7 @@
 <li>将结果返回给客户端，同时缓存查询结果</li>
 </ul>
 <h3 id="2-8-事务支持"><a href="#2-8-事务支持" class="headerlink" title="2.8 事务支持"></a>2.8 事务支持</h3><p><code>InnoDB</code>的本地事务由资源管理器进行管理:</p>
-<p><img src="/2019/08/06/22a6a8ad/1565355928412.png" alt="1565355928412"></p>
+<p><img src="/2019/08/06/MySQL底层原理简析/1565355928412.png" alt="1565355928412"></p>
 <ul>
 <li>事务的 <code>ACID</code> 是通过 <code>InnoDB</code> 日志和锁来保证；</li>
 <li>事务的隔离性是通过数据库锁的机制实现的；</li>

@@ -206,7 +206,7 @@
 <a id="more"></a>
 <h1 id="集合框架"><a href="#集合框架" class="headerlink" title="集合框架"></a>集合框架</h1><p>Java集合框架 (Java Collections Framework, JCF) 也称容器，这里可以类比 C++ 中的 STL</p>
 <p>Java集合框架提供了数据持有对象的方式，提供了对数据集合的操作。Java 集合框架位于 <code>java.util</code> 包下，主要有三个大类：<strong>Collection(接口)</strong>、<strong>Map(接口)</strong>、<strong>集合工具类</strong>。</p>
-<p><img src="/2019/08/13/d86340ab/1565702493005.png" alt="1565702493005"></p>
+<p><img src="/2019/08/13/Java中的集合和线程安全/1565702493005.png" alt="1565702493005"></p>
 <h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><ul>
 <li><code>ArrayList</code>：<strong>线程不同步</strong>。默认初始容量为 10，当数组大小不足时容量扩大为 1.5 倍。为追求效率，ArrayList 没有实现同步（synchronized），如果需要多个线程并发访问，用户可以手动同步，也可使用 Vector 替代。 </li>
 <li><code>LinkedList</code>：<strong>线程不同步</strong>。<strong>双向链接实现</strong>。LinkedList 同时实现了 List 接口和 Deque 接口，也就是说它既可以看作一个顺序容器，又可以看作一个队列（Queue），同时又可以看作一个栈（Stack）。这样看来，LinkedList 简直就是个全能冠军。当你需要使用栈或者队列时，可以考虑使用 LinkedList，一方面是因为 Java 官方已经声明不建议使用 Stack 类，更遗憾的是，Java 里根本没有一个叫做 Queue 的类（它是个接口名字）。关于栈或队列，现在的首选是 ArrayDeque，它有着比 LinkedList（当作栈或队列使用时）有着更好的性能。 </li>

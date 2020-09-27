@@ -228,44 +228,44 @@
 <p>如果没有配置开放登录的接口,就会被过滤器filter拦截,拦截过后就无法进入</p>
 <h2 id="登录验证流程"><a href="#登录验证流程" class="headerlink" title="登录验证流程"></a>登录验证流程</h2><p>现在我们来看一下详细的登录验证流程:在Controller的login中打断点,逐步debug进行研究</p>
 <p>使用postman进行Post请求的发送:</p>
-<p><img src="/2019/06/15/44af69ba/1560911468653.png" alt="1560911468653"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560911468653.png" alt="1560911468653"></p>
 <p>shiroConfig的过滤器中设置登录接口的位置:</p>
 <figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//登录</span></span><br><span class="line">shiroFilterFactoryBean.setLoginUrl(<span class="hljs-string">"/*/login"</span>);</span><br></pre></td></tr></table></figure>
 <p>而login的controller代码如下:</p>
-<p><img src="/2019/06/15/44af69ba/1560911553202.png" alt="1560911553202"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560911553202.png" alt="1560911553202"></p>
 <p>通过path拿到用户的角色,后面的LoginInfoRequestBean是为了获取用户的用户名密码,并验证他们的基本数据(长度够不够,能否为空等)</p>
 <h3 id="Debug-Controller"><a href="#Debug-Controller" class="headerlink" title="Debug-Controller"></a>Debug-Controller</h3><p>进入Controller,拿到请求的数据:</p>
-<p><img src="/2019/06/15/44af69ba/1560911654407.png" alt="1560911654407"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560911654407.png" alt="1560911654407"></p>
 <h4 id="UsernamePasswordToken"><a href="#UsernamePasswordToken" class="headerlink" title="UsernamePasswordToken"></a>UsernamePasswordToken</h4><p>UsernamePassword类是我们之前说过的Shiro用于验证用户登录的基本类</p>
-<p><img src="/2019/06/15/44af69ba/1560911754866.png" alt="1560911754866"></p>
-<p><img src="/2019/06/15/44af69ba/1560911814261.png" alt="1560911814261"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560911754866.png" alt="1560911754866"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560911814261.png" alt="1560911814261"></p>
 <p>设置了用户的基本数据,用户名,密码,是否记住我,还有host(角色),而password被转换成了char的数组,为了之后方便进行处理,char是基本数据类型,而String不是,这有很大的区别</p>
 <h4 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h4><p>Subject是用户/客户端对象,我们通过构建一个Subject来记录</p>
-<p><img src="/2019/06/15/44af69ba/1560911916121.png" alt="1560911916121"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560911916121.png" alt="1560911916121"></p>
 <p>拿到了当前的Subject:</p>
-<p><img src="/2019/06/15/44af69ba/1560911995405.png" alt="1560911995405"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560911995405.png" alt="1560911995405"></p>
 <p>可以进行登录操作:<code>currentUser.login(token);</code></p>
-<p><img src="/2019/06/15/44af69ba/1560912281371.png" alt="1560912281371"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560912281371.png" alt="1560912281371"></p>
 <p>login的源码中,使用securityManager的login功能,我们在shiroConfig中自定义注入了一个manager,就会使用我们自己的规则</p>
 <p>此处掠过几步,我通过对login的继续深入,发现进入了:</p>
-<p><img src="/2019/06/15/44af69ba/1560912428877.png" alt="1560912428877"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560912428877.png" alt="1560912428877"></p>
 <p>而这个正式我们在ShiroRealm中定义的doAuthenticate()的方法</p>
 <p>成功从大量的源代码跳入了我们自己写的代码中:</p>
-<p><img src="/2019/06/15/44af69ba/1560912504730.png" alt="1560912504730"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560912504730.png" alt="1560912504730"></p>
 <p>我们在Controller中定义的UsernamePassword就进入了这里,我们储存了用户登录的凭证,一路随着源码往回走,返回可用的用户info</p>
-<p><img src="/2019/06/15/44af69ba/1560912691323.png" alt="1560912691323"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560912691323.png" alt="1560912691323"></p>
 <p>info是不为空的,也就是验证成功了</p>
 <p>shiro就会告诉我们<code>notifySuccess(token, info);</code></p>
-<p><img src="/2019/06/15/44af69ba/1560912749886.png" alt="1560912749886"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560912749886.png" alt="1560912749886"></p>
 <p>创建一个Subject的loggedIn并且成功onSuccessfulLogin,这样就跳回了最初的:</p>
-<p><img src="/2019/06/15/44af69ba/1560912813029.png" alt="1560912813029"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560912813029.png" alt="1560912813029"></p>
 <p>直到最后,Controller执行到了最后一行:</p>
-<p><img src="/2019/06/15/44af69ba/1560912868957.png" alt="1560912868957"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560912868957.png" alt="1560912868957"></p>
 <p>就返回成功success();登录完成</p>
 <p>我们可以继续debug看到,其实Springboot最核心的也是Servlet的机制</p>
-<p><img src="/2019/06/15/44af69ba/1560912974037.png" alt="1560912974037"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560912974037.png" alt="1560912974037"></p>
 <p>最终PostMan收到了:</p>
-<p><img src="/2019/06/15/44af69ba/1560913061563.png" alt="1560913061563"></p>
+<p><img src="/2019/06/15/FamilyManage-SpringbootShiro中遇到的问题与思考/1560913061563.png" alt="1560913061563"></p>
 
         </div>
         

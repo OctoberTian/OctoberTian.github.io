@@ -212,7 +212,7 @@
 </li>
 </ul>
 <h3 id="1-3-后端业务逻辑"><a href="#1-3-后端业务逻辑" class="headerlink" title="1.3 后端业务逻辑"></a>1.3 后端业务逻辑</h3><h4 id="1-3-1-DTO-DO-Query修改"><a href="#1-3-1-DTO-DO-Query修改" class="headerlink" title="1.3.1 DTO/DO/Query修改"></a>1.3.1 DTO/DO/Query修改</h4><p>对<code>bgb_tinvestfundinfo</code>表新增了<code>agency_code</code>字段</p>
-<p><img src="/2019/07/31/49da90e9/1564545051311.png" alt="1564545051311"></p>
+<p><img src="/2019/07/31/2019-7-31日报/1564545051311.png" alt="1564545051311"></p>
 <p>在DTO/DO/Query中添加<code>agency_code</code></p>
 <figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/** </span></span><br><span class="line"><span class="hljs-comment">* 销售渠道代码 </span></span><br><span class="line"><span class="hljs-comment">*/</span></span><br><span class="line"><span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"agency_code"</span>, length = <span class="hljs-number">16</span>, nullable = <span class="hljs-keyword">false</span>)</span><br><span class="line"><span class="hljs-keyword">private</span> String agencyCode;</span><br></pre></td></tr></table></figure>
 <h4 id="1-3-2-具体实现"><a href="#1-3-2-具体实现" class="headerlink" title="1.3.2 具体实现"></a>1.3.2 具体实现</h4><ul>
@@ -233,7 +233,7 @@
 </ul>
 <h3 id="2-2-后台接口实现"><a href="#2-2-后台接口实现" class="headerlink" title="2.2 后台接口实现"></a>2.2 后台接口实现</h3><h4 id="2-2-1-代码生成器"><a href="#2-2-1-代码生成器" class="headerlink" title="2.2.1 代码生成器"></a>2.2.1 代码生成器</h4><ul>
 <li><p>配置数据源</p>
-<p><img src="/2019/07/31/49da90e9/1564557931727.png" alt="1564557931727"></p>
+<p><img src="/2019/07/31/2019-7-31日报/1564557931727.png" alt="1564557931727"></p>
 </li>
 <li><p>配置数据表</p>
 <figure class="highlight hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;table tableName=<span class="hljs-string">"otc_tagentaccountapp"</span> domainObjectName=<span class="hljs-string">"AgentAccountApp"</span>&gt;</span><br><span class="line">       &lt;property name=<span class="hljs-string">"subPackage"</span> value=<span class="hljs-string">"agentaccountapp"</span>/&gt;</span><br><span class="line">&lt;/table&gt;</span><br></pre></td></tr></table></figure>

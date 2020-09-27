@@ -206,7 +206,7 @@
 <a id="more"></a>
 <h2 id="服务器环境"><a href="#服务器环境" class="headerlink" title="服务器环境"></a>服务器环境</h2><p>我使用的是CentOs 7.X版本 64位，6.X版本已经放弃维护，不建议大家使用。</p>
 <p>因为CentOs已经内置了<code>OpenSSH</code>，如果你的系统没有，需要自行下载，查看ssh的版本的方式是<code>ssh -V</code>，请注意，在linux中大小写是敏感的，如果你的V小写，是不能正确得出结果的。下面是我的输出结果：</p>
-<p><img src="/2019/05/18/af35033/1558231822640.png" alt="1558231822640"></p>
+<p><img src="/2019/05/18/配置CentOs的git以及部署SSH公钥/1558231822640.png" alt="1558231822640"></p>
 <p>课件我已经有了OpenSSL环境。</p>
 <h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><p>首先我要说的是Git，Github，GitLab的区别，并不是所有人都知道这个区别的。</p>
 <ul>
@@ -226,11 +226,11 @@
 <p>如此简单，验证是否安装成功，我们只需要输入</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
 <p>这是我实际操作的截图</p>
-<p><img src="/2019/05/18/af35033/1558232564227.png" alt="1558232564227"></p>
+<p><img src="/2019/05/18/配置CentOs的git以及部署SSH公钥/1558232564227.png" alt="1558232564227"></p>
 <p>既然是版本控制，那么就涉及谁去进行这个控制，我们就需要设置专门管理git的账号。</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 添加git账户</span></span><br><span class="line">adduser git</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># 修改git的密码</span></span><br><span class="line">passwd git</span><br><span class="line"><span class="hljs-comment"># 需要根据提示输入两次</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># 查看是否安装成功</span></span><br><span class="line"><span class="hljs-built_in">cd</span> /home</span><br><span class="line">ls -al</span><br></pre></td></tr></table></figure>
 <p>我的效果图：</p>
-<p><img src="/2019/05/18/af35033/1558232732074.png" alt="1558232732074"></p>
+<p><img src="/2019/05/18/配置CentOs的git以及部署SSH公钥/1558232732074.png" alt="1558232732074"></p>
 <h2 id="git的权限管理"><a href="#git的权限管理" class="headerlink" title="git的权限管理"></a>git的权限管理</h2><p>这就是我们重点要讲的，因为我是个人开发，我在一个小的外包公司做开发的时候，由于团队不大，使用的也都是SSH公钥进行管理，但是如果大一点的团队，就建议使用<code>gitolite</code>或者<code>gitosis</code>进行管理，一个是Perl开发，一个是Python开发，这里就不赘述了，因为我们用到的是SSH公钥部署。</p>
 <p>我们进行一下操作：</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 进入到git账户的主目录</span></span><br><span class="line"><span class="hljs-built_in">cd</span> /home/git</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># 创建.ssh目录，当然如果你已经有了，当我没说</span></span><br><span class="line">mkdir .ssh</span><br><span class="line"><span class="hljs-built_in">cd</span> .ssh</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># 创建权限keys文件</span></span><br><span class="line">touch authorized_keys</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># 5. 设置权限，此步骤不能省略，而且权限值也不要改，不然会报错。</span></span><br><span class="line">$ chmod 700 /home/git/.ssh/</span><br><span class="line">$ chmod 600 /home/git/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>

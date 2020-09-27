@@ -243,7 +243,7 @@
 <li><p>svn源代码地址：<a href="https://192.168.57.155/HZYY/FIS1.0/trunk/Sources/0_FIS/" target="_blank" rel="noopener">https://192.168.57.155/HZYY/FIS1.0/trunk/Sources/0_FIS/</a></p>
 </li>
 </ul>
-<p><img src="/2019/07/30/efad9b5d/1564450148137.png" alt="1564450148137"></p>
+<p><img src="/2019/07/30/2019-7-30日报/1564450148137.png" alt="1564450148137"></p>
 <h3 id="2-【计划任务】前后端对接问题-管理控制台协同工作原理"><a href="#2-【计划任务】前后端对接问题-管理控制台协同工作原理" class="headerlink" title="2.【计划任务】前后端对接问题+管理控制台协同工作原理"></a>2.【计划任务】前后端对接问题+管理控制台协同工作原理</h3><p><strong>问题驱动学习</strong></p>
 <h4 id="2-1左边栏菜单如何生成"><a href="#2-1左边栏菜单如何生成" class="headerlink" title="2.1左边栏菜单如何生成"></a>2.1左边栏菜单如何生成</h4><h5 id="2-1-1后台定义"><a href="#2-1-1后台定义" class="headerlink" title="2.1.1后台定义"></a>2.1.1后台定义</h5><p>业务基础（BGB）中菜单首先在<code>/initData/BGB_TMENU.json</code>中定义，数据格式为：</p>
 <figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="hljs-attr">"company_id"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">    <span class="hljs-attr">"menu_code"</span>:<span class="hljs-string">"050409"</span>,</span><br><span class="line">    <span class="hljs-attr">"menu_name"</span>:<span class="hljs-string">"产品单元组合"</span>,</span><br><span class="line">    <span class="hljs-attr">"menu_parent_code"</span>:<span class="hljs-string">"0504"</span>,</span><br><span class="line">    <span class="hljs-attr">"subsys_no"</span>:<span class="hljs-number">3340</span>,</span><br><span class="line">    <span class="hljs-attr">"menu_name_eng"</span>:<span class="hljs-string">"FundunitCombineView"</span>,</span><br><span class="line">    <span class="hljs-attr">"url"</span>:<span class="hljs-string">"/baseinfo/general/unitgrid/index"</span>,</span><br><span class="line">    <span class="hljs-attr">"window_show"</span>:<span class="hljs-string">"fundunitCombineView"</span>,</span><br><span class="line">    <span class="hljs-attr">"create_type"</span>:<span class="hljs-string">""</span>,</span><br><span class="line">    <span class="hljs-attr">"sort_no"</span>:<span class="hljs-number">9</span>,</span><br><span class="line">    <span class="hljs-attr">"field_status"</span>:<span class="hljs-string">"1"</span>,</span><br><span class="line">    <span class="hljs-attr">"icon"</span>:<span class="hljs-string">""</span>,</span><br><span class="line">    <span class="hljs-attr">"operator_mode"</span>:<span class="hljs-number">0</span>,</span><br><span class="line">    <span class="hljs-attr">"group_code"</span>:<span class="hljs-string">""</span>,</span><br><span class="line">    <span class="hljs-attr">"custom_industry_code"</span>:<span class="hljs-string">""</span>,</span><br><span class="line">    <span class="hljs-attr">"authorize_code"</span>:<span class="hljs-string">""</span>,</span><br><span class="line">    <span class="hljs-attr">"custom_id"</span>:<span class="hljs-string">""</span>,</span><br><span class="line">    <span class="hljs-attr">"bizframeurl"</span>:<span class="hljs-string">"/bgb/#/baseinfo/general/unitgrid/indexM050409"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -253,7 +253,7 @@
 <p><code>src\store\modules\permission.js</code>下的<code>permission.js</code>文件用于动态生成路由表,<strong>根据后台传回的可用menus或者业务标识,递归过滤异步路由表，返回符合用户角色权限的路由表</strong></p>
 </blockquote>
 <p>根据输出,可以看到动态生成的路由的一部分:</p>
-<p><img src="/2019/07/30/efad9b5d/1564018384657.png" alt="1564018384657"></p>
+<p><img src="/2019/07/30/2019-7-30日报/1564018384657.png" alt="1564018384657"></p>
 <p><strong>详细内容</strong></p>
 <ul>
 <li><p>获取url的api为:</p>
@@ -272,7 +272,7 @@
 <p>这就一个动态route了,我们只需要把这个route放到router和两个Map中即可</p>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">router.push(route);</span><br><span class="line">asyncRouterMap.set(tempId, route);</span><br><span class="line">asyncMenuPathMap.set(route.path, tempId);</span><br></pre></td></tr></table></figure>
 <p>可以看到,最后得到的一个完整的是route:</p>
-<p><img src="/2019/07/30/efad9b5d/1564018804798.png" alt="1564018804798"></p>
+<p><img src="/2019/07/30/2019-7-30日报/1564018804798.png" alt="1564018804798"></p>
 <p>这个函数的功能就是返回一个<code>return router;</code></p>
 </li>
 <li><p>persimmon.js的功能不仅仅是做这样一个router,这只是一个工具,,我们真正需要返回的是一个permission的对象,他应该拥有哪些属性了?</p>
@@ -296,7 +296,7 @@
 <p>关键在于<code>am4-bgb-service-manage-api</code>中<code>Service</code>使用的自定义注解：</p>
 <p><code>@CloudFunction(functionId= Functions.INSERT_FUNDACCOUNT, desc = &quot;新增基金账户&quot;)</code></p>
 <p>和<code>@CloudService</code>，他们都来自<code>com.hundsun.jrescloud.rpc.annotation</code>这个包下，他们的作用是协同管理控制台，注册<code>Service</code>，从而省去了<code>Controller</code>模块，由管理控制台统一管理<code>Api</code></p>
-<p><img src="/2019/07/30/efad9b5d/1564453082396.png" alt="1564453082396"></p>
+<p><img src="/2019/07/30/2019-7-30日报/1564453082396.png" alt="1564453082396"></p>
 <p>通过可视化的上下线和流控，能够更好地进行<code>Api</code>的管理，同时当<code>Api</code>较多时也方便查找和控制。</p>
 <p>而前端则通过<code>Api</code>的名字进行调用：</p>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">async</span> insertFundAccountInfo(FundAccount) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.post(<span class="hljs-string">'insertFundAccount'</span>, FundAccount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
