@@ -118,7 +118,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/mylogo.png" alt="十月博客" height="28">
+                <img src="/images/mylogo.png" alt height="28">
             
             </a>
         </div>
@@ -169,17 +169,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-08T03:31:35.000Z">2019-09-08</time>
+                <time class="level-item has-text-grey" datetime="2019-08-22T07:05:39.000Z">2019-08-22</time>
                 
                 <div class="level-item">
-                    <a class="has-link-grey-link" href="/categories/Redis/">Redis</a>
+                    <a class="has-link-grey-link" href="/categories/Java/">Java</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    23 minutes 读完 (大约 3427 个字)
+                    4 minutes 读完 (大约 630 个字)
                 </span>
                 
                 
@@ -189,19 +189,82 @@
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
             
-            <a class="has-link-black-ter" href="/2019/09/08/9d12dc12.html">Redis-从接触到上瘾</a>
+            <a class="has-link-black-ter" href="/2019/08/22/ba3aeaf3.html">Java8中ConcurrentHashMap变动</a>
             
         </h1>
         <div class="content">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><img src="/2019/09/08/9d12dc12/1567925490756.png" alt="1567925490756"></p>
-<p>接触Redis也有一年多了，很多项目中也很方便的使用到，可以说Redis确实十分的方便，不需要自定义SQL语句，就可以完成自动化的键值对储存与高效的使用，可以说是开箱即用，使用过后我们还需要对Redis有一个深入的理解，今天就来做一个总结。</p>
+            <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><blockquote>
+<p>转载自 <a href="https://www.wanaright.com/2018/09/30/java10-concurrenthashmap-no-segment-lock/" target="_blank" rel="noopener">🔗链接</a></p>
+</blockquote>
+<p>我们知道， 在 Java 5 之后，JDK 引入了 java.util.concurrent 并发包  ，其中最常用的就是 ConcurrentHashMap 了， 它的原理是引用了内部的 Segment ( ReentrantLock )   分段锁，保证在操作不同段 map 的时候， 可以并发执行， 操作同段 map 的时候，进行锁的竞争和等待。从而达到线程安全， 且效率大于  synchronized。</p>
+<p>但是在 Java 8 之后， JDK 却弃用了这个策略，重新使用了 synchronized。</p>
+<h1 id="弃用原因"><a href="#弃用原因" class="headerlink" title="弃用原因"></a>弃用原因</h1><p>通过  JDK 的源码和官方文档看来， 他们认为的弃用分段锁的原因由以下几点：</p>
+<ol>
+<li>加入多个分段锁浪费内存空间。</li>
+<li>生产环境中， map 在放入时竞争同一个锁的概率非常小，分段锁反而会造成更新等操作的长时间等待。</li>
+<li>为了提高 GC 的效率</li>
+</ol>
+<h1 id="新的同步方案"><a href="#新的同步方案" class="headerlink" title="新的同步方案"></a>新的同步方案</h1><p>既然弃用了分段锁， 那么一定由新的线程安全方案， 我们来看看源码是怎么解决线程安全的呢？（源码保留了segment 代码， 但并没有使用）</p>
+<p>put</p>
+<p>首先通过 hash 找到对应链表过后， 查看是否是第一个object， 如果是， 直接用cas原则插入，无需加锁。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Node&lt;K,V&gt; f; <span class="hljs-keyword">int</span> n, i, fh; K fk; V fv;</span><br><span class="line"><span class="hljs-keyword">if</span> (tab == <span class="hljs-keyword">null</span> || (n = tab.length) == <span class="hljs-number">0</span>)</span><br><span class="line">    tab = initTable(); <span class="hljs-comment">// 这里在整个map第一次操作时，初始化hash桶， 也就是一个table</span></span><br><span class="line"><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ((f = tabAt(tab, i = (n - <span class="hljs-number">1</span>) &amp; hash)) == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line"><span class="hljs-comment">//如果是第一个object， 则直接cas放入， 不用锁</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (casTabAt(tab, i, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">new</span> Node&lt;K,V&gt;(hash, key, value)))</span><br><span class="line">        <span class="hljs-keyword">break</span>;                   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后， 如果不是链表第一个object， 则直接用链表第一个object加锁，这里加的锁是synchronized，虽然效率不如<br>ReentrantLock， 但节约了空间，这里会一直用第一个object为锁， 直到重新计算map大小，<br>比如扩容或者操作了第一个object为止。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">synchronized</span> (f) &#123;<span class="hljs-comment">// 这里的f即为第一个链表的object</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (tabAt(tab, i) == f) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (fh &gt;= <span class="hljs-number">0</span>) &#123;</span><br><span class="line">            binCount = <span class="hljs-number">1</span>;</span><br><span class="line">            <span class="hljs-keyword">for</span> (Node&lt;K,V&gt; e = f;; ++binCount) &#123;</span><br><span class="line">                K ek;</span><br><span class="line">                <span class="hljs-keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                    ((ek = e.key) == key ||</span><br><span class="line">                     (ek != <span class="hljs-keyword">null</span> &amp;&amp; key.equals(ek)))) &#123;</span><br><span class="line">                    oldVal = e.val;</span><br><span class="line">                    <span class="hljs-keyword">if</span> (!onlyIfAbsent)</span><br><span class="line">                        e.val = value;</span><br><span class="line">                    <span class="hljs-keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                Node&lt;K,V&gt; pred = e;</span><br><span class="line">                <span class="hljs-keyword">if</span> ((e = e.next) == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">                    pred.next = <span class="hljs-keyword">new</span> Node&lt;K,V&gt;(hash, key, value);</span><br><span class="line">                    <span class="hljs-keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (f <span class="hljs-keyword">instanceof</span> TreeBin) &#123; <span class="hljs-comment">// 太长会用红黑树</span></span><br><span class="line">            Node&lt;K,V&gt; p;</span><br><span class="line">            binCount = <span class="hljs-number">2</span>;</span><br><span class="line">            <span class="hljs-keyword">if</span> ((p = ((TreeBin&lt;K,V&gt;)f).putTreeVal(hash, key,</span><br><span class="line">                                           value)) != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">                oldVal = p.val;</span><br><span class="line">                <span class="hljs-keyword">if</span> (!onlyIfAbsent)</span><br><span class="line">                    p.val = value;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (f <span class="hljs-keyword">instanceof</span> ReservationNode)</span><br><span class="line">            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">"Recursive update"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-08-21T05:06:30.000Z">2019-08-21</time>
+                
+                <div class="level-item">
+                    <a class="has-link-grey-link" href="/categories/AM4/">AM4</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 minutes 读完 (大约 851 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+            
+            <a class="has-link-black-ter" href="/2019/08/21/b2cde863.html">HUI中关于table的问题</a>
+            
+        </h1>
+        <div class="content">
+            The article has been encrypted, please enter your password to view.<br>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <a class="button is-size-7 is-light" href="/2019/09/08/9d12dc12.html#more">阅读更多</a>
+                    <a class="button is-size-7 is-light" href="/2019/08/21/b2cde863.html#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -225,17 +288,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-06T09:22:12.000Z">2019-09-06</time>
+                <time class="level-item has-text-grey" datetime="2019-08-14T13:14:40.000Z">2019-08-14</time>
                 
                 <div class="level-item">
-                    <a class="has-link-grey-link" href="/categories/日记/">日记</a>
+                    <a class="has-link-grey-link" href="/categories/线程/">线程</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    2 minutes 读完 (大约 310 个字)
+                    a minute 读完 (大约 112 个字)
                 </span>
                 
                 
@@ -245,19 +308,18 @@
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
             
-            <a class="has-link-black-ter" href="/2019/09/06/528fb202.html">2019.9.6-7日报</a>
+            <a class="has-link-black-ter" href="/2019/08/14/5e3d2b45.html">JUC简析</a>
             
         </h1>
         <div class="content">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>2019.9.5日报</p>
-<p>[TOC]</p>
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一直以来对<code>JUC</code>都了解不深入,今天做一个了解和分析</p>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <a class="button is-size-7 is-light" href="/2019/09/06/528fb202.html#more">阅读更多</a>
+                    <a class="button is-size-7 is-light" href="/2019/08/14/5e3d2b45.html#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -281,17 +343,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-05T12:47:39.000Z">2019-09-05</time>
+                <time class="level-item has-text-grey" datetime="2019-08-13T13:17:03.000Z">2019-08-13</time>
                 
                 <div class="level-item">
-                    <a class="has-link-grey-link" href="/categories/日记/">日记</a>
+                    <a class="has-link-grey-link" href="/categories/Java/">Java</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    2 minutes 读完 (大约 291 个字)
+                    28 minutes 读完 (大约 4187 个字)
                 </span>
                 
                 
@@ -301,19 +363,18 @@
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
             
-            <a class="has-link-black-ter" href="/2019/09/05/9641c564.html">2019.9.5日报</a>
+            <a class="has-link-black-ter" href="/2019/08/13/d86340ab.html">Java中的集合和线程安全</a>
             
         </h1>
         <div class="content">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>2019.9.5日报</p>
-<p>[TOC]</p>
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Java中的集合和线程安全</p>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <a class="button is-size-7 is-light" href="/2019/09/05/9641c564.html#more">阅读更多</a>
+                    <a class="button is-size-7 is-light" href="/2019/08/13/d86340ab.html#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -337,17 +398,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-03T12:17:51.000Z">2019-09-03</time>
+                <time class="level-item has-text-grey" datetime="2019-08-12T13:41:57.000Z">2019-08-12</time>
                 
                 <div class="level-item">
-                    <a class="has-link-grey-link" href="/categories/日记/">日记</a>
+                    <a class="has-link-grey-link" href="/categories/数据库/">数据库</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    a minute 读完 (大约 132 个字)
+                    9 minutes 读完 (大约 1403 个字)
                 </span>
                 
                 
@@ -357,11 +418,11 @@
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
             
-            <a class="has-link-black-ter" href="/2019/09/03/f591f05e.html">2019.9.3日报</a>
+            <a class="has-link-black-ter" href="/2019/08/12/9caa42ca.html">MySQL-InnoDB的结构和特性</a>
             
         </h1>
         <div class="content">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>2019.9.3日报</p>
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>数据库中InnoDB引擎的简析以及他和MyISAM的区别</p>
 <p>[TOC]</p>
         </div>
         
@@ -369,7 +430,7 @@
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <a class="button is-size-7 is-light" href="/2019/09/03/f591f05e.html#more">阅读更多</a>
+                    <a class="button is-size-7 is-light" href="/2019/08/12/9caa42ca.html#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -393,17 +454,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-02T12:25:28.000Z">2019-09-02</time>
+                <time class="level-item has-text-grey" datetime="2019-08-10T13:17:20.000Z">2019-08-10</time>
                 
                 <div class="level-item">
-                    <a class="has-link-grey-link" href="/categories/日记/">日记</a>
+                    <a class="has-link-grey-link" href="/categories/线程/">线程</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    a minute 读完 (大约 120 个字)
+                    15 minutes 读完 (大约 2299 个字)
                 </span>
                 
                 
@@ -413,19 +474,18 @@
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
             
-            <a class="has-link-black-ter" href="/2019/09/02/53e6fbea.html">2019.9.2日报</a>
+            <a class="has-link-black-ter" href="/2019/08/10/2b9621c6.html">Java线程池</a>
             
         </h1>
         <div class="content">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>2019.8.30日报</p>
-<p>[TOC]</p>
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>线程池的常见问题和创建方式</p>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <a class="button is-size-7 is-light" href="/2019/09/02/53e6fbea.html#more">阅读更多</a>
+                    <a class="button is-size-7 is-light" href="/2019/08/10/2b9621c6.html#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -449,17 +509,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-08-31T01:04:17.000Z">2019-08-31</time>
+                <time class="level-item has-text-grey" datetime="2019-08-10T11:46:59.000Z">2019-08-10</time>
                 
                 <div class="level-item">
-                    <a class="has-link-grey-link" href="/categories/日记/">日记</a>
+                    <a class="has-link-grey-link" href="/categories/线程/">线程</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    36 minutes 读完 (大约 5357 个字)
+                    10 minutes 读完 (大约 1442 个字)
                 </span>
                 
                 
@@ -469,19 +529,18 @@
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
             
-            <a class="has-link-black-ter" href="/2019/08/31/b8d1cb64.html">2019.8.31日报</a>
+            <a class="has-link-black-ter" href="/2019/08/10/d9cb6810.html">BIO和NIO简述</a>
             
         </h1>
         <div class="content">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>2019.8.30日报</p>
-<p>[TOC]</p>
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>线程中很基础的关于BIO和NIO的概念，需要我们进行一个简单的了解</p>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <a class="button is-size-7 is-light" href="/2019/08/31/b8d1cb64.html#more">阅读更多</a>
+                    <a class="button is-size-7 is-light" href="/2019/08/10/d9cb6810.html#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -505,17 +564,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-08-30T08:30:53.000Z">2019-08-30</time>
+                <time class="level-item has-text-grey" datetime="2019-08-06T12:09:06.000Z">2019-08-06</time>
                 
                 <div class="level-item">
-                    <a class="has-link-grey-link" href="/categories/日记/">日记</a>
+                    <a class="has-link-grey-link" href="/categories/数据库/">数据库</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    a minute 读完 (大约 142 个字)
+                    an hour 读完 (大约 7922 个字)
                 </span>
                 
                 
@@ -525,19 +584,18 @@
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
             
-            <a class="has-link-black-ter" href="/2019/08/30/1ea6c0d0.html">2019.8.30日报</a>
+            <a class="has-link-black-ter" href="/2019/08/06/22a6a8ad.html">MySQL底层原理简析</a>
             
         </h1>
         <div class="content">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>2019.8.30日报</p>
-<p>[TOC]</p>
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>简单分析了解MySQL底层原理</p>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <a class="button is-size-7 is-light" href="/2019/08/30/1ea6c0d0.html#more">阅读更多</a>
+                    <a class="button is-size-7 is-light" href="/2019/08/06/22a6a8ad.html#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -561,17 +619,13 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-08-29T08:56:43.000Z">2019-08-29</time>
-                
-                <div class="level-item">
-                    <a class="has-link-grey-link" href="/categories/日记/">日记</a>
-                </div>
+                <time class="level-item has-text-grey" datetime="2019-08-05T12:50:18.000Z">2019-08-05</time>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 minutes 读完 (大约 453 个字)
+                    a few seconds 读完 (大约 3 个字)
                 </span>
                 
                 
@@ -581,19 +635,18 @@
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
             
-            <a class="has-link-black-ter" href="/2019/08/29/4794859d.html">2019.8.29日报</a>
+            <a class="has-link-black-ter" href="/2019/08/05/4fef9451.html">将博客搬至CSDN</a>
             
         </h1>
         <div class="content">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>2019.8.29日报</p>
-<p>[TOC]</p>
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <a class="button is-size-7 is-light" href="/2019/08/29/4794859d.html#more">阅读更多</a>
+                    <a class="button is-size-7 is-light" href="/2019/08/05/4fef9451.html#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -617,17 +670,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-08-28T12:36:54.000Z">2019-08-28</time>
+                <time class="level-item has-text-grey" datetime="2019-07-30T08:36:42.000Z">2019-07-30</time>
                 
                 <div class="level-item">
-                    <a class="has-link-grey-link" href="/categories/日记/">日记</a>
+                    <a class="has-link-grey-link" href="/categories/Java/">Java</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    a minute 读完 (大约 197 个字)
+                    2 minutes 读完 (大约 322 个字)
                 </span>
                 
                 
@@ -637,75 +690,18 @@
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
             
-            <a class="has-link-black-ter" href="/2019/08/28/e1e38e29.html">2019.8.28日报</a>
+            <a class="has-link-black-ter" href="/2019/07/30/33d27aa6.html">深入理解JVM</a>
             
         </h1>
         <div class="content">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>2019.8.27日报</p>
-<p>[TOC]</p>
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <a class="button is-size-7 is-light" href="/2019/08/28/e1e38e29.html#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-08-27T01:00:38.000Z">2019-08-27</time>
-                
-                <div class="level-item">
-                    <a class="has-link-grey-link" href="/categories/日记/">日记</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    a minute 读完 (大约 183 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-            
-            <a class="has-link-black-ter" href="/2019/08/27/17abfec0.html">2019.8.27日报</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>2019.8.27日报</p>
-<p>[TOC]</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                    <a class="button is-size-7 is-light" href="/2019/08/27/17abfec0.html#more">阅读更多</a>
+                    <a class="button is-size-7 is-light" href="/2019/07/30/33d27aa6.html#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -747,7 +743,7 @@
             
             <li><span class="pagination-ellipsis has-text-black-ter">&hellip;</span></li>
             
-            <li><a class="pagination-link has-text-black-ter" href="/page/13/">13</a></li>
+            <li><a class="pagination-link has-text-black-ter" href="/page/8/">8</a></li>
             
         </ul>
     </nav>
@@ -1800,7 +1796,7 @@
                 <p class="is-size-7">
                     <a class="footer-logo is-block has-mb-6" href="/">
                         
-                        <img src="/images/mylogo.png" alt="十月博客" height="28">
+                        <img src="/images/mylogo.png" alt height="28">
                         
                     </a>
                     &copy; 2020 OctoberTian&nbsp;
