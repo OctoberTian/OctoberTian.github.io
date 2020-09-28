@@ -26,9 +26,16 @@
 <meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS_thumb1_thumb.png">
 <meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS_thumb3_thumb.png">
 <meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS_thumb2_thumb.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS-GDOP-good-300x213.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS-GDOP-poor-240x300.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS-atmospheric-conditions-300x288.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS-multipath-effect-300x142.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS-Trilateration-300x206.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS-PDOP-300x202.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS-differential-correction-300x184.png">
 <meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/image-20200928154733211.png">
 <meta property="article:published_time" content="2020-09-28T06:30:38.000Z">
-<meta property="article:modified_time" content="2020-09-28T08:18:53.292Z">
+<meta property="article:modified_time" content="2020-09-28T09:41:01.121Z">
 <meta property="article:author" content="October">
 <meta property="article:tag" content="location">
 <meta name="twitter:card" content="summary">
@@ -246,7 +253,7 @@ var _hmt = _hmt || [];
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">4.8k字</span>
+      <span class="post-count">5.7k字</span>
     </span>
   </span>
 
@@ -255,7 +262,7 @@ var _hmt = _hmt || [];
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">16分</span>
+      <span class="post-count">20分</span>
     </span>
   </span>
 </div>
@@ -362,6 +369,34 @@ var _hmt = _hmt || [];
 <p><strong>组成：</strong>主要为GPS接收器</p>
 <p><strong>作用：</strong>接收、跟踪、变换和测量GPS信号的设备，GPS系统的消费者。</p>
 <p>GPS定位是目前最为精确、应用最为广泛的定位导航技术，以后将会成为每一个移动设备的标配之一。现在的中高端只能手机，有相当一部分已经配备了GPS硬件。那么针对GPS定位的开发技术也将成为一项主流常规技术。本文目的在于让准备进行GPS定位开发的编程人员对于GPS有一个大致的了解，这对于编程可能没有什么直接的帮助，但是我想了解一下GPS的大致工作原理，在编程过程中就能够对GPS设备的工作特性有一个感性的认识，这对于开发还是有很大间接好处的。</p>
+<h2 id="GPS产生误差的原因"><a href="#GPS产生误差的原因" class="headerlink" title="GPS产生误差的原因"></a>GPS产生误差的原因</h2><p>GDOP（精度的几何稀释度）或PDOP（精度的位置稀释度）描述了GPS卫星相对位置引起的误差。基本上，GPS接收器可以“看到”的信号越多（分开或彼此靠近），它就可以越精确。</p>
+<p>从观察者的角度来看，如果卫星在天空中散开，则GPS接收机的GDOP很好。</p>
+<p><a target="_blank" rel="noopener" href="https://gisgeography.com/wp-content/uploads/2016/10/GPS-GDOP-good.png"><img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS-GDOP-good-300x213.png" alt="gps gdop良好的gps精度"></a></p>
+<p>但是，如果卫星在物理上靠在一起，则GDOP较差。这可能会降低仪表的GPS定位质量。</p>
+<p><img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS-GDOP-poor-240x300.png" alt="gps gdop差"></p>
+<p><strong><em>阅读更多：\</em></strong> <a target="_blank" rel="noopener" href="https://gisgeography.com/trilateration-triangulation-gps/">三边测量与三角测量– GPS接收器如何工作</a></p>
+<h3 id="大气折射"><a href="#大气折射" class="headerlink" title="大气折射"></a>大气折射</h3><p>对流层和电离层可以改变GPS信号的传播速度。由于大气条件，当卫星信号通过地面时，大气会折射卫星信号。</p>
+<p>为了解决这个问题，GPS可以使用两个单独的频率来最小化传播速度误差。根据情况，这种类型的GPS错误可能会使位置偏离5米。</p>
+<p><a target="_blank" rel="noopener" href="https://gisgeography.com/wp-content/uploads/2016/12/GPS-atmospheric-conditions.png"><img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS-atmospheric-conditions-300x288.png" alt="GPS大气条件"></a></p>
+<h3 id="多路径效果"><a href="#多路径效果" class="headerlink" title="多路径效果"></a>多路径效果</h3><p>GPS计算中一种可能的误差源是多径效应。当GPS卫星信号从附近的建筑物和山脉反弹时，就会发生多路径。</p>
+<p>实际上，您的GPS接收器在不同范围内两次检测到同一信号。但是，此错误不太引起关注，并且可能导致1米的位置错误。</p>
+<p><a target="_blank" rel="noopener" href="https://gisgeography.com/wp-content/uploads/2016/12/GPS-multipath-effect.png"><img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS-multipath-effect-300x142.png" alt="GPS多径效果"></a></p>
+<h3 id="卫星时间和位置（星历）"><a href="#卫星时间和位置（星历）" class="headerlink" title="卫星时间和位置（星历）"></a>卫星时间和位置（星历）</h3><p>对于每个时钟滴答，GPS卫星原子钟的精度为1纳秒。那真是令人印象深刻的东西。</p>
+<p>利用时间信号在轨道上的三边测量，地面上的GPS接收器可以获得准确的位置。但是由于卫星原子钟不同步，这可能会使位置测量值偏移2米左右。</p>
+<p>星历信息包含有关该特定卫星位置的详细信息。但是，如果您不知道它们在特定时间的确切位置，则可能会导致错误。</p>
+<p><a target="_blank" rel="noopener" href="https://gisgeography.com/wp-content/uploads/2016/10/GPS-Trilateration.png"><img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS-Trilateration-300x206.png" alt="img"></a></p>
+<p><strong><em>阅读更多：\</em></strong> <a target="_blank" rel="noopener" href="https://gisgeography.com/geosynchronous-geostationary-orbits/">地球同步轨道与地球静止轨道</a></p>
+<h3 id="选择性供应"><a href="#选择性供应" class="headerlink" title="选择性供应"></a>选择性供应</h3><p>在2000年5月之前，美国政府向全球定位系统添加了时变模糊代码。除了像美军及其盟友这样的特权集团，这有意降低了GPS的准确性。</p>
+<p>降解GPS信号的整个过程称为选择性可用性。启用选择性可用性后，信号会在水平方向增加50米的误差，在垂直方向增加100米的误差。综合考虑，这大大降低了GPS精度。</p>
+<p>当时，差分GPS能够纠正。但是在2000年以后，由于选择性可用性开关已关闭，这种GPS错误源已不再成为人们关注的问题。</p>
+<p><a target="_blank" rel="noopener" href="https://gisgeography.com/wp-content/uploads/2015/04/GPS-PDOP.png"><img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS-PDOP-300x202.png" alt="GPS PDOP"></a></p>
+<h3 id="GPS差分校正"><a href="#GPS差分校正" class="headerlink" title="GPS差分校正"></a>GPS差分校正</h3><p>GPS接收器使用两个接收器可以提高准确性，因为地面接收器可以对误差进行精确测量。只要固定GPS接收器检测到与GPS接收器相同的卫星信号，它就可以根据其精确测量的位置向您发送校正数据。</p>
+<p>这个增强的系统与GPS信号一起实时广播纠正的错误。实际上，这是基于卫星的增强系统（SBAS）的主要思想，可以提供亚米GPS精度。</p>
+<p><a target="_blank" rel="noopener" href="https://gisgeography.com/wp-content/uploads/2017/01/GPS-differential-correction.png"><img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS-differential-correction-300x184.png" alt="GPS差分校正"></a></p>
+<h3 id="如何提高GPS精度"><a href="#如何提高GPS精度" class="headerlink" title="如何提高GPS精度"></a>如何提高GPS精度</h3><p>HDOP / PDOP，多径效应和大气效应是GPS误差的一些常见来源。</p>
+<p>所有这些类型的错误都可能降低GPS精度。</p>
+<p>现在，随着选择性可用性开关的关闭，我们在GPS精度方面取得了显着改善。</p>
+<p>借助差分GPS和基于卫星的增强系统（SBAS）技术，位置可以提高至亚米级精度。</p>
 <h2 id="PDOP"><a href="#PDOP" class="headerlink" title="PDOP"></a>PDOP</h2><p>Pdop（Position Dilution of Precision, which is a measure of X, Y, Z position geometry）<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BD%8D%E7%BD%AE%E7%B2%BE%E5%BA%A6/5199607">位置精度</a>强弱度（0.5–99.9）；为纬度、经度和高程等<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%AF%AF%E5%B7%AE%E5%B9%B3%E6%96%B9%E5%92%8C/554572">误差平方和</a>的开根号值。</p>
 <p>所以Pdop的平方 =Hdop 的平方 +Vdop 的平方。具体含义：归因于卫星的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%87%A0%E4%BD%95%E5%88%86%E5%B8%83">几何分布</a>，天空中卫星分布程度越好，<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AE%9A%E4%BD%8D%E7%B2%BE%E5%BA%A6">定位精度</a>越高（数值越小精度越高）。</p>
 <p>PDOP值：卫星分布的空间几何强度因子，一般卫星分布越好时，PDOP值越小，一般小于3为比较理想状态。</p>
