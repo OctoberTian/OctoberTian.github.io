@@ -6,24 +6,33 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.octber.xyz">
-  <title>hexo如何正确的插入图片 | October Blog</title>
+  <title>GPS信号质量评估 | October Blog</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="简介本文将介绍如何在hexo中添加你的图片">
+  <meta name="description" content="简介本文主要根据SNR信噪比和pDop两个指标对GPS信号质量进行一定的评估 感谢：  维基百科 百度百科 https:&#x2F;&#x2F;www.cnblogs.com&#x2F;inteliot&#x2F;archive&#x2F;2012&#x2F;08&#x2F;14&#x2F;2638185.html https:&#x2F;&#x2F;www.cnblogs.com&#x2F;magicboy110&#x2F;archive&#x2F;2010&#x2F;12&#x2F;09&#x2F;1901669.html https:&#x2F;&#x2F;spotl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo如何正确的插入图片">
-<meta property="og:url" content="http://www.octber.xyz/2020/09/27/hexo%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/index.html">
+<meta property="og:title" content="GPS信号质量评估">
+<meta property="og:url" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/index.html">
 <meta property="og:site_name" content="October Blog">
-<meta property="og:description" content="简介本文将介绍如何在hexo中添加你的图片">
+<meta property="og:description" content="简介本文主要根据SNR信噪比和pDop两个指标对GPS信号质量进行一定的评估 感谢：  维基百科 百度百科 https:&#x2F;&#x2F;www.cnblogs.com&#x2F;inteliot&#x2F;archive&#x2F;2012&#x2F;08&#x2F;14&#x2F;2638185.html https:&#x2F;&#x2F;www.cnblogs.com&#x2F;magicboy110&#x2F;archive&#x2F;2010&#x2F;12&#x2F;09&#x2F;1901669.html https:&#x2F;&#x2F;spotl">
 <meta property="og:locale">
-<meta property="og:image" content="http://www.octber.xyz/2020/09/27/hexo%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/image-20200927192359495.png">
-<meta property="article:published_time" content="2020-09-27T11:16:25.000Z">
-<meta property="article:modified_time" content="2020-09-27T11:30:25.092Z">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/image-20200928151004353.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/image-20200928150837275.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/image-20200928160131168.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS_thumb11_thumb.jpg">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS_thumb1_thumb.jpg">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS_thumb23_thumb.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS_thumb1_thumb.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS_thumb3_thumb.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS_thumb2_thumb.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/image-20200928154733211.png">
+<meta property="article:published_time" content="2020-09-28T06:30:38.000Z">
+<meta property="article:modified_time" content="2020-09-28T08:18:53.292Z">
 <meta property="article:author" content="October">
-<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="location">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.octber.xyz/2020/09/27/hexo%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/image-20200927192359495.png">
+<meta name="twitter:image" content="http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/image-20200928151004353.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -204,14 +213,14 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hexo如何正确的插入图片" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-GPS信号质量评估" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      hexo如何正确的插入图片
+      GPS信号质量评估
     </h1>
   
 
@@ -223,8 +232,8 @@ var _hmt = _hmt || [];
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2020/09/27/hexo%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/" class="archive-article-date">
-        <time datetime="2020-09-27T11:16:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-27</time>
+<a href="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/" class="archive-article-date">
+        <time datetime="2020-09-28T06:30:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-28</time>
 </a>
 
   
@@ -237,7 +246,7 @@ var _hmt = _hmt || [];
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">534字</span>
+      <span class="post-count">4.8k字</span>
     </span>
   </span>
 
@@ -246,7 +255,7 @@ var _hmt = _hmt || [];
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">2分</span>
+      <span class="post-count">16分</span>
     </span>
   </span>
 </div>
@@ -257,34 +266,123 @@ var _hmt = _hmt || [];
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文将介绍如何在hexo中添加你的图片</p>
+    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文主要根据SNR信噪比和pDop两个指标对GPS信号质量进行一定的评估</p>
+<p>感谢：</p>
+<ul>
+<li>维基百科</li>
+<li>百度百科</li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/inteliot/archive/2012/08/14/2638185.html">https://www.cnblogs.com/inteliot/archive/2012/08/14/2638185.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/magicboy110/archive/2010/12/09/1901669.html">https://www.cnblogs.com/magicboy110/archive/2010/12/09/1901669.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://spotlight.unavco.org/how-gps-works/gps-basics/gps-signal-to-noise-ratio-data.html">https://spotlight.unavco.org/how-gps-works/gps-basics/gps-signal-to-noise-ratio-data.html</a></li>
+<li>参考了一些论文如：Multi-Constellation_GNSS_Performance_Evaluation_fo</li>
+</ul>
 <a id="more"></a>
 
-<p>以前我也是有过一个办法，也是修改<code>index.js</code>，但是后来找不到了，发现有人和我的做法一样：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://blog.csdn.net/xjm850552586/article/details/84101345">https://blog.csdn.net/xjm850552586/article/details/84101345</a></li>
-<li><a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://blog.csdn.net/qq_38148394/article/details/79997971">https://blog.csdn.net/qq_38148394/article/details/79997971</a></li>
-</ul>
-<p>下面是详细步骤</p>
-<ul>
-<li><p>第一步：安装插件，在hexo根目录执行<br>  <code>npm install hexo-asset-image --save</code></p>
-</li>
-<li><p>第二步：修改hexo的配置文件_config.yml</p>
-</li>
-</ul>
-<p><code>post_asset_folder: true</code></p>
-<ul>
-<li>第三步：打开<code>/node_modules/hexo-asset-image/index.js</code>将内容更换为下面的代码</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line">var cheerio = require(<span class="string">&#x27;cheerio&#x27;</span>);</span><br><span class="line"></span><br><span class="line">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span><br><span class="line"><span class="keyword">function</span> getPosition(str, m, i) &#123;</span><br><span class="line">  <span class="built_in">return</span> str.split(m, i).join(m).length;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">    var version = String(hexo.version).split(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">    hexo.extend.filter.register(<span class="string">&#x27;after_post_render&#x27;</span>, <span class="keyword">function</span>(data)&#123;</span><br><span class="line">      var config = hexo.config;</span><br><span class="line">      <span class="keyword">if</span>(config.post_asset_folder)&#123;</span><br><span class="line">            var link = data.permalink;</span><br><span class="line">        <span class="keyword">if</span>(version.length &gt; 0 &amp;&amp; Number(version[0]) == 3)</span><br><span class="line">           var beginPos = getPosition(link, <span class="string">&#x27;/&#x27;</span>, 1) + 1;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">           var beginPos = getPosition(link, <span class="string">&#x27;/&#x27;</span>, 3) + 1;</span><br><span class="line">        // In hexo 3.1.1, the permalink of <span class="string">&quot;about&quot;</span> page is like <span class="string">&quot;.../about/index.html&quot;</span>.</span><br><span class="line">        var endPos = link.lastIndexOf(<span class="string">&#x27;/&#x27;</span>) + 1;</span><br><span class="line">        link = link.substring(beginPos, endPos);</span><br><span class="line">    </span><br><span class="line">        var toprocess = [<span class="string">&#x27;excerpt&#x27;</span>, <span class="string">&#x27;more&#x27;</span>, <span class="string">&#x27;content&#x27;</span>];</span><br><span class="line">        <span class="keyword">for</span>(var i = 0; i &lt; toprocess.length; i++)&#123;</span><br><span class="line">          var key = toprocess[i];</span><br><span class="line">     </span><br><span class="line">          var $ = cheerio.load(data[key], &#123;</span><br><span class="line">            ignoreWhitespace: <span class="literal">false</span>,</span><br><span class="line">            xmlMode: <span class="literal">false</span>,</span><br><span class="line">            lowerCaseTags: <span class="literal">false</span>,</span><br><span class="line">            decodeEntities: <span class="literal">false</span></span><br><span class="line">          &#125;);</span><br><span class="line">    </span><br><span class="line">          $(<span class="string">&#x27;img&#x27;</span>).each(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">            <span class="keyword">if</span> ($(this).attr(<span class="string">&#x27;src&#x27;</span>))&#123;</span><br><span class="line">                // For windows style path, we replace <span class="string">&#x27;\&#x27;</span> to <span class="string">&#x27;/&#x27;</span>.</span><br><span class="line">                var src = $(this).attr(<span class="string">&#x27;src&#x27;</span>).replace(<span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">                <span class="keyword">if</span>(!/http[s]*.*|\/\/.*/.<span class="built_in">test</span>(src) &amp;&amp;</span><br><span class="line">                   !/^\s*\//.<span class="built_in">test</span>(src)) &#123;</span><br><span class="line">                  // For <span class="string">&quot;about&quot;</span> page, the first part of <span class="string">&quot;src&quot;</span> can<span class="string">&#x27;t be removed.</span></span><br><span class="line"><span class="string">                  // In addition, to support multi-level local directory.</span></span><br><span class="line"><span class="string">                  var linkArray = link.split(&#x27;</span>/<span class="string">&#x27;).filter(function(elem)&#123;</span></span><br><span class="line"><span class="string">                    return elem != &#x27;</span><span class="string">&#x27;;</span></span><br><span class="line"><span class="string">                  &#125;);</span></span><br><span class="line"><span class="string">                  var srcArray = src.split(&#x27;</span>/<span class="string">&#x27;).filter(function(elem)&#123;</span></span><br><span class="line"><span class="string">                    return elem != &#x27;</span><span class="string">&#x27; &amp;&amp; elem != &#x27;</span>.<span class="string">&#x27;;</span></span><br><span class="line"><span class="string">                  &#125;);</span></span><br><span class="line"><span class="string">                  if(srcArray.length &gt; 1)</span></span><br><span class="line"><span class="string">                    srcArray.shift();</span></span><br><span class="line"><span class="string">                  src = srcArray.join(&#x27;</span>/<span class="string">&#x27;);</span></span><br><span class="line"><span class="string">                  $(this).attr(&#x27;</span>src<span class="string">&#x27;, config.root + link + src);</span></span><br><span class="line"><span class="string">                  console.info&amp;&amp;console.info(&quot;update link as:--&gt;&quot;+config.root + link + src);</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">            &#125;else&#123;</span></span><br><span class="line"><span class="string">                console.info&amp;&amp;console.info(&quot;no src attr, skipped...&quot;);</span></span><br><span class="line"><span class="string">                console.info&amp;&amp;console.info($(this));</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">          &#125;);</span></span><br><span class="line"><span class="string">          data[key] = $.html();</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br></pre></td></tr></table></figure>
+<h2 id="信噪比SNR"><a href="#信噪比SNR" class="headerlink" title="信噪比SNR"></a>信噪比SNR</h2><p>信噪比是指载波信号强度和噪声强度的比值。它主要受天线的增益参数、接收机相关器状态及多路径误差的影响，是反映载波相位观测质量的指标之一，信噪比可以从观测文件中直接获得，其数值越大，表示信号强度越强。</p>
+<p>在声音领域，一般来说，信噪比是信号和噪声的比，等同于信号的有效功率与噪声的有效功率，由于功率和电压成正比，所以也等同于电压之比：</p>
+<p><code>Ps/Pn</code>或<code>Vs/Vn</code>，单位是<code>dB</code>，简单来说，信噪比是越大越好，在GPS方面，低于35dB的信噪比就算相当差的了，低于这个值，晴天可能还凑合使用，到了雾霾天下雨天，定位漂移个几百米是正正常常。</p>
+<p>什么是“噪声”？与噪声相关的概念，还有一个叫“失真”，这两者相近，所以一起来谈，他们都是原信号中并不存在的额外信号，而“失真”是有规律的额外信号，“噪声”是无规律的额外信号，它不会随着原信号的改变还改变。</p>
+<p>一句话，信噪比SNR决定了GPS接收信号的强弱性能，定位性能。</p>
+<p>一般来说，&gt;50dB属于高信噪比，而&lt;35dB属于低信噪比。</p>
+<h2 id="决定信噪比的一些因素"><a href="#决定信噪比的一些因素" class="headerlink" title="决定信噪比的一些因素"></a>决定信噪比的一些因素</h2><p>GPS接收器测量信号强度或信噪比（SNR）。SNR的主要部分是直接信号。如图1中的黑色所示。它在电弧开始时很低，在峰值时升至〜55 db Hz，然后再次缓慢衰减。在卫星弧开始和结束时看到的振荡是由<a target="_blank" rel="noopener" href="https://spotlight.unavco.org/how-gps-works/gps-basics/reflected-gps-signals.html">直接和反射GPS信号</a>的<a target="_blank" rel="noopener" href="https://spotlight.unavco.org/how-gps-works/gps-basics/reflected-gps-signals.html">干扰</a>引起的。干扰的频率告诉您天线在反射表面上方的距离。下图中看到，6米长的天线具有比2.5米长的天线更高的频率SNR数据。下面的图很明显的反应出一个事实：GPS天线的高度对信噪比影响很大。</p>
+<img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/image-20200928151004353.png" alt="image-20200928151004353" style="zoom:50%;">
 
+<p><img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/image-20200928150837275.png" alt="image-20200928150837275"></p>
+<p>虽然GPS天线的高度会直接影响到信噪比，也就是定位的好坏，但是我们通常使用手机设备或者一些转载在共享单车上的定位设备，高度往往比1.5米要低，所以影响的另一大因素，可能就是城市中3D建筑物。在高楼大厦和/或狭窄街道（称为“城市峡谷”）的人口稠密的城市地区，使用全球定位系统（GPS）进行定位是不可靠的。这是因为建筑物会阻挡，反射或衍射来自许多卫星的信号。</p>
+<h2 id="多路径效应"><a href="#多路径效应" class="headerlink" title="多路径效应"></a>多路径效应</h2><p>多路径效应是指接收机除直接收到卫星发射的信号外，还同时接收测站附近的物体表面一次或多次反射的信号，这种不同路径的信号与直接信号叠加，产生的时延效应称为多路径误差。多路径误差主要受观测环境的影响，伪距的多路径误差最大可达0.5个码元宽度；载波相位的波长短，约为伪距的1/1000，载波相位观测值的多路径误差一般不超过1/4波长，其测量噪声和多径效应要比伪距小得多，因此主要考虑伪距多路径的影响。</p>
+<h2 id="GPS定位的原理探究"><a href="#GPS定位的原理探究" class="headerlink" title="GPS定位的原理探究"></a>GPS定位的原理探究</h2><h3 id="GPS定位数学模型"><a href="#GPS定位数学模型" class="headerlink" title="GPS定位数学模型"></a>GPS定位数学模型</h3><p>之所以先介绍数学模型，是因为我认为这个数学模型可能是程序员比较关心的问题。当然事先声明，这个模型只是我根据一些GPS资料总专为程序员总结出来的一个简化模型，细节方面可能并不符合实际，想了解具体细节请参考专业的GPS讲解资料。</p>
+<p>GPS定位，实际上就是通过四颗已知位置的卫星来确定GPS接收器的位置。</p>
+<img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/image-20200928160131168.png" alt="image-20200928160131168" style="zoom:50%;">
+
+<p>如上图所示，图中的GPS接收器为当前要确定位置的设备，卫星1、2、3、4为本次定位要用到的四颗卫星:</p>
 <ul>
-<li><p>第四步：现在就可以插入图片了，比如<code>hexo new post photo</code>之后，就在<code>source/_posts</code>生成<code>photo.md</code>文件和<code>photo</code>文件夹，我们把要插入的图片复制到<code>photo</code>文件夹内，即可。</p>
-</li>
-<li><p>第五步：测试：</p>
-</li>
+<li>Position1、Position2、Position3、Position4分别为四颗卫星的当前位置（空间坐标），已知</li>
+<li>d1、d2、d3、d4分别为四颗卫星到要定位的GPS接收器的距离，已知</li>
+<li>Location 为要定位的卫星接收器的位置，待求</li>
 </ul>
-<p><img src="/2020/09/27/hexo%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/image-20200927192359495.png" alt="image-20200927192359495"></p>
+<p>那么定位的过程，简单来讲就是通过一个函数<strong>GetLocation()</strong>,从已知的**[Position1,d1]、[Position2,d2]、[Position3,d3]、[Position4,d4]<strong>四对数据中求出</strong>Location**的值。用程序员熟悉的函数调用来表示就是：</p>
+<p><code>Location=GetLocation([Position1,d1],[Position2,d2],[Position3,d3],[Position4,d4]);</code></p>
+<p>那么，这些参数从哪里来？这个函数又是如何执行？由谁来执行的呢？立体几何还没有忘干净的可能还要问：为什么必须要4对参数呢？那下面我们就来一起探究一下。</p>
+<h4 id="1-Position1、Position2、Position3、Position4这些位置信息从哪里来？"><a href="#1-Position1、Position2、Position3、Position4这些位置信息从哪里来？" class="headerlink" title="1.Position1、Position2、Position3、Position4这些位置信息从哪里来？"></a>1.Position1、Position2、Position3、Position4这些位置信息从哪里来？</h4><p>实际上，运行于宇宙空间的GPS卫星，每一个都在时刻不停地通过卫星信号向全世界广播自己的当前位置坐标信息。任何一个GPS接收器都可以通过天线很轻松地接收到这些信息，并且能够读懂这些信息（这其实也是每一个GPS芯片的核心功能之一）。这就是这些位置信息的来源。</p>
+<h4 id="2-d1、d2、d3、d4这些距离信息从哪里来？"><a href="#2-d1、d2、d3、d4这些距离信息从哪里来？" class="headerlink" title="2.d1、d2、d3、d4这些距离信息从哪里来？"></a>2.d1、d2、d3、d4这些距离信息从哪里来？</h4><p>我们已经知道每一个GPS卫星都在一刻不停地广播自己的位置，那么在发送位置信息的同时，也会附加上该数据包发出时的时间戳。GPS接收器收到数据包后，用当前时间减去时间戳上的时间，就是数据包在空中传输所用的时间了。</p>
+<p>知道了数据包在空中的传输时间，那么乘上他的传输速度，就是数据包在空中传输的距离，也就是该卫星到GPS接收器的距离了。数据包是通过无线电波传送的，那么理想速度就是光速c，把传播时间记为Ti的话，用公式表示就是：</p>
+<p><code>di=c*Ti(i=1,2,3,4);</code></p>
+<p>这就是di(i=1,2,3,4)的来源了。</p>
+<h4 id="3-GetLocation-函数是如何执行的？"><a href="#3-GetLocation-函数是如何执行的？" class="headerlink" title="3.GetLocation()函数是如何执行的？"></a>3.GetLocation()函数是如何执行的？</h4><p>这个函数是我为了说明问题而虚构的，事实上未必存在，但是一定存在这样类似的运算逻辑。这些运算逻辑可以由软件来实现，但是事实上可能大都是由硬件芯片来完成的（这可能也是每一个GPS芯片的核心功能之一）。</p>
+<h4 id="4-为什么要必须要四对参数？"><a href="#4-为什么要必须要四对参数？" class="headerlink" title="4.为什么要必须要四对参数？"></a>4.为什么要必须要四对参数？</h4><p>根据立体几何知识，三维空间中，三对[Positioni,di]这样的数据就可以确定一个点了（实际上可能是两个，但我们可以通过逻辑判断舍去一个），为什么这里需要四对呢？理想情况下，的确三对就够了，也就是说理想情况下只需要三颗卫星就可以实现GPS定位。但是事实上，必须要四颗。</p>
+<p>因为根据上面的公式，di是通过c*Ti计算出来的，而我们知道c值是很大的（理想速度即光速），那么对于时间Ti而言，一个极小的误差都会被放大很多倍从而导致整个结果无效。也就是说，在GPS定位中，对时间的精度要求是极高的。GPS卫星上是用銫原子钟来计时的，但是我们不可能为每一个GPS接收器也配一个銫原子钟，因为一个銫原子钟的价格可能已经超过了这个GPS设备再加上使用GPS的这辆名贵汽车的价格。</p>
+<p>同时，由于速度c也会受到空中电离层的影响，因此也会有误差;再者，GPS卫星广播的自己的位置也可能会有误差。其他等等一些因素也会影响数据的精确度。</p>
+<p>总之，数据是存在误差的。这些误差可能导致定位精确度降低，也可能直接导致定位无效。<strong>GetLocation（函数）中多用了一组数据，正是为了来校正误差</strong>。至于具体的细节，我们就不用关心了，我们只要知道，多用一组数据，就可以通过一些巧妙的算法，消除或减小误差，保证定位有效。这就是GetLocation（）函数必须用四组数据的原因，也就是为什么必须有四颗卫星才能定位的原因。</p>
+<h4 id="5-GetLocation（）函数返回的位置信息怎样被GPS设备识别呢？"><a href="#5-GetLocation（）函数返回的位置信息怎样被GPS设备识别呢？" class="headerlink" title="5.GetLocation（）函数返回的位置信息怎样被GPS设备识别呢？"></a>5.GetLocation（）函数返回的位置信息怎样被GPS设备识别呢？</h4><p>前面说在进行位置计算时都是用的空间坐标形式表示，但是对GPS设备及应用程序而言，通常需要用的是一个[经度，纬度，高度]这样的位置信息。那么我们可以想象，在GetLocation()函数返回位置结果前，可能会进行一个从空间坐标形式到经纬度形式的转换，我们不妨假设存在一个Convert(经纬度，空间坐标)这样的函数来进行这个转换。</p>
+<h4 id="6-单点定位与差分定位"><a href="#6-单点定位与差分定位" class="headerlink" title="6.单点定位与差分定位"></a>6.单点定位与差分定位</h4><p>实际上上面所说的只是定位原理中的其中一种，称为单点定位，或绝对定位。就是通过唯一的一个GPS接收器来确定位置。</p>
+<p><a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/magicboy110/Windows-Live-Writer/GPS_3B2/GPS_thumb11_2.jpg"><img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS_thumb11_thumb.jpg" alt="GPS_thumb11"></a></p>
+<p>目前定位精度最高的是差分定位，或称相对定位。就是通过增加一个参考GPS接收器来提高定位精度。</p>
+<p><a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/magicboy110/Windows-Live-Writer/GPS_3B2/GPS_thumb1_2.jpg"><img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS_thumb1_thumb.jpg" alt="GPS_thumb1"></a> </p>
+<p>上面我们已经围绕一个虚拟的GetLocation()函数基本搞清楚了GPS定位的基本数学模型，对于编程而言，知道这些就足够了（其实不知道也不影响编程）。如果好奇心还没满足的话，我们继续了解一些GPS相关的背景知识。</p>
+<h3 id="二、GPS卫星是哪里来的？"><a href="#二、GPS卫星是哪里来的？" class="headerlink" title="二、GPS卫星是哪里来的？"></a>二、GPS卫星是哪里来的？</h3><p>（废话，当然是人发射的！地球人发射的！）</p>
+<p>GPS（Global Position System,全球定位系统），全称为NAVSTAR GPS（NAVigation Satellite Timing And Ranging Global Position System，导航星测时与测距全球定位系统）。GPS是一个由美国国防部开发的空基全天侯导航系统，它用以满足军方在地面或近地空间内获取在一个通用参照系中的位置、速度和时间信息的要求。</p>
+<h4 id="1-GPS发展历程"><a href="#1-GPS发展历程" class="headerlink" title="1.GPS发展历程"></a>1.GPS发展历程</h4><ul>
+<li>1957年10月第一颗人造地球卫星SputnikⅠ发射成功，空基导航定位由此开始</li>
+<li>1958年开始设计NNSS-TRANSIT,即子午卫星系统；<br>1964年该系统正式运行；<br>1967年该系统解密以供民用。</li>
+<li>1973年，美国国防部批准研制GPS;<br>1991年海湾战争中，GPS首次大规模用于实战；<br>1994年，GPS全部建成投入使用；<br>2000年，克林顿宣布，GPS取消实施SA(对民用GPS精度的一种人为限制策略)。</li>
+</ul>
+<h4 id="2-美国政府的的GPS策略"><a href="#2-美国政府的的GPS策略" class="headerlink" title="2.美国政府的的GPS策略"></a>2.美国政府的的GPS策略</h4><ul>
+<li>两种GPS服务：<br>SPS–标准定位服务，民用，精度约为100M；<br>PPS–精密定位服务，军用和得到特许的民间用户使用，精度高达10M.</li>
+<li>两种限制民用定位精度的措施(保障国家利益不受侵害)：<br>SA–选择可用性，认为降低普通用户的测量精度，限制水平定位精度100M，垂直157M(已于2005年5月1日取消);<br>AS–反电子欺骗。</li>
+</ul>
+<h4 id="3-其他卫星导航系统"><a href="#3-其他卫星导航系统" class="headerlink" title="3.其他卫星导航系统"></a>3.其他卫星导航系统</h4><ul>
+<li>GLONASS（全球轨道导航卫星系统），前苏联</li>
+<li>Galileo-ENSS（欧洲导航卫星系统，即伽利略计划），欧盟</li>
+<li>北斗导航系统，中国</li>
+</ul>
+<h3 id="三、GPS系统的构成"><a href="#三、GPS系统的构成" class="headerlink" title="三、GPS系统的构成"></a>三、GPS系统的构成</h3><p><strong>GPS系统=空间部分+控制部分+用户部分</strong></p>
+<p><a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/magicboy110/Windows-Live-Writer/GPS_3B2/GPS_thumb23_2.png"><img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS_thumb23_thumb.png" alt="GPS_thumb23"></a></p>
+<h4 id="1-空间部分"><a href="#1-空间部分" class="headerlink" title="1.空间部分"></a>1.空间部分</h4><p>GPS空间部分主要由24颗GPS卫星构成，其中21颗工作卫星，3颗备用卫星。24颗卫星运行在6个轨道平面上，运行周期为12个小时。保证在任一时刻、任一地点高度角15度以上都能够观测到4颗以上的卫星。</p>
+<p><strong>主要作用：</strong>发送用于导航定位的卫星信号。</p>
+<p><strong>构成：24颗卫星=21颗工作卫星+3颗备用卫星</strong></p>
+<p><a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/magicboy110/Windows-Live-Writer/GPS_3B2/GPS_thumb1_2.png"><img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS_thumb1_thumb.png" alt="GPS_thumb1"></a></p>
+<h4 id="2-控制部分"><a href="#2-控制部分" class="headerlink" title="2.控制部分"></a>2.控制部分</h4><p>GPS控制部分由1个主控站，5个检测站和3个注入站组成。</p>
+<p><strong>组成：GPS控制部分=主控站（1个）+监测站（5个）+注入站（3个）</strong></p>
+<p><strong>作用：</strong>监测和控制卫星运行，编算卫星星历（导航电文），保持系统时间。</p>
+<ul>
+<li><strong>主控站：</strong>从各个监控站收集卫星数据，计算出卫星的星历和时钟修正参数等，并通过注入站注入卫星；向卫星发布指令，控制卫星，当卫星出现故障时，调度备用卫星。</li>
+<li><strong>监控站：</strong>接收卫星信号，检测卫星运行状态，收集天气数据，并将这些信息传送给主控站。</li>
+<li><strong>注入站：</strong>将主控站计算的卫星星历及时钟修正参数等注入卫星。 </li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/magicboy110/Windows-Live-Writer/GPS_3B2/GPS_thumb3_2.png"><img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS_thumb3_thumb.png" alt="GPS_thumb3"></a></p>
+<p><strong>分布情况：</strong></p>
+<ul>
+<li><strong>主控站：</strong>位于美国科罗拉多州（Calorado）的法尔孔（Falcon）空军基地。</li>
+<li><strong>注入站：</strong>阿松森群岛（Ascendion）,大西洋；迭戈加西亚（Diego Garcia）,印度洋；卡瓦加兰（Kwajalein），东太平洋。</li>
+<li><strong>监控站：</strong>1个与主控站在一起；3个与注入站在一起；另外一个在夏威夷（Hawaii）,西太平洋。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/magicboy110/Windows-Live-Writer/GPS_3B2/GPS_thumb2_2.png"><img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/GPS_thumb2_thumb.png" alt="GPS_thumb2"></a> </p>
+<h4 id="3-用户部分"><a href="#3-用户部分" class="headerlink" title="3.用户部分"></a>3.用户部分</h4><p>GPS用户设备部分包含GPS接收器及相关设备。GPS接收器主要由GPS芯片构成。</p>
+<p>如车载、船载GPS导航仪，内置GPS功能的移动设备，GPS测绘设备等都属于GPS用户设备。</p>
+<p><strong>组成：</strong>主要为GPS接收器</p>
+<p><strong>作用：</strong>接收、跟踪、变换和测量GPS信号的设备，GPS系统的消费者。</p>
+<p>GPS定位是目前最为精确、应用最为广泛的定位导航技术，以后将会成为每一个移动设备的标配之一。现在的中高端只能手机，有相当一部分已经配备了GPS硬件。那么针对GPS定位的开发技术也将成为一项主流常规技术。本文目的在于让准备进行GPS定位开发的编程人员对于GPS有一个大致的了解，这对于编程可能没有什么直接的帮助，但是我想了解一下GPS的大致工作原理，在编程过程中就能够对GPS设备的工作特性有一个感性的认识，这对于开发还是有很大间接好处的。</p>
+<h2 id="PDOP"><a href="#PDOP" class="headerlink" title="PDOP"></a>PDOP</h2><p>Pdop（Position Dilution of Precision, which is a measure of X, Y, Z position geometry）<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BD%8D%E7%BD%AE%E7%B2%BE%E5%BA%A6/5199607">位置精度</a>强弱度（0.5–99.9）；为纬度、经度和高程等<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%AF%AF%E5%B7%AE%E5%B9%B3%E6%96%B9%E5%92%8C/554572">误差平方和</a>的开根号值。</p>
+<p>所以Pdop的平方 =Hdop 的平方 +Vdop 的平方。具体含义：归因于卫星的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%87%A0%E4%BD%95%E5%88%86%E5%B8%83">几何分布</a>，天空中卫星分布程度越好，<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AE%9A%E4%BD%8D%E7%B2%BE%E5%BA%A6">定位精度</a>越高（数值越小精度越高）。</p>
+<p>PDOP值：卫星分布的空间几何强度因子，一般卫星分布越好时，PDOP值越小，一般小于3为比较理想状态。</p>
+<p>PDOP是DOP的一种，DOP分为以下几类，DOP可以表示为许多单独的度量值：</p>
+<ul>
+<li>HDOP –水平精度稀释</li>
+<li>VDOP –垂直稀释精度</li>
+<li>PDOP –位置（3D）精度稀释</li>
+<li>TDOP –精度的时间稀释</li>
+<li>GDOP –精度的几何稀释</li>
+</ul>
+<img src="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/image-20200928154733211.png" alt="image-20200928154733211" style="zoom:50%;">
+
+<p> PDOP：位置精度因子（Position Dilution of Precision），直译为“精度强弱度”，通常翻译为“相对误差”。具体含义是：由于观测成果的好坏与被测量的人造卫星和接收仪间的几何形状有关且影响甚大，所以计算上述所引起的误差量称为精度的强弱度。天空中卫星分布程度越好，定位精度越高（数值越小精度越高）。PDOP表示三维位置定位精度与导航台几何配置关系的一个参数。在全球定位(GPS)系统中，等于用户位置的径向误差(1°)与用户到卫星的距离测量误差(1°)的比值。</p>
+<p>在几何上，PDOP按由接收机和所能观测到的四颗卫星的连线所组成的锥状物的体积比例来平分1。对于好的定位而言，PDOP值小，例如3。比7大的值被认为是较差。因此，小的PDOP值与相隔较远的卫星相关。当PDOP较大时，表明空中的4颗GPS卫星几何分布不是太理想，他们构成的图形周长太短，定位精度就低，反之亦然。</p>
+<p>一个GPS接收器可以在同一时间得到许多颗卫星定位信息，但在精密定位上，只要四颗卫星讯号即已足够了，一个好的接收器便可判断如何在这些卫星讯号当中去撷取较可靠的讯号来计算，如果接收器所选取的讯号当中，有二颗卫星距离甚近，二颗卫星讯号在角度较小的地方会有一个重叠的区域产生，随着距离愈近，此区域便愈大，影响精度的误差亦愈大。如果选取的卫星彼此相距有一段距离，则讯号相交之处便较为明确，误差当然就缩减了不少。这也从另外一个方面说明，虽然我们正头顶上的卫星信号比较好，比较容易锁定，但其实它们的作用却不如角度比较低的卫星的。</p>
+<p><strong>它们之间的简单关系为：</strong>（2表示平方）</p>
+<p>HDOP2+VDOP2=PDOP2</p>
+<p>PDOP2+TDOP2=GDOP2 </p>
+<p>  几何精度因子（Geometric Dilution Precision ，缩写为GDOP）是衡量定位精度的很重要的一个系数，它代表GPS 测距误差造成的接收机与空间卫星间的距离矢量放大因子。实际表征参与定位解的从接收机至空间卫星的单位矢量所勾勒的形体体积与GDOP成反比，故又称为几何精度因子。</p>
+<p>  实际上，GDOP的数值越大，所代表的单位矢量形体体积越小，即接收机至空间卫星的角度十分相似导致的结果，此时的GDOP会导致定位精度变差。好的GDOP, 是指其数值小，代表大的单位矢量形体体积，导致高的定位精度。好的几何因子实际上是指卫星在空间分布不集中于一个区域，同时能在不同方位区域均匀分布。</p>
 
     
 
@@ -331,7 +429,7 @@ var _hmt = _hmt || [];
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://www.octber.xyz/2020/09/27/hexo如何正确的插入图片/" title="hexo如何正确的插入图片" target="_blank">http://www.octber.xyz/2020/09/27/hexo如何正确的插入图片/</a>
+          <a href="http://www.octber.xyz/2020/09/28/GPS信号质量评估/" title="GPS信号质量评估" target="_blank">http://www.octber.xyz/2020/09/28/GPS信号质量评估/</a>
         </li>
         
         <li>
@@ -353,7 +451,7 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">location</a>
         		</li>
       		
 		</ul>
@@ -409,7 +507,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.octber.xyz/2020/09/27/hexo%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.octber.xyz/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -424,15 +522,11 @@ var _hmt = _hmt || [];
 
 <nav id="article-nav">
   
-    <a href="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          GPS信号质量评估
-        
-      </div>
-    </a>
   
+    <a href="/2020/09/27/hexo%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">hexo如何正确的插入图片</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -471,9 +565,9 @@ var _hmt = _hmt || [];
     <script src="/lib/gitment.js"></script>
   
   <script>
-    <!-- id: "hexo如何正确的插入图片" -->
+    <!-- id: "GPS信号质量评估" -->
     var gitment = new Gitment({
-      id: "20200927191625",
+      id: "20200928143038",
       owner: 'OctoberTian',
       repo: 'OctoberBlog',
       oauth: {
