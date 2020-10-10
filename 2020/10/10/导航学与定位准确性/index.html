@@ -6,30 +6,35 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.octber.xyz">
-  <title>关于论文《多GNSS观测数据质量与完好性评价方法研究》学习 | October Blog</title>
+  <title>导航学与定位准确性 | October Blog</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="简介本文是对论文《多GNSS观测数据质量与完好性评价方法研究》的学习感悟，感兴趣的同学可以去下载，并研究。">
+  <meta name="description" content="简介导航学与定位准确性：本文是《关于论文。。。》和《GPS信号质量评估》的总结">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于论文《多GNSS观测数据质量与完好性评价方法研究》学习">
-<meta property="og:url" content="http://www.octber.xyz/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:title" content="导航学与定位准确性">
+<meta property="og:url" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/index.html">
 <meta property="og:site_name" content="October Blog">
-<meta property="og:description" content="简介本文是对论文《多GNSS观测数据质量与完好性评价方法研究》的学习感悟，感兴趣的同学可以去下载，并研究。">
+<meta property="og:description" content="简介导航学与定位准确性：本文是《关于论文。。。》和《GPS信号质量评估》的总结">
 <meta property="og:locale">
-<meta property="og:image" content="http://www.octber.xyz/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/image-20200929141018442.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/image-20200929141118681.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/image-20200929142213481.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/image-20200929145252995.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/image-20200929145311328.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/image-20200929145333206.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/image-20200929145452562.png">
-<meta property="article:published_time" content="2020-09-29T03:00:28.000Z">
-<meta property="article:modified_time" content="2020-09-29T08:59:50.216Z">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010195945261.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200155088.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200145871.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200217462.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200122841.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200231268.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200242978.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200253136.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200259288.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200307488.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200318051.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200327973.png">
+<meta property="article:published_time" content="2020-10-10T11:58:13.000Z">
+<meta property="article:modified_time" content="2020-10-10T12:04:23.062Z">
 <meta property="article:author" content="October">
 <meta property="article:tag" content="location">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.octber.xyz/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/image-20200929141018442.png">
+<meta name="twitter:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010195945261.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -210,14 +215,14 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-关于论文《多GNSS观测数据质量与完好性评价方法研究》学习" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-导航学与定位准确性" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      关于论文《多GNSS观测数据质量与完好性评价方法研究》学习
+      导航学与定位准确性
     </h1>
   
 
@@ -229,8 +234,8 @@ var _hmt = _hmt || [];
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-        <time datetime="2020-09-29T03:00:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-29</time>
+<a href="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/" class="archive-article-date">
+        <time datetime="2020-10-10T11:58:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-10</time>
 </a>
 
   
@@ -243,7 +248,7 @@ var _hmt = _hmt || [];
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">2.3k字</span>
+      <span class="post-count">3.8k字</span>
     </span>
   </span>
 
@@ -252,7 +257,7 @@ var _hmt = _hmt || [];
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">7分</span>
+      <span class="post-count">13分</span>
     </span>
   </span>
 </div>
@@ -263,70 +268,133 @@ var _hmt = _hmt || [];
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文是对论文《<a target="_blank" rel="noopener" href="https://www.shuoboku.com/18/4247996.html">多GNSS观测数据质量与完好性评价方法研究</a>》的学习感悟，感兴趣的同学可以去下载，并研究。</p>
+    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>导航学与定位准确性：本文是《关于论文。。。》和《GPS信号质量评估》的总结</p>
 <a id="more"></a>
 
-<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>目前GNSS是由GPS、GLONASS、Galileo和BDS是大导航卫星系统的不断完善组成的，虽然卫星系统很多，但是定位数据的准确性仍然是我们需要不断追求的目标之一，如何进一步提高GNSS的定位精度、可靠性、可用性等性能是使用GNSS开发团队一直追求的。所以我们有必要研究一下如何对GNSS观测数据完好性进行分析与质量评估。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ul>
+<li>PDOP - 主要取决于卫星导航系统，我们没法控制，看天。</li>
+<li>UERE - 包括钟差、电离层和对流层误差、接收机噪声、多路径。主要关注接收机噪声，就是SNR。</li>
+</ul>
+<p>卫星导航系统的定位精度主要由两方面因素决定，一是位置精度衰减因子（PDOP），二是用户等效测距误差（UERE）。PDOP主要取决于星座的覆盖特性，目前四大全球卫星导航系统，PDOP均值相当，一般为2左右。UERE由空间段卫星轨道钟差、传输段的电离层和对流层误差、用户段接收机噪声和多径误差等三部分构成。其中空间段轨道钟差可用用户测距误差（User Range Error, URE）来衡量，这是评估空间信号精度的重要指标，也是国际上各大系统性能竞技的主要标准。</p>
+<h2 id="定位的概念"><a href="#定位的概念" class="headerlink" title="定位的概念"></a>定位的概念</h2><p>定位（Positioning）是确定载体的空间位置，而不包括速度和姿态。我们把利用某一种技术确定空间目标在一个给定参考系下的绝对或相对位置的过程，称为定位。</p>
+<h2 id="导航的概念"><a href="#导航的概念" class="headerlink" title="导航的概念"></a>导航的概念</h2><p>利用几何、天文、无线电信号、特征匹配等方法中的一种或者几种方法的组合，确定移动载体的位置、速度和姿态并规划其航路的技术。</p>
+<blockquote>
+<p>  需要注意的是，定位并不关注载体的速度和姿态，很多定位系统是通过将工作时的频率提高到一定程度根据位置的变化率来导出速度的。</p>
+</blockquote>
+<p>所以通常来说，导航由下面两个部分组成</p>
 <ul>
-<li>GNSS观测方程</li>
-<li>设计并实现主流的GNSS观测数据的解码方法</li>
-<li>阐明影响GNSS观测数据质量的因素及分析方法</li>
-<li>提出零基线GNSS测距信号评估和接收机噪声检测的方法。</li>
+<li>定位</li>
+<li>引导</li>
 </ul>
-<h2 id="第一章-绪论"><a href="#第一章-绪论" class="headerlink" title="第一章 绪论"></a>第一章 绪论</h2><ul>
-<li>GPS导航卫星系统在1994年顺利完成24颗卫星的组网设计，而截至2017年4月18日，GPS星座中共有31颗可用卫星。</li>
-<li>BDS导航卫星系统截至2016年6月12日已经成功发射了23颗导航卫星，并计划2020年前后完成35颗卫星发射，成为覆盖全球的卫星导航系统，其定位精度将达到亚米级。</li>
-<li>GNSS数据处理所釆用的观测数据来自作业中的接收机设备。接收机在进行观测时，通常把采集到的数据保存在设备的内部存储器或其他的可移动存储介质中，在完成观测后 ，再将采集到的数据传输到计算机中，用于后期处理。接收机是数据处理的重要媒介，而其中一项非常重要的指标就是“内部噪声水平”，如何准确合理的对接收机内部的噪声水平进行评定也是一项非常重要的工作。</li>
-<li>测距信号的精度是保证高精度定位的重要基础。</li>
+<p>用来解决下面三个基本问题：</p>
+<ul>
+<li>我在哪？</li>
+<li>我要去哪？</li>
+<li>我如何去？</li>
 </ul>
-<h2 id="第二章-GNSS定位观测方程及其误差源"><a href="#第二章-GNSS定位观测方程及其误差源" class="headerlink" title="第二章 GNSS定位观测方程及其误差源"></a>第二章 GNSS定位观测方程及其误差源</h2><ul>
-<li><p>GNSS卫星定位技术是利用接收机接收到的卫星观测数据，通过相应的定位算法，如静态定位、动态定位等算法，解算测站的坐标或基线的距离。卫星观测信号的产生，以及传播至借手机的过程中都可能收到各种各样误差的干扰。</p>
-</li>
-<li><p>卫星发射的信号由载波、测距吗和数据码（D码）三个信号层次构成，其中测距吗和数据码通过调制依附在高频的载波上，然后再将调制波发送出去。</p>
-</li>
-<li><p>载波是一种可用于运载调制型号的高频振荡波，是卫星信号中最基础的类型，卫星信号中使用二进制相位调制的方法，在载波上挑子了测距吗和导航电文，经过卫星播发，到达用户接收部分。用户的接收器接收到调制波，解调出有用的信息后，重建的载波自身也被当做一种测距信号。</p>
-</li>
-<li><p>GPS卫星的核心设备是原子钟，其提供的基准频率为：<img src="/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/image-20200929141018442.png" alt="image-20200929141018442" style="zoom:50%;"></p>
-<p>GPS卫星通常采用L1和L2频率发射载波无线电信号，这两种载波频率是这样的：</p>
-<img src="/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/image-20200929141118681.png" alt="image-20200929141118681" style="zoom:50%;">
+<p>所以说，我们关注的“位置的准确性”和“位置的新鲜度”，其中“位置的准确性”就是来解决“在哪”的问题，所以研究“评估位置准确性指标”这件事，就显得非常更重要。</p>
+<h2 id="GNSS概念"><a href="#GNSS概念" class="headerlink" title="GNSS概念"></a>GNSS概念</h2><blockquote>
+<p>  <strong>G</strong>lobal <strong>N</strong>avigation <strong>S</strong>atellite <strong>S</strong>ystem简称GNSS，即卫星导航系统，包括美国的GPS，俄罗斯的GLONASS、欧盟的Galileo和中国的BDS北斗导航</p>
+</blockquote>
+<p>我们以GPS为例，GPS微信的基本功能为：</p>
+<ol>
+<li>接受并储存来自地面控制系统的导航电文</li>
+<li>在原子钟的控制下自动生成测距吗（C/A码和Y码）和载波</li>
+<li>采用二进制相位调制法（已加载导航电文）调制在载波上发给用户</li>
+<li>按照地面控制系统的指令调整轨道、调整卫星钟、修复故障或者启用备用件以维护整个系统的正常工作</li>
+</ol>
+<h2 id="GNSS准确度"><a href="#GNSS准确度" class="headerlink" title="GNSS准确度"></a>GNSS准确度</h2><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>卫星导航系统的定位误差主要来自于 4 个方面 : </p>
+<ol>
+<li>卫星部分: 卫星星历误差、卫星钟差; </li>
+<li>用 户接收机部分: 用户接收机测量误差、通道偏差; </li>
+<li>信号传播路径: 电离层的信号传播延迟、对流层的信 号传播延迟、多路径效应; </li>
+<li>其他影响: 相对论效应、地球自转影响。其中, 接收机测量噪声和通道偏差 大小与接收机的设计有关, 属于内部误差。其他误差源受外界因素影响, 与接收机无关, 相对于接收机 而言属于外部误差。</li>
+</ol>
+<h3 id="测距码"><a href="#测距码" class="headerlink" title="测距码"></a>测距码</h3><p>测距码有两种，都属于伪<strong>随机噪声码</strong>（Pseudo Random Noise，简称 PRN）：C/A 码（Coarse/Acquisition Code）和P码（Precise Code）。</p>
+<p>GPS信号利用<strong>码分多址（CDMA）</strong>方式，所有的卫星都工作在同样的频率上，采用伪随机噪声码（PRN），这是GPS信号的基本特点，实际上它只是一种非常复杂的数字编码，具有特殊的数学特征。这种信号看起来如同随机的电噪声，但是又不是真正的噪声，故称为“<strong>伪随机噪声</strong>”，信号为伪随机噪声码，如图所示。</p>
+<p><img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010195945261.png" alt="image-20201010195945261"></p>
+<h4 id="GPS有两种伪随机码"><a href="#GPS有两种伪随机码" class="headerlink" title="GPS有两种伪随机码"></a>GPS有两种伪随机码</h4><p>　　第一种为<strong>粗捕获（C/A）码</strong>，主要提供给民用，它调制在L1载波上。其调制频率是1.023MHz，每1ms（1023比特）码将重复一次。每个GPS卫星有其独特的伪随机码。<strong>粗捕获码的码元宽度较大，通常测距误差为29.3～2.93米。这也为什么民用的GPS精度收到影响的主要原因。</strong></p>
+<p>　　笫二种为<strong>精准（P）码</strong>，是和粗捕获码对应的精测码，它每7天才重复一次，以10.23MHz的频率调制在L1和L2载波上。<strong>这种码供军事应用，是加密的。当它加密时，则被称为“Y”码。</strong>由于精准码比粗捕获码复杂得多，所以信号捕获要困难得多，这就是为什么许多军用接收机开机后常常是首先显示粗捕获码，然后过渡到精准码捕获。当然，由于技术的不断进步，美国人已解决了精准码的直接捕获问题，不一定需要有粗捕获码向精准码过渡的过程。</p>
+<h3 id="精度因子DOP"><a href="#精度因子DOP" class="headerlink" title="精度因子DOP"></a>精度因子DOP</h3><p>几何定位方法中，多个基站和移动台之间的相对距离将很大程度上决定定位的准确度。这个影响因子就叫做精度因子DOP（dilution of precision，精度衰减因子）。</p>
+<p><strong>GDOP（Geometric dilution of precision）几何精度因子</strong>：包括经度，纬度,高程和时间等因子，称为几何精度因子。</p>
+<p><strong>PDOP（position dilution of precision）三维位置精度因</strong>子：为纬度、经度和高程等误差平方和的开根号值。</p>
+<p><strong>HDOP（horizontal dilution of precision）水平分量精度因子</strong>：为纬度和经度等误差平方和的开根号值。</p>
+<p><strong>VDOP（vertical dilution of precision）垂直分量精度因子</strong>。</p>
+<p><strong>TDOP（time dilution of precision）钟差精度因子</strong>：为接收仪内时表偏移误差值。</p>
+<h4 id="伪距"><a href="#伪距" class="headerlink" title="伪距"></a>伪距</h4><p><strong>伪距是什么？</strong></p>
+<p>所谓“伪距”就是由GPS观测而得的GPS观测站到卫星的距离，由于尚未对因“卫星时钟与接收机时钟同步误差”的影响加以改正，在所测距离中包含着时钟误差因素在内，故称“伪距”。</p>
+<p>GPS卫星能够按照星载时钟发射某一结构为“伪随机噪声码”的信号，称为测距码信号(即粗码 C／A码或精码P码)。该信号从卫星发射经时间Δt 后，到达接收机天线；用上述信号传播时间Δt乘以电磁波在真空中的速度c，就是卫星至接收机的空间几何距离ρ，即ρ＝Δt·c。</p>
+<p><strong>对应的真距是什么？</strong></p>
+<p>在无线电测量中,信号通过发射天线发射,经空间传播后由接收天线接收。所谓的信号空间传播时延是指信号在空间传播过程中所花费的时间。信号空间传播时延反映了信号所走过的真实路程,可将其简单地称为真距。</p>
+<p><strong>意义是什么？</strong></p>
+<p>在卫星坐标、卫星钟差和卫星不同频点间相对设备时延偏差已知的情况下,计算自己的三维坐标和钟差。因此,伪距是卫星导航系统最基本的观测量,伪距的观测精度直接决定了系统的导航定位精度。</p>
+<h4 id="单点定位模型"><a href="#单点定位模型" class="headerlink" title="单点定位模型"></a>单点定位模型</h4><blockquote>
+<p>  用于推导<strong>精度因子</strong></p>
+</blockquote>
+<p>虽然不同的用户对接收机的要求不同，但是接收 机对GPS系统的要求却是一样的，首先空间至少需要四 颗GPS卫星，其次这四颗GPS卫星的空间几何分布要合 理。我们很容易理解至少需要四颗GPS卫星，用户接收 机需要解算四个未知量，三个坐标（经度、纬度、高 程）和一个接收机时间钟差（简称钟差），于是我们 需要测量空间四颗导航卫星和接收机之间的距离（伪 距），利用如下定位方程解算上述四个未知量：</p>
+<img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200155088.png" alt="image-20201010200155088" style="zoom:25%;">
 
-<p>这两种波都是特高频，其电磁波以直射波形式传播，可以穿透电离层和建筑物，所以受到噪声干扰影响较小，适合卫星通信。现在已经有L5频率的载波，是f0的115倍。</p>
-<p>当然这种方式只是GPS的方式，比如GLONASS卫星的方式就不同，他是频分多址，所以每一个卫星的频率都不同，以此来区分不同的卫星。所以这何种方式占用的频段较为宽。</p>
+<p>计算和推导过程略，结论如下：<strong>精度因子与接收机所观测到卫星数量及分布有关，表示了定位几何条件的好坏。若测站与空中四颗观测到的卫星所构成的六面体体积为Ｆ，分析表明，精度因子GDOP值与Ｆ成反比，即卫星分布越广，GDOP越小，定位的几何条件越好，定位精度越高。</strong></p>
+<img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200145871.png" alt="image-20201010200145871">
+
+<p>基本上，GPS接收器可以“看到”的信号越多（分开或彼此靠近），它就可以越精确。</p>
+<p>从观察者的角度来看，如果卫星在天空中散开，则GPS接收机的GDOP很好。</p>
+<img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200217462.png" alt="image-20201010200217462" style="zoom:50%;">
+
+<p>但是，如果卫星在物理上靠在一起，则GDOP较差。这可能会降低仪表的GPS定位质量。</p>
+<img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200122841.png" alt="image-20201010200122841" style="zoom:50%;">
+
+<p><strong>那么PDOP的取值范围呢？</strong></p>
+<p>PDOP取值范围为：0.5到99.9，一般来说好的定位而言，PDOP较小，如3（GNSS各个卫星导航系统基本能达到2），但是当PDOP&gt;7的时候通常认为就是比较差的数据了。</p>
+<h2 id="信噪比SNR"><a href="#信噪比SNR" class="headerlink" title="信噪比SNR"></a>信噪比SNR</h2><p>信噪比是指载波信号强度和噪声强度的比值。它主要受天线的增益参数、接收机相关器状态及多路径误差的影响，是反映载波相位观测质量的指标之一，信噪比可以从观测文件中直接获得，其数值越大，表示信号强度越强。</p>
+<p>Ps/Pn或Vs/Vn，单位是dB，简单来说，信噪比是越大越好，在GPS方面，低于35dB的信噪比就算相当差的了，低于这个值，晴天可能还凑合使用，到了雾霾天下雨天，定位漂移个几百米是正正常常。</p>
+<p>什么是“噪声”？与噪声相关的概念，还有一个叫“失真”，这两者相近，所以一起来谈，他们都是原信号中并不存在的额外信号，而“失真”是有规律的额外信号，“噪声”是无规律的额外信号，它不会随着原信号的改变还改变。</p>
+<p>信噪比SNR决定了GPS接收信号的强弱性能，定位性能。一般来说，&gt;50dB属于高信噪比，而&lt;35dB属于低信噪比。</p>
+<p>上述的“失真”的噪声就是下面说的多路径效应</p>
+<h2 id="大气折射"><a href="#大气折射" class="headerlink" title="大气折射"></a>大气折射</h2><p>对流层和电离层可以改变GPS信号的传播速度。由于大气条件，当卫星信号通过地面时，大气会折射卫星信号。</p>
+<p>为了解决这个问题，GPS可以使用两个单独的频率来最小化传播速度误差。根据情况，这种类型的GPS错误可能会使位置偏离5米。</p>
+<img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200231268.png" alt="image-20201010200231268" style="zoom:50%;">
+
+<h2 id="多路径效应"><a href="#多路径效应" class="headerlink" title="多路径效应"></a>多路径效应</h2><img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200242978.png" alt="image-20201010200242978" style="zoom:50%;">
+
+<p>理想状态下，卫星信号将沿最短路径直接达到接收机天线。而如果天线附近有反射物， 如图4-5 所示，这时接收机天线几乎同时收到卫星的直接信号与反射信号，两种信号的叠加 将使观测值产生附加时延量，这种现象称为多路径效应。多路径效应的影响(Multipath Rrror) 属于电磁波传输过程中的误差。</p>
+<h2 id="GNSS定位精度估计模型"><a href="#GNSS定位精度估计模型" class="headerlink" title="GNSS定位精度估计模型"></a>GNSS定位精度估计模型</h2><p>常见的系统精度估计公式将用户定位误差与等效距离误差UERE 和几何精度衰减因子 PDOP 的 关系用下式表达：</p>
+<p><img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200253136.png" alt="image-20201010200253136"></p>
+<p>这个模型的基本公式为：</p>
+<p><img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200259288.png" alt="image-20201010200259288"></p>
+<p>这个公式和上面那个单点定位模型是类似的，只不过更为精确，u1、u2、u3、u4就是接收机能够接收到的4颗卫星，公式前半部分就是一个距离公式，很容易理解，后半部分的lA1是信号传输过程中引入的附加时延（如电离层时延等）和光速的乘积、lu是用户接收机时钟和导航系统时钟的钟差与光速的乘积、ls1是卫星上时钟和导航系统时钟的钟差与光速的乘积。</p>
+<p>最终我们可以得到一个用户定位误差的协方差阵为：</p>
+<p><img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200307488.png" alt="image-20201010200307488"></p>
+<p><img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200318051.png" alt="image-20201010200318051"></p>
+<p>其中：</p>
+<p><img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200327973.png" alt="image-20201010200327973" style="zoom:50%;">这个公式证明了上述结论。感兴趣的可以看《卫星导航系统定位精度估计》</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>根据上述阐述，我们知道了除去我们无法控制的一些误差源，我们主要关注SNR信噪比和PDOP精度因子，将SNR的值近似看为UERE，如果PDOP不好（也就是太高）会以为当前卫星分布不好而导致根本上定位不准确，而SNR不好（也就是太低）会导致原本较好的信息变得模糊。但是因为GNSS在PDOP上已经做得足够好，接收器的信噪比指标就成为了我们重中之重。我们可以对两个指标进行归一化处理，得到下面代码，但是代码中的参数还有待讨论。</p>
+<p>代码块</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GNSSQualityModel</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> GNSS_SNR_AVG_MAX = <span class="number">50D</span>;             <span class="comment">// snr平均值设置上限35</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> GNSS_SNR_AVG_MIN = <span class="number">5D</span>;              <span class="comment">// snr平均值下限</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> SNR_AVG_THAN25_COUNT_MAX = <span class="number">15</span>;      <span class="comment">// 信噪比大于25的卫星数量信最大值设置为15</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> SNR_AVG_THAN25_COUNT_MIN = <span class="number">0</span>;       <span class="comment">// 信噪比大于25的卫星数量信最小值设置为0，这四个参数都是为了归一化</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> GNSS_PDOP_AVG_MAX = <span class="number">20D</span>;            <span class="comment">// pdop设置上限</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> GNSS_PDOP_AVG_MIN = <span class="number">1D</span>;             <span class="comment">// pdop值下限</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> SNR_AVG_PARAM = <span class="number">0.75</span>;               <span class="comment">// 平均SNR在计算SNR系数中的比例</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> SNR_THAN_COUNT_PARAM = <span class="number">0.25</span>;        <span class="comment">// 超过指定SNR卫星数量在计算中的比例</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> SNR_MODEL_PARAM = <span class="number">0.5</span>;              <span class="comment">// 计算GNSS质量的SNR部分权重</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> PDOP_MODEL_PARAM = <span class="number">0.5</span>;             <span class="comment">// 计算GNSS质量的PDOP部分权重</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">getSnrModelValue</span><span class="params">(<span class="keyword">double</span> snravg, <span class="keyword">int</span> snrThanCount)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SNR_AVG_PARAM * snrAvgNorm(snravg) + SNR_THAN_COUNT_PARAM * snrThan25CountNorm(snrThanCount);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">getModelValue</span><span class="params">(<span class="keyword">double</span> snravg, <span class="keyword">int</span> snrThan25Count, <span class="keyword">double</span> pdop)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BigDecimal((SNR_MODEL_PARAM * getSnrModelValue(snravg, snrThan25Count) + PDOP_MODEL_PARAM * getPdopModelValue(pdop)) * <span class="number">100</span>).setScale(<span class="number">2</span>, BigDecimal.ROUND_HALF_UP).doubleValue();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">getPdopModelValue</span><span class="params">(<span class="keyword">double</span> pdop)</span> </span>&#123;</span><br><span class="line">        pdop = Math.min(pdop, GNSS_PDOP_AVG_MAX);</span><br><span class="line">        pdop = Math.max(pdop, GNSS_PDOP_AVG_MIN);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> - (pdop - GNSS_PDOP_AVG_MIN) / (GNSS_PDOP_AVG_MAX - GNSS_PDOP_AVG_MIN);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">snrAvgNorm</span><span class="params">(<span class="keyword">double</span> snravg)</span> </span>&#123;</span><br><span class="line">        snravg = Math.min(snravg, GNSS_SNR_AVG_MAX);</span><br><span class="line">        snravg = Math.max(snravg, GNSS_SNR_AVG_MIN);</span><br><span class="line">        <span class="keyword">return</span> (snravg - GNSS_SNR_AVG_MIN) / (GNSS_SNR_AVG_MAX - GNSS_SNR_AVG_MIN);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">snrThan25CountNorm</span><span class="params">(<span class="keyword">int</span> snrThan25Count)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> snrThan25 = snrThan25Count;</span><br><span class="line">        snrThan25 = Math.min(snrThan25, SNR_AVG_THAN25_COUNT_MAX);</span><br><span class="line">        snrThan25 = Math.max(snrThan25, SNR_AVG_THAN25_COUNT_MIN);</span><br><span class="line">        <span class="keyword">return</span> snrThan25 / SNR_AVG_THAN25_COUNT_MAX;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> modelvalue = getModelValue(<span class="number">50D</span>, <span class="number">20</span>, <span class="number">1d</span>);</span><br><span class="line">        System.out.print(modelvalue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><blockquote>
+<p>  以下内容参考《导航学》以及相关论文与博客，相关链接如下：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/67987508">https://zhuanlan.zhihu.com/p/67987508</a></p>
 </li>
-<li><p>数据码，就是D码，就是导航电文，用户通过接收机对接收到的卫星信号进行载波解调。测距码解扩后，根据导航电文的格式进行翻译，导航电文是一组二进制信息，用来反映卫星在太空中的运行轨迹、卫星钟的改正参数以及卫星的工作状态等。</p>
-<img src="/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/image-20200929142213481.png" alt="image-20200929142213481" style="zoom:80%;">
+<li><p><a target="_blank" rel="noopener" href="http://www.beidou.gov.cn/zy/kpyd/201710/t20171023_4770.html">http://www.beidou.gov.cn/zy/kpyd/201710/t20171023_4770.html</a></p>
 </li>
-<li><p>观测方程：用 户 接收机在接收到来 自 卫星 端发射的 电磁波信号后 ， 解析 出 卫星的 星历文件、 伪 距和载波 相位距 离测量值 ， 通过观测方程求 得接收机到卫星 的精确距 离。</p>
+<li><p><a target="_blank" rel="noopener" href="http://www.beidou.gov.cn/zy/kpyd/202001/t20200103_19871.html">http://www.beidou.gov.cn/zy/kpyd/202001/t20200103_19871.html</a></p>
 </li>
-<li><p>GNSS测量的主要误差按可分为三种：与卫星有关的误差、与信号传播有关的误差 及与接收机有关 的误 差 。此外 ，在高精度 的测量应用场合 中 ，与地球整体运动有关 的地球潮汐、负荷潮及相对论 效应等影响 ，也会产生一定的误差。</p>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/inteliot/archive/2012/08/14/2638185.html">https://www.cnblogs.com/inteliot/archive/2012/08/14/2638185.html</a></p>
 </li>
-<li><p><strong>与卫星有关的误差：</strong>卫星星历误差和卫星钟误差，这两者都可以通过一些计算进行消除。</p>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/magicboy110/archive/2010/12/09/1901669.html">https://www.cnblogs.com/magicboy110/archive/2010/12/09/1901669.html</a></p>
 </li>
-<li><p><strong>与信号传播有关的误差：</strong>电离层延迟、对流层延迟和多路径效应。</p>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/inteliot/archive/2012/08/14/2638185.html">https://www.cnblogs.com/inteliot/archive/2012/08/14/2638185.html</a></p>
 </li>
-<li><p><strong>与接收机有关的误差：</strong>接收机钟差、接收机位置误差和接收机的测量噪声。</p>
+<li><p><a target="_blank" rel="noopener" href="https://spotlight.unavco.org/how-gps-works/gps-basics/gps-signal-to-noise-ratio-data.html">https://spotlight.unavco.org/how-gps-works/gps-basics/gps-signal-to-noise-ratio-data.html</a></p>
+</li>
+<li><p>参考了一些论文如：Multi-Constellation_GNSS_Performance_Evaluation_fo、GPS系统导航卫星几何精度因子是怎么回事_第十六讲、多GNSS观测数据质量与完好性评价方法研究、卫星导航系统定位精度估计</p>
+</li>
+<li><p>其他引用略</p>
 </li>
 </ul>
-<h2 id="第三章-多GNSS原始数据流格式与解析"><a href="#第三章-多GNSS原始数据流格式与解析" class="headerlink" title="第三章 多GNSS原始数据流格式与解析"></a>第三章 多GNSS原始数据流格式与解析</h2><p>略</p>
-<h2 id="第四章-多GNSS观测数据质量分析"><a href="#第四章-多GNSS观测数据质量分析" class="headerlink" title="第四章 多GNSS观测数据质量分析"></a>第四章 多GNSS观测数据质量分析</h2><ul>
-<li><p>精度因子ＤＯＰ值反映的是卫星空间几何分布对定位精度的影响，通过改善ＤＯＰ值可以提高卫星定位的准确性，因此，对单系统／多系统组合下的ＤＯＰ值进行研宄和分析十分重要。此外，多路径效应、信噪比、观测数据完整率等能够反映观测数据质量与观测环境、接收设备等因素的关系。其中，多路径效应不仅给接收机的伪距测量带来误差，对载波相位测量也有一定程度的干扰，在观测环境周围多遮挡物的情况下，多路径效应带来的影响尤其突出，这使得多路径效应成为影响测量结果精度的主要误差源；信噪比是指信号功率与噪声功率之间的比值，是反映载波相位观测质量的指标之一；此外，如果用户接收机某段时间内的观测数据丢失过于严重，将无法用于定位解算，统计观测数据完整率可有效评估该段时间内数据的可用性与有效性，因此，数据完整率是一项直观反映数据质量的综合性指标。</p>
-</li>
-<li><p>在实际应用场合中，一些高楼林立或深山峡谷等遮挡比较严重的环境下，ＧＮＳＳ用户接收到的卫星个数较少且星座分布不佳，而卫星几何结构的好坏直接影响卫星定位的可用性与定位精度。精度衰减因子（ＤＯＰ值）被广泛用于分析导航精度和观测几何结构强度，是反应卫星几何分布结构对定位精度影响大小的重要衡量指标。</p>
-</li>
-<li><p>DOP的分类及计算方式：</p>
-<p><img src="/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/image-20200929145252995.png" alt="image-20200929145252995"></p>
-<p><img src="/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/image-20200929145311328.png" alt="image-20200929145311328"></p>
-<p><img src="/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/image-20200929145333206.png" alt="image-20200929145333206"></p>
-<p>精度因子与接收机所观测到卫星数量及分布有关，表示了定位几何条件的好坏。若测站与空中四颗观测到的卫星所构成的六面体体积为Ｆ，分析表明，精度因子ＧＤＯＰ值与Ｆ成反比，即卫星分布越广，ＧＤＯＰ越小，定位的几何条件越好，定位精度越高。实际定位时，ＧＤＯＰ不应大于６。</p>
-<p><img src="/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/image-20200929145452562.png" alt="image-20200929145452562"></p>
-</li>
-<li><p>多路径效应：多 路径现象 是 指接收机除 了 接 收来 自 卫星发射 的经 直线传播 的 电磁波信号 外 ， 也 会 接收 到 一 个或多 个经接收机周 边的遮挡物反射 后 的 电磁波信 号 。 这些信号 和直射波进 行 叠加 ， 使得接收机对信号 的测量值产 生误差 ， 从而 降低伪距及相位观测值的 精度 ， 严 重 时 还 可导 致码相 位失锁 和 卫星信 号 失踪 ， 这使多 路径误差 成为 ＧＮＳ Ｓ 系 统 中 最主要 的 误差 源之一 。</p>
-</li>
-<li><p>信号的质量通常用信噪比（ＳＮＲ）来衡量。信噪比是信号功率与噪声功率之间的比<br>值，没有单位，通常表示成分贝的形式。ＲＩＮＥＸ标准格式中通常给出接收机所出的Ｌ１、<br>Ｌ２相位观测值的原始信号强度或信噪比。通常将ＳＮＲ值的范围为１-９个等级的信号强度，数字越大，信号质量越好。</p>
-</li>
-<li><p>本章内容首先介绍了ＧＮＳＳ观测数据质量检核的四个重要指标，分别是ＰＤＯＰ值、<br>多路径值、信噪比及数据完整性和可利用率。这四个指标分别从卫星星座可用性、测站<br>观测环境影响、接收机抑制噪声能力及观测数据可用性四个方面对数据质量评估方法做<br>了介绍，从不同侧面反映了观测数据的优劣和健康状况。</p>
-</li>
-</ul>
+</blockquote>
 
     
 
@@ -373,7 +441,7 @@ var _hmt = _hmt || [];
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://www.octber.xyz/2020/09/29/关于论文《多GNSS观测数据质量与完好性评价方法研究》学习/" title="关于论文《多GNSS观测数据质量与完好性评价方法研究》学习" target="_blank">http://www.octber.xyz/2020/09/29/关于论文《多GNSS观测数据质量与完好性评价方法研究》学习/</a>
+          <a href="http://www.octber.xyz/2020/10/10/导航学与定位准确性/" title="导航学与定位准确性" target="_blank">http://www.octber.xyz/2020/10/10/导航学与定位准确性/</a>
         </li>
         
         <li>
@@ -451,7 +519,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.octber.xyz/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -466,18 +534,9 @@ var _hmt = _hmt || [];
 
 <nav id="article-nav">
   
-    <a href="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          导航学与定位准确性
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">GPS信号质量评估</div>
+    <a href="/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关于论文《多GNSS观测数据质量与完好性评价方法研究》学习</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -515,9 +574,9 @@ var _hmt = _hmt || [];
     <script src="/lib/giteement.browser.js"></script>
   
   <script>
-  <!-- id: "关于论文《多GNSS观测数据质量与完好性评价方法研究》学习" -->
+  <!-- id: "导航学与定位准确性" -->
   var giteement = new Giteement({
-    id: '20200929110028',
+    id: '20201010195813',
     owner: 'octCoding',
     repo: 'OctoberBlog&#39;',
     backcall_uri: 'https://www.octber.xyz/',

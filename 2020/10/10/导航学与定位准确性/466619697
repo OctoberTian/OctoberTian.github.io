@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+var basePath="/sson";
+</script>
+<title>统一登录中心</title>
+<meta http-equiv=content-type content="text/html; charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="lx:category" content="oa" />
+<meta name="lx:appnm" content="com.sankuai.it.iam.ssoservice">
+<meta name="lx:autopv" content="off"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<script>
+"use strict";!function(){var e=0<arguments.length&&void 0!==arguments[0]?arguments[0]:"_Owl_",a=window;a[e]||(a[e]={isRunning:!1,isReady:!1,preTasks:[],dataSet:[],pageData:[],disableMutaObserver:!1,observer:null,use:function(e,t){this.isReady&&a.Owl&&a.Owl[e](t),this.preTasks.push({api:e,data:[t]})},add:function(e){this.dataSet.push(e)},run:function(){var t=this;if(!this.isRunning){this.isRunning=!0;var e=a.onerror;a.onerror=function(){this.isReady||this.add({type:"jsError",data:arguments}),e&&e.apply(a,arguments)}.bind(this),(a.addEventListener||a.attachEvent)("error",function(e){t.isReady||t.add({type:"resError",data:[e]})},!0);var i=window.MutationObserver||window.WebKitMutationObserver||window.MozMutationObserver,r=window.performance||window.WebKitPerformance;if(i&&r){var n=-1,s=window.navigator.userAgent;if(-1<s.indexOf("compatible")&&-1<s.indexOf("MSIE")?(new RegExp("MSIE (\\d+\\.\\d+);").test(s),n=parseFloat(RegExp.$1)):-1<s.indexOf("Trident")&&-1<s.indexOf("rv:11.0")&&(n=11),-1!==n&&n<=11)return void(this.disableMutaObserver=!0);try{this.observer=new i(function(e){t.pageData.push({mutations:e,startTime:r.now()})}),this.observer.observe(document,{childList:!0,subtree:!0})}catch(e){console.log("mutationObserver err")}}else this.disableMutaObserver=!0}}},a[e].run())}();
+</script>
+<link href="/sson/static/css/login.css?v=154804816892" rel="stylesheet">
+<link href="/sson/static/css/login-new.css?v=154804816892" rel="stylesheet">
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="/sson/static/entrance/login/jquery-1.11.3.min.js"></script>
+<script>if (window.module) module = window.module;</script>
+</head>
+<body id="login">
+<noscript>
+<p style="text-align: center;color:red; padding: 5px 0;">该页面访问需要浏览器支持（启用）JavaScript</p>
+</noscript>
+<p id="cookie-close-tip" style="text-align: center;color:red; padding: 5px 0; display: none;">该页面访问需要浏览器支持（启用）Cookie</p>
+<script>
+if(!navigator.cookieEnabled) document.querySelector('#cookie-close-tip').style.display="block";
+</script>
+<p id="ie-close-tip" style="text-align: center;color:red; padding: 5px 0; display: none;">sso暂未适配此浏览器，请使用chrome浏览器访问</p>
+<script>
+if(typeof Object.assign !=='function') document.querySelector('#ie-close-tip').style.display="block";
+</script>
+<div id="doc" class="mission">
+<div id="l-hd">
+<img class="logo">
+</div>
+<div id="l-bd" class="cf">
+<div class="promotion-banner" id="topic">
+<div class="login-section-bg" id="section">
+<div class="login-section">
+<div class="slider_shadow"></div>
+<div class="login-tabs login-type-qrcode">
+<div class="login-tab login-tab-form"
+style="display:none"
+>
+<a class="login-toggle login-toggle-form" data-type="form" id="pwdLoginTitle" style="display:none">密码登录</a>
+<a class="login-toggle login-toggle-form" data-type="form" id="smsLoginTitle" style="display:none">短信验证登录</a>
+<img id="qrcode-img" data-type="qrcode"
+class="login-toggle login-toggle-qrcode change-login-type" alt="点击更换登录类型"
+title="点击更换登录类型" src="/sson/static/images/login/qrcode-login.png">
+</div>
+<div class="login-tab login-tab-qrcode"
+>
+<a class="login-toggle login-toggle-qrcode" data-type="qrcode">快速登录</a>
+<img id="form-img" data-type="form"
+class="login-toggle login-toggle-form change-login-type" alt="点击更换登录类型"
+title="点击更换登录类型" src="/sson/static/images/login/form-login.png">
+</div>
+<a class="login-status">切换状态</a>
+</div>
+<div class="login-container login-qrcode-container"
+>
+<div class="login-help">
+<div class="login-desc">
+<span class="text-red qr-text">大象扫描， 快速登录</span>
+</div>
+<div id="qr-code"></div>
+</div>
+<p class="login-qrcode-download">
+还没有安装大象？<a target="_blank" href="http://x.sankuai.com/downloadPagePc" id="downloadDX">立即下载</a>
+</p>
+</div>
+<div class="login-container login-form-container"
+style="display:none"
+>
+<form class="login-form" id="form-submit" action="/sson/login" method="post" style="display:none">
+<div class="form-field form-field--icon">
+<i class="icon icon-user"></i>
+<input type="text" id="login-username"
+name="username" placeholder="请输入用户名" value="">
+</div>
+<div class="form-field form-field--icon" id="iptPwd">
+<i class="icon icon-lock-o"></i>
+<input type="password" id="login-password"
+name="originPassword" placeholder="请输入密码" value="">
+<i class="icon-eye icon-eye-close"></i>
+</div>
+<div class="login-cf">
+</div>
+<div class="form-field form-field-submit">
+<input type="button" class="btn btn-login-submit" name="commit" id="btn-login" value="登录">
+<input type="button" class="btn btn-login-submit" style="display: none" name="commit" id="btn-login-nopwd" value="免密登录">
+</div>
+<div class="form-field-other cf">
+<span id="switchSmsMode" tabindex="-1" class="login-btn no-outline">短信验证登录</span>
+<a id="toPwdLogin" tabindex="-1" class="forget-password no-outline" href="javascript:void(0);">密码登录</a>
+<a id="toNoPwdLogin" tabindex="-1" class="forget-password no-outline" href="javascript:void(0);">免密登录</a>
+<span id="forgetPwd" tabindex="-1" class="no-outline">忘记密码</span>
+<input type="hidden" name="refer" value=""/>
+<input type="hidden" name="clientId" value="com.sankuai.it.ead.citadel"/>
+<input type="hidden" name="callback" value="https%3A%2F%2Fkm%2Esankuai%2Ecom%2Fsso%2Fcallback%3Foriginal-url%3D%252Fapi%252Ffile%252Fcdn%252F463839559%252F466619697%253FcontentType%253D1%2526isNewContent%253Dfalse%2526isNewContent%253Dfalse"/>
+<input id="os" type="hidden" name="os" value=""/>
+<input id="screen" type="hidden" name="screen" value=""/>
+<input type="hidden" name="lt" value="LT-77767-HVjiB5st9pTrj3J89NqPX8OiuTr4Cg-ssosv.it"/>
+<input type="hidden" name="isFromSsoGw" value="false"/>
+<input type="hidden" name="isFromBj" value="false"/>
+<input type="hidden" name="sceneType" value="WebScene"/>
+<input type="hidden" id="isNoPwdLogin" name = "noPwdLogin" value="false"/>
+</div>
+</form>
+<form class="login-form" id="sms-submit" action="/sson/web/mobile/smscode/login" method="post" style="display:none">
+<div class="form-field form-input-sms">
+<span id="region" class="region">
+<span class="region-value">+86</span>
+<span class="pull-down">
+<i class="icon-arrow-down"></i>
+</span>
+</span>
+<input type="text" id="login-telephone"
+name="mobile" placeholder="请输入手机号" value="" />
+<div class="sms-devider"></div>
+</div>
+<div class="region-pull-down">
+<div class="region-item">
+<span class="left">+86</span>
+<span class="right">中国</span>
+</div>
+<div class="region-item">
+<span class="left">+886</span>
+<span class="right">台湾省</span>
+</div>
+<div class="region-item">
+<span class="left">+852</span>
+<span class="right">香港</span>
+</div>
+<div class="region-item">
+<span class="left">+853</span>
+<span class="right">澳门</span>
+</div>
+<div class="region-item">
+<span class="left">+1</span>
+<span class="right">美国</span>
+</div>
+<div class="region-item">
+<span class="left">+1</span>
+<span class="right">加拿大</span>
+</div>
+<div class="region-item">
+<span class="left">+65</span>
+<span class="right">新加坡</span>
+</div>
+<div class="region-item">
+<span class="left">+82</span>
+<span class="right">韩国</span>
+</div>
+<div class="region-item">
+<span class="left">+81</span>
+<span class="right">日本</span>
+</div>
+<div class="region-item">
+<span class="left">+60</span>
+<span class="right">马来西亚</span>
+</div>
+<div class="region-item">
+<span class="left">+66</span>
+<span class="right">泰国</span>
+</div>
+<div class="region-item">
+<span class="left">+55</span>
+<span class="right">巴西</span>
+</div>
+<div class="region-item">
+<span class="left">+58</span>
+<span class="right">委内瑞拉</span>
+</div>
+<div class="region-item">
+<span class="left">+355</span>
+<span class="right">阿尔巴尼亚</span>
+</div>
+<div class="region-item">
+<span class="left">+213</span>
+<span class="right">阿尔及利亚</span>
+</div>
+<div class="region-item">
+<span class="left">+93</span>
+<span class="right">阿富汉</span>
+</div>
+<div class="region-item">
+<span class="left">+54</span>
+<span class="right">阿根廷</span>
+</div>
+<div class="region-item">
+<span class="left">+971</span>
+<span class="right">阿拉伯联合酋长国</span>
+</div>
+<div class="region-item">
+<span class="left">+968</span>
+<span class="right">阿曼</span>
+</div>
+<div class="region-item">
+<span class="left">+994</span>
+<span class="right">阿塞拜疆</span>
+</div>
+<div class="region-item">
+<span class="left">+247</span>
+<span class="right">阿森松(英)</span>
+</div>
+<div class="region-item">
+<span class="left">+353</span>
+<span class="right">爱尔兰</span>
+</div>
+<div class="region-item">
+<span class="left">+372</span>
+<span class="right">爱沙尼亚</span>
+</div>
+<div class="region-item">
+<span class="left">+376</span>
+<span class="right">安道尔</span>
+</div>
+<div class="region-item">
+<span class="left">+244</span>
+<span class="right">安哥拉</span>
+</div>
+<div class="region-item">
+<span class="left">+61</span>
+<span class="right">澳大利亚</span>
+</div>
+<div class="region-item">
+<span class="left">+675</span>
+<span class="right">巴布亚新几内亚</span>
+</div>
+<div class="region-item">
+<span class="left">+92</span>
+<span class="right">巴基斯坦</span>
+</div>
+<div class="region-item">
+<span class="left">+595</span>
+<span class="right">巴拉圭</span>
+</div>
+<div class="region-item">
+<span class="left">+973</span>
+<span class="right">巴林</span>
+</div>
+<div class="region-item">
+<span class="left">+507</span>
+<span class="right">巴拿马</span>
+</div>
+<div class="region-item">
+<span class="left">+359</span>
+<span class="right">保加利亚</span>
+</div>
+<div class="region-item">
+<span class="left">+1242</span>
+<span class="right">巴哈马</span>
+</div>
+<div class="region-item">
+<span class="left">+351</span>
+<span class="right">葡萄牙</span>
+</div>
+<div class="region-item">
+<span class="left">+229</span>
+<span class="right">贝宁</span>
+</div>
+<div class="region-item">
+<span class="left">+238</span>
+<span class="right">佛得角</span>
+</div>
+<div class="region-item">
+<span class="left">+32</span>
+<span class="right">比利时</span>
+</div>
+<div class="region-item">
+<span class="left">+51</span>
+<span class="right">秘鲁</span>
+</div>
+<div class="region-item">
+<span class="left">+354</span>
+<span class="right">冰岛</span>
+</div>
+<div class="region-item">
+<span class="left">+501</span>
+<span class="right">伯利兹</span>
+</div>
+<div class="region-item">
+<span class="left">+375</span>
+<span class="right">白俄罗斯</span>
+</div>
+<div class="region-item">
+<span class="left">+48</span>
+<span class="right">波兰</span>
+</div>
+<div class="region-item">
+<span class="left">+689</span>
+<span class="right">波利尼西亚</span>
+</div>
+<div class="region-item">
+<span class="left">+387</span>
+<span class="right">波斯尼亚和黑塞哥维</span>
+</div>
+<div class="region-item">
+<span class="left">+267</span>
+<span class="right">博茨瓦纳</span>
+</div>
+<div class="region-item">
+<span class="left">+591</span>
+<span class="right">玻利维亚</span>
+</div>
+<div class="region-item">
+<span class="left">+975</span>
+<span class="right">不丹</span>
+</div>
+<div class="region-item">
+<span class="left">+226</span>
+<span class="right">布基纳法索</span>
+</div>
+<div class="region-item">
+<span class="left">+257</span>
+<span class="right">布隆迪</span>
+</div>
+<div class="region-item">
+<span class="left">+240</span>
+<span class="right">赤道几内亚</span>
+</div>
+<div class="region-item">
+<span class="left">+45</span>
+<span class="right">丹麦</span>
+</div>
+<div class="region-item">
+<span class="left">+49</span>
+<span class="right">德国</span>
+</div>
+<div class="region-item">
+<span class="left">+246</span>
+<span class="right">迪戈加西亚</span>
+</div>
+<div class="region-item">
+<span class="left">+684</span>
+<span class="right">东萨摩亚（美）</span>
+</div>
+<div class="region-item">
+<span class="left">+90</span>
+<span class="right">土耳其</span>
+</div>
+<div class="region-item">
+<span class="left">+993</span>
+<span class="right">土库曼斯坦</span>
+</div>
+<div class="region-item">
+<span class="left">+228</span>
+<span class="right">多哥</span>
+</div>
+<div class="region-item">
+<span class="left">+593</span>
+<span class="right">厄瓜多尔</span>
+</div>
+<div class="region-item">
+<span class="left">+7</span>
+<span class="right">俄罗斯</span>
+</div>
+<div class="region-item">
+<span class="left">+291</span>
+<span class="right">厄立特里亚</span>
+</div>
+<div class="region-item">
+<span class="left">+33</span>
+<span class="right">法国</span>
+</div>
+<div class="region-item">
+<span class="left">+298</span>
+<span class="right">法罗群岛</span>
+</div>
+<div class="region-item">
+<span class="left">+689</span>
+<span class="right">法属波里尼西亚</span>
+</div>
+<div class="region-item">
+<span class="left">+594</span>
+<span class="right">法属圭亚那</span>
+</div>
+<div class="region-item">
+<span class="left">+679</span>
+<span class="right">斐济</span>
+</div>
+<div class="region-item">
+<span class="left">+63</span>
+<span class="right">菲律宾</span>
+</div>
+<div class="region-item">
+<span class="left">+358</span>
+<span class="right">芬兰</span>
+</div>
+<div class="region-item">
+<span class="left">+500</span>
+<span class="right">福克兰群岛</span>
+</div>
+<div class="region-item">
+<span class="left">+220</span>
+<span class="right">冈比亚</span>
+</div>
+<div class="region-item">
+<span class="left">+242</span>
+<span class="right">刚果</span>
+</div>
+<div class="region-item">
+<span class="left">+57</span>
+<span class="right">哥伦比亚</span>
+</div>
+<div class="region-item">
+<span class="left">+506</span>
+<span class="right">哥斯达黎加</span>
+</div>
+<div class="region-item">
+<span class="left">+590</span>
+<span class="right">瓜得罗普岛（法）</span>
+</div>
+<div class="region-item">
+<span class="left">+592</span>
+<span class="right">圭亚那</span>
+</div>
+<div class="region-item">
+<span class="left">+509</span>
+<span class="right">海地</span>
+</div>
+<div class="region-item">
+<span class="left">+31</span>
+<span class="right">荷兰</span>
+</div>
+<div class="region-item">
+<span class="left">+599</span>
+<span class="right">荷属安的列斯群岛</span>
+</div>
+<div class="region-item">
+<span class="left">+504</span>
+<span class="right">洪都拉斯</span>
+</div>
+<div class="region-item">
+<span class="left">+233</span>
+<span class="right">加纳</span>
+</div>
+<div class="region-item">
+<span class="left">+34</span>
+<span class="right">加那利群岛西</span>
+</div>
+<div class="region-item">
+<span class="left">+855</span>
+<span class="right">柬埔寨</span>
+</div>
+<div class="region-item">
+<span class="left">+241</span>
+<span class="right">加篷</span>
+</div>
+<div class="region-item">
+<span class="left">+253</span>
+<span class="right">吉布提</span>
+</div>
+<div class="region-item">
+<span class="left">+996</span>
+<span class="right">吉尔吉斯斯坦</span>
+</div>
+<div class="region-item">
+<span class="left">+686</span>
+<span class="right">基里巴斯</span>
+</div>
+<div class="region-item">
+<span class="left">+263</span>
+<span class="right">津巴布韦</span>
+</div>
+<div class="region-item">
+<span class="left">+224</span>
+<span class="right">几内亚</span>
+</div>
+<div class="region-item">
+<span class="left">+245</span>
+<span class="right">几内亚比绍</span>
+</div>
+<div class="region-item">
+<span class="left">+237</span>
+<span class="right">喀麦隆</span>
+</div>
+<div class="region-item">
+<span class="left">+682</span>
+<span class="right">科克群岛新</span>
+</div>
+<div class="region-item">
+<span class="left">+385</span>
+<span class="right">克罗地亚</span>
+</div>
+<div class="region-item">
+<span class="left">+269</span>
+<span class="right">科摩罗</span>
+</div>
+<div class="region-item">
+<span class="left">+254</span>
+<span class="right">肯尼亚</span>
+</div>
+<div class="region-item">
+<span class="left">+225</span>
+<span class="right">科特迪瓦</span>
+</div>
+<div class="region-item">
+<span class="left">+965</span>
+<span class="right">科威特</span>
+</div>
+<div class="region-item">
+<span class="left">+53</span>
+<span class="right">古巴</span>
+</div>
+<div class="region-item">
+<span class="left">+266</span>
+<span class="right">莱索托</span>
+</div>
+<div class="region-item">
+<span class="left">+856</span>
+<span class="right">老挝</span>
+</div>
+<div class="region-item">
+<span class="left">+371</span>
+<span class="right">拉脱维亚</span>
+</div>
+<div class="region-item">
+<span class="left">+961</span>
+<span class="right">黎巴嫩</span>
+</div>
+<div class="region-item">
+<span class="left">+231</span>
+<span class="right">利比里亚</span>
+</div>
+<div class="region-item">
+<span class="left">+218</span>
+<span class="right">利比亚</span>
+</div>
+<div class="region-item">
+<span class="left">+262</span>
+<span class="right">留尼汪岛（法）</span>
+</div>
+<div class="region-item">
+<span class="left">+299</span>
+<span class="right">格陵兰岛</span>
+</div>
+<div class="region-item">
+<span class="left">+995</span>
+<span class="right">格鲁吉亚</span>
+</div>
+<div class="region-item">
+<span class="left">+40</span>
+<span class="right">罗马尼亚</span>
+</div>
+<div class="region-item">
+<span class="left">+352</span>
+<span class="right">卢森堡</span>
+</div>
+<div class="region-item">
+<span class="left">+250</span>
+<span class="right">卢旺达</span>
+</div>
+<div class="region-item">
+<span class="left">+356</span>
+<span class="right">马耳他</span>
+</div>
+<div class="region-item">
+<span class="left">+960</span>
+<span class="right">马尔代夫</span>
+</div>
+<div class="region-item">
+<span class="left">+265</span>
+<span class="right">马拉维</span>
+</div>
+<div class="region-item">
+<span class="left">+223</span>
+<span class="right">马里</span>
+</div>
+<div class="region-item">
+<span class="left">+230</span>
+<span class="right">毛里求斯</span>
+</div>
+<div class="region-item">
+<span class="left">+222</span>
+<span class="right">毛里塔尼亚</span>
+</div>
+<div class="region-item">
+<span class="left">+389</span>
+<span class="right">马其顿</span>
+</div>
+<div class="region-item">
+<span class="left">+692</span>
+<span class="right">马绍尔群岛</span>
+</div>
+<div class="region-item">
+<span class="left">+596</span>
+<span class="right">马提尼克（法）</span>
+</div>
+<div class="region-item">
+<span class="left">+261</span>
+<span class="right">马达加斯加</span>
+</div>
+<div class="region-item">
+<span class="left">+269</span>
+<span class="right">马约特岛</span>
+</div>
+<div class="region-item">
+<span class="left">+52</span>
+<span class="right">墨西哥</span>
+</div>
+<div class="region-item">
+<span class="left">+880</span>
+<span class="right">孟加拉国</span>
+</div>
+<div class="region-item">
+<span class="left">+976</span>
+<span class="right">蒙古</span>
+</div>
+<div class="region-item">
+<span class="left">+95</span>
+<span class="right">缅甸</span>
+</div>
+<div class="region-item">
+<span class="left">+691</span>
+<span class="right">密克罗尼西亚</span>
+</div>
+<div class="region-item">
+<span class="left">+373</span>
+<span class="right">摩尔多瓦</span>
+</div>
+<div class="region-item">
+<span class="left">+212</span>
+<span class="right">摩洛哥</span>
+</div>
+<div class="region-item">
+<span class="left">+377</span>
+<span class="right">摩纳哥</span>
+</div>
+<div class="region-item">
+<span class="left">+680</span>
+<span class="right">帕劳</span>
+</div>
+<div class="region-item">
+<span class="left">+258</span>
+<span class="right">莫桑比克</span>
+</div>
+<div class="region-item">
+<span class="left">+264</span>
+<span class="right">纳米比亚</span>
+</div>
+<div class="region-item">
+<span class="left">+27</span>
+<span class="right">南非</span>
+</div>
+<div class="region-item">
+<span class="left">+381</span>
+<span class="right">南斯拉夫</span>
+</div>
+<div class="region-item">
+<span class="left">+674</span>
+<span class="right">瑙鲁</span>
+</div>
+<div class="region-item">
+<span class="left">+977</span>
+<span class="right">尼泊尔</span>
+</div>
+<div class="region-item">
+<span class="left">+505</span>
+<span class="right">尼加拉瓜</span>
+</div>
+<div class="region-item">
+<span class="left">+227</span>
+<span class="right">尼日尔</span>
+</div>
+<div class="region-item">
+<span class="left">+234</span>
+<span class="right">尼日利亚</span>
+</div>
+<div class="region-item">
+<span class="left">+683</span>
+<span class="right">纽埃岛（新）</span>
+</div>
+<div class="region-item">
+<span class="left">+672</span>
+<span class="right">诺福克岛（澳）</span>
+</div>
+<div class="region-item">
+<span class="left">+47</span>
+<span class="right">挪威</span>
+</div>
+<div class="region-item">
+<span class="left">+974</span>
+<span class="right">卡塔尔</span>
+</div>
+<div class="region-item">
+<span class="left">+420</span>
+<span class="right">捷克</span>
+</div>
+<div class="region-item">
+<span class="left">+46</span>
+<span class="right">瑞典</span>
+</div>
+<div class="region-item">
+<span class="left">+41</span>
+<span class="right">瑞士</span>
+</div>
+<div class="region-item">
+<span class="left">+503</span>
+<span class="right">萨尔瓦多</span>
+</div>
+<div class="region-item">
+<span class="left">+221</span>
+<span class="right">塞内加尔</span>
+</div>
+<div class="region-item">
+<span class="left">+357</span>
+<span class="right">塞浦路斯</span>
+</div>
+<div class="region-item">
+<span class="left">+248</span>
+<span class="right">塞舌尔</span>
+</div>
+<div class="region-item">
+<span class="left">+232</span>
+<span class="right">赛拉利昂</span>
+</div>
+<div class="region-item">
+<span class="left">+259</span>
+<span class="right">桑给巴尔</span>
+</div>
+<div class="region-item">
+<span class="left">+239</span>
+<span class="right">圣多美和普林西比</span>
+</div>
+<div class="region-item">
+<span class="left">+378</span>
+<span class="right">圣马力诺</span>
+</div>
+<div class="region-item">
+<span class="left">+508</span>
+<span class="right">圣皮埃尔岛和密克隆</span>
+</div>
+<div class="region-item">
+<span class="left">+290</span>
+<span class="right">圣赫勒拿</span>
+</div>
+<div class="region-item">
+<span class="left">+94</span>
+<span class="right">斯里兰卡</span>
+</div>
+<div class="region-item">
+<span class="left">+421</span>
+<span class="right">斯洛伐克</span>
+</div>
+<div class="region-item">
+<span class="left">+386</span>
+<span class="right">斯洛文尼亚</span>
+</div>
+<div class="region-item">
+<span class="left">+268</span>
+<span class="right">斯威士兰</span>
+</div>
+<div class="region-item">
+<span class="left">+972</span>
+<span class="right">以色列</span>
+</div>
+<div class="region-item">
+<span class="left">+249</span>
+<span class="right">苏丹</span>
+</div>
+<div class="region-item">
+<span class="left">+966</span>
+<span class="right">沙特阿拉伯</span>
+</div>
+<div class="region-item">
+<span class="left">+677</span>
+<span class="right">所罗门群岛（英）</span>
+</div>
+<div class="region-item">
+<span class="left">+252</span>
+<span class="right">索马里</span>
+</div>
+<div class="region-item">
+<span class="left">+7</span>
+<span class="right">塔吉克斯坦</span>
+</div>
+<div class="region-item">
+<span class="left">+7</span>
+<span class="right">哈萨克斯坦</span>
+</div>
+<div class="region-item">
+<span class="left">+676</span>
+<span class="right">汤加</span>
+</div>
+<div class="region-item">
+<span class="left">+255</span>
+<span class="right">坦桑尼亚</span>
+</div>
+<div class="region-item">
+<span class="left">+216</span>
+<span class="right">突尼斯</span>
+</div>
+<div class="region-item">
+<span class="left">+690</span>
+<span class="right">托克劳群岛（新）</span>
+</div>
+<div class="region-item">
+<span class="left">+688</span>
+<span class="right">图瓦卢</span>
+</div>
+<div class="region-item">
+<span class="left">+678</span>
+<span class="right">瓦努阿图</span>
+</div>
+<div class="region-item">
+<span class="left">+370</span>
+<span class="right">立陶宛</span>
+</div>
+<div class="region-item">
+<span class="left">+502</span>
+<span class="right">危地马拉</span>
+</div>
+<div class="region-item">
+<span class="left">+673</span>
+<span class="right">文莱</span>
+</div>
+<div class="region-item">
+<span class="left">+256</span>
+<span class="right">乌干达</span>
+</div>
+<div class="region-item">
+<span class="left">+380</span>
+<span class="right">乌克兰</span>
+</div>
+<div class="region-item">
+<span class="left">+598</span>
+<span class="right">乌拉圭</span>
+</div>
+<div class="region-item">
+<span class="left">+998</span>
+<span class="right">乌兹别克斯坦</span>
+</div>
+<div class="region-item">
+<span class="left">+34</span>
+<span class="right">西班牙</span>
+</div>
+<div class="region-item">
+<span class="left">+687</span>
+<span class="right">新喀里多尼亚群岛</span>
+</div>
+<div class="region-item">
+<span class="left">+64</span>
+<span class="right">新西兰</span>
+</div>
+<div class="region-item">
+<span class="left">+36</span>
+<span class="right">匈牙利</span>
+</div>
+<div class="region-item">
+<span class="left">+685</span>
+<span class="right">西萨摩亚</span>
+</div>
+<div class="region-item">
+<span class="left">+30</span>
+<span class="right">希腊</span>
+</div>
+<div class="region-item">
+<span class="left">+963</span>
+<span class="right">叙利亚</span>
+</div>
+<div class="region-item">
+<span class="left">+1876</span>
+<span class="right">牙买加</span>
+</div>
+<div class="region-item">
+<span class="left">+374</span>
+<span class="right">亚美尼亚</span>
+</div>
+<div class="region-item">
+<span class="left">+967</span>
+<span class="right">也门</span>
+</div>
+<div class="region-item">
+<span class="left">+964</span>
+<span class="right">伊拉克</span>
+</div>
+<div class="region-item">
+<span class="left">+98</span>
+<span class="right">伊朗</span>
+</div>
+<div class="region-item">
+<span class="left">+91</span>
+<span class="right">印度</span>
+</div>
+<div class="region-item">
+<span class="left">+62</span>
+<span class="right">印度尼西亚</span>
+</div>
+<div class="region-item">
+<span class="left">+44</span>
+<span class="right">英国</span>
+</div>
+<div class="region-item">
+<span class="left">+39</span>
+<span class="right">意大利</span>
+</div>
+<div class="region-item">
+<span class="left">+43</span>
+<span class="right">奥地利</span>
+</div>
+<div class="region-item">
+<span class="left">+84</span>
+<span class="right">越南</span>
+</div>
+<div class="region-item">
+<span class="left">+962</span>
+<span class="right">约旦</span>
+</div>
+<div class="region-item">
+<span class="left">+243</span>
+<span class="right">扎伊尔</span>
+</div>
+<div class="region-item">
+<span class="left">+260</span>
+<span class="right">赞比亚</span>
+</div>
+<div class="region-item">
+<span class="left">+20</span>
+<span class="right">埃及</span>
+</div>
+<div class="region-item">
+<span class="left">+251</span>
+<span class="right">埃塞俄比亚</span>
+</div>
+<div class="region-item">
+<span class="left">+350</span>
+<span class="right">直布罗陀（英）</span>
+</div>
+<div class="region-item">
+<span class="left">+56</span>
+<span class="right">智利</span>
+</div>
+<div class="region-item">
+<span class="left">+236</span>
+<span class="right">中非</span>
+</div>
+<div class="region-item">
+<span class="left">+235</span>
+<span class="right">乍得</span>
+</div>
+</div>
+<div class="form-field form-input-sms">
+<input type="text" name="smsCode" placeholder="请输入短信验证码" id="login-code" autocomplete="off"
+value=""/>
+<input data-type="sms" type="button" class="login-form-getsmsbtn" value="获取短信验证码" disabled/>
+</div>
+<div class="login-cf2"></div>
+<div id="sms-tip" class="tip-error">
+</div>
+<div class="form-field form-field-submit">
+<input type="button" class="btn sms-login-submit" name="commit" id="sms-login-btn" value="登录">
+</div>
+<div class="sms-field-other cf">
+<span id="switchPwdMode" tabindex="-1" class="login-btn no-outline">密码登录</span>
+<input type="hidden" name="refer" value=""/>
+<input type="hidden" name="clientId" value="com.sankuai.it.ead.citadel"/>
+<input type="hidden" name="callback" value="https%3A%2F%2Fkm%2Esankuai%2Ecom%2Fsso%2Fcallback%3Foriginal-url%3D%252Fapi%252Ffile%252Fcdn%252F463839559%252F466619697%253FcontentType%253D1%2526isNewContent%253Dfalse%2526isNewContent%253Dfalse"/>
+<input id="os" type="hidden" name="os" value=""/>
+<input id="screen" type="hidden" name="screen" value=""/>
+<input type="hidden" name="lt" value="LT-77767-HVjiB5st9pTrj3J89NqPX8OiuTr4Cg-ssosv.it"/>
+<input type="hidden" name="sceneType" value="WebScene"/>
+</div>
+</form>
+</div>
+</div>
+<p class="feedback">
+<i class="icon icon-comment"></i>
+<a href="mailto:6000@meituan.com">问题反馈</a>
+</p>
+</div>
+</div>
+</div>
+<div id="l-ft">
+</div>
+</div>
+<script crossorigin="anonymous" src="//www.dpfile.com/app/owl/static/owl_latest.js"></script>
+<script>
+//判断是否是线下环境
+window.isDevMode = function() {
+return window.location.host.indexOf('test') > -1 || window.location.host.indexOf('beta') > -1 || window.location.hostname === 'localhost';
+}
+// Owl start
+try {
+Owl.start({
+project: 'com.sankuai.it.iam.ssoservice',
+webVersion: '1.0.0',
+pageUrl: 'login-pc',
+devMode: isDevMode(),
+onErrorPush: function (instance) {
+if (instance) {
+if (instance.sec_category) {
+// ajax请求失败和jquery加载失败降级为warn
+if (instance.sec_category === 'INVALID_AJAX' || instance.category === 'ajaxError' || instance.sec_category === 'jQuery 加载失败') {
+instance.level = 'warn';
+// safari浏览器阻止了所有cookie
+} else if (/The operation is insecure/.test(instance.sec_category)) {
+instance.level = 'warn';
+// chrome浏览器阻止了所有cookie
+} else if (/Access is denied for this document/.test(instance.sec_category)) {
+instance.level = 'warn';
+}
+}
+}
+return instance
+},
+logan: {
+enable: true,
+config: {
+devMode: false
+}
+},
+disableCache: true,
+page: {
+logFirstScreen: false,
+disableSensoryImageIndex: true,
+interactToStopObserver: true,
+fstPerfAnalysis: true,
+logSlowView: true,
+}
+});
+}catch (e) {
+console.log("Owl加载失败")
+}
+</script>
+<script>
+try {
+Owl.addPoint({
+position: 0,
+timeStamp: Date.now()
+});
+} catch (error) {
+console.log('Owl 加载失败')
+}
+</script>
+<script type="text/javascript">
+var Rohr_Opt = {
+geo: false
+}
+</script>
+<script crossorigin="anonymous" src="//s3plus.meituan.net/v1/mss_e7b95138dc0d4c29858d76b37e6ebef7/sso-service/static/promise-polyfill.js"></script>
+<script crossorigin="anonymous" src="//s3plus.meituan.net/v1/mss_e7b95138dc0d4c29858d76b37e6ebef7/sso-service/static/default.js"></script>
+<script src="/sson/static/entrance/login/risk.js?v=15480481689119"></script>
+<script crossorigin="anonymous" src="//lx.meituan.net/lx.js"></script>
+<script crossorigin="anonymous" src="//s3plus.meituan.net/v1/mss_e7b95138dc0d4c29858d76b37e6ebef7/sso-service/static/yoda.seed.js"></script>
+<script src="/sson/static/entrance/login/captcha.js?v=154804816892"></script>
+<script crossorigin="anonymous" src="https://onejs.meituan.net/v1/mss_29f02df7dcb14a83951095a86f204dfb/common-js/fingerprint2.js"></script>
+<script src="/sson/static/entrance/login/fingerprint2.js?v=15849352389559"></script>
+<script crossorigin="anonymous" src="https://onejs.meituan.net/v1/mss_29f02df7dcb14a83951095a86f204dfb/common-js/crypto-js.min.js"></script>
+<script crossorigin="anonymous" src="https://onejs.meituan.net/v1/mss_29f02df7dcb14a83951095a86f204dfb/common-js/md5.min.js"></script>
+<script type="text/javascript">
+if(typeof jQuery == 'undefined'){
+throw new Error('jQuery 加载失败')
+}
+if(window.isDevMode && !isDevMode()) {
+// 手动上报pv、uv
+window.LXAnalytics && LXAnalytics('pageView', {custom: {clientId: 'com.sankuai.it.ead.citadel'}}, null, 'c_oa_8jsogfnx');
+}
+// 忘记密码地址 urlEncode
+function encodeText() {
+var link = $('#forget-password'),
+href = link.attr('href'),
+callback = $('[name="callback"]').val(),
+clientId = $('[name="clientId"]').val();
+if (decodeURIComponent(callback) === callback) {
+callback = encodeURIComponent(callback);
+}
+var hrefWithParam = href + '?redirect_uri=' + callback;
+if (clientId) {
+hrefWithParam = hrefWithParam + '&client_id=' + clientId;
+}
+link.attr('href', hrefWithParam);
+}
+encodeText();
+var clickForget = false;
+var _ls = navigator.cookieEnabled && window.localStorage;
+var submitLock = false;
+var isSmsDisabled = false;
+var isPhoneValid = false;
+var smsOrForm;
+function isSupported() {
+try {
+_ls.setItem('~_~', '~');
+_ls.removeItem('~_~');
+return true;
+} catch (e) {
+return false;
+}
+}
+// code为区号，num为电话号码
+function validateTelephone(code, num) {
+var interCode = code.trim().replace("+", "");
+var reg1 = /^1[3-9]\d{9}$/;
+var reg2 = /^([5689])\d{7}$/;
+var reg3 = /^\d{1,15}$/;
+if(!interCode || !num) {
+return false;
+}
+if(interCode === "86") {
+return reg1.test(num);
+}
+if(interCode === "852") {
+return reg2.test(num);
+}
+return reg3.test(num);
+}
+var isAllowNoPwdLogin = 'false' == 'true';
+var isNoPwdLogin = 'false' == 'true';
+var isMobileLogin = false;
+if(isMobileLogin) {
+smsOrForm = "sms";
+}
+window.onload = function () {
+var $loginRegionPullDown = $("#sms-submit .region-pull-down");
+var $loginRegion = $("#sms-submit .region");
+var getSmsDom = document.getElementsByClassName("login-form-getsmsbtn")[0];
+// 短信登录手机号验证
+function smsLoginValidate() {
+var num = $("#login-telephone").val().trim();
+var code = $loginRegion.find(".region-value").text().trim();
+if(!num) {
+getSmsDom.setAttribute("disabled", true);
+$("#sms-tip").html("");
+isPhoneValid = false;
+return;
+}
+if(validateTelephone(code, num)) {
+isPhoneValid = true;
+$("#sms-tip").html("");
+if(!isSmsDisabled) {
+getSmsDom.removeAttribute("disabled");
+}
+} else {
+isPhoneValid = false;
+$("#sms-tip").html('手机号错误或不存在，请重新输入。');
+getSmsDom.setAttribute("disabled", true);
+}
+}
+function smsInitValidate() {
+var num = $("#login-telephone").val().trim();
+var code = $loginRegion.find(".region-value").text().trim();
+if(!num) {
+isPhoneValid = false;
+return;
+}
+if(validateTelephone(code, num)) {
+isPhoneValid = true;
+getSmsDom.removeAttribute("disabled");
+} else {
+isPhoneValid = false;
+getSmsDom.setAttribute("disabled", true);
+$("#sms-tip").html('手机号错误或不存在，请重新输入。');
+}
+}
+changeLoginView(isNoPwdLogin);
+//设置用户名和是否显示验证码
+if (isSupported()) {
+var username = $('#login-username').val();
+// TODO url
+if (!username) {
+var _username="";
+try{
+_username = _ls ? _ls.getItem('_username') : "";
+}catch(e){}
+$('#login-username').val(_username);
+}
+doValidate();
+}
+if(isMobileLogin) {
+smsInitValidate();
+}
+$("#login-username").bind('input propertychange', function () {
+var username = $(this).val();
+$(this).val(username.replace(/(^\s+)|(\s+$)/g,''));
+});
+$("#login-username").on('blur', function () {
+setTimeout(function () {
+if (clickForget) {
+return;
+}
+doValidate();
+}, 200);
+});
+$(".forget-password").bind('click', function (e) {
+clickForget = true;
+window.location.href = $(this).attr('href');
+});
+$("#toPwdLogin").bind('click', function () {
+$(".tip-error").html("");
+changeLoginView(false);
+});
+$("#toNoPwdLogin").bind('click', function () {
+$(".tip-error").html("");
+changeLoginView(true);
+});
+$("#forgetPwd").bind('click', function (e) {
+window.moduleClick && moduleClick('b_oa_ri7b1mqb_mc');
+window.location.href = basePath + "/forget/password/check/mobile/page?forward_url=" + encodeURIComponent(window.location.href);
+});
+//输完用户名点回车
+$("#login-username").on('keydown', function (e) {
+console.log("username onkeydown");
+if (!e) e = window.event;//火狐中是 window.event
+if ((e.keyCode || e.which) == 13) {
+doSubmit();
+}
+});
+//输完密码点回车
+$("#login-password").on('keydown', function (e) {
+if (!e) e = window.event;//火狐中是 window.event
+if ((e.keyCode || e.which) == 13) {
+doSubmit();
+}
+});
+$(".btn-login-submit").on('click', function () {
+doSubmit();
+});
+// 控制密码明文密文显示切换
+$(".icon-eye").on('click', function () {
+var eyeIconDom = $("input[name='originPassword']")[0];
+if(eyeIconDom.type === "password") {
+window.moduleClick && moduleClick('b_oa_1rejgyn2_mc', {
+show_password: 1
+});
+eyeIconDom.type = "text";
+$(".icon-eye").removeClass("icon-eye-close")
+.addClass("icon-eye-open");
+} else {
+window.moduleClick && moduleClick('b_oa_1rejgyn2_mc', {
+show_password: 2
+});
+eyeIconDom.type = "password";
+$(".icon-eye").removeClass("icon-eye-open")
+.addClass("icon-eye-close");
+}
+});
+$("#switchPwdMode").bind('click', function () {
+$(".tip-error").html("");
+$("#pwdLoginTitle").css("display", "inline");
+$("#smsLoginTitle").css("display", "none");
+changeLoginView(false);
+$("#sms-submit").css("display", "none");
+$("#form-submit").css("display", "block");
+smsOrForm = "form";
+window.moduleClick && moduleClick('b_oa_uuoxspes_mc', {
+change_login_type: 'Password'
+});
+});
+$("#switchSmsMode").bind('click', function () {
+$(".tip-error").html("");
+$("#smsLoginTitle").css("display", "inline");
+$("#pwdLoginTitle").css("display", "none");
+$("#sms-submit").css("display", "block");
+$("#form-submit").css("display", "none");
+smsOrForm = "sms";
+window.moduleClick && moduleClick('b_oa_uuoxspes_mc', {
+change_login_type: 'SmsCode'
+});
+});
+//点击其他区域 收起下拉框
+$(document).on('click', function () {
+$loginRegionPullDown.css('display', 'none');
+$loginRegion.removeClass("region-focus");
+$(".sms-devider").show();
+});
+// 短信登录弹出框
+//点击区号
+$loginRegion.on('click', function (e) {
+$loginRegion.addClass("region-focus");
+$(".sms-devider").hide();
+$loginRegionPullDown.css('display', 'block');
+$loginRegionPullDown.scrollTop(0);
+e.stopPropagation();
+});
+//点击区号下拉框
+$loginRegionPullDown.on('click', function (e) {
+var interCode = $(e.target).closest('div.region-item').find('.left').text();
+if(interCode) {
+$loginRegion.find('.region-value').text(interCode);
+$loginRegionPullDown.css('display', 'none');
+$loginRegion.removeClass("region-focus");
+$(".sms-devider").show();
+smsLoginValidate();
+}
+e.stopPropagation();
+});
+// 短信登录，失焦验证手机有效性
+$("#login-telephone").bind('keyup', function() {
+smsLoginValidate();
+});
+// 问题反馈埋点
+$(".feedback a").bind("click", function () {
+window.moduleClick && moduleClick('b_oa_smvxj2zf_mc');
+});
+// 忘带手机埋点
+$(".login-auth-forget-phone").bind("click", function () {
+window.moduleClick && moduleClick('b_oa_mjuhp5ua_mc');
+});
+// 立即下载埋点
+$("#downloadDX").on("click", function () {
+window.moduleClick && moduleClick('b_oa_2x6cfvct_mc');
+});
+// 短信验证登录提交
+$(".sms-login-submit").on('click', function () {
+doMobileSubmit();
+});
+}
+function changeLoginView(noPwdLogin) {
+isNoPwdLogin = noPwdLogin;
+$("#isNoPwdLogin").val(noPwdLogin);
+if(isAllowNoPwdLogin && noPwdLogin) {
+$('#btn-login').css("display", "none");
+$('#btn-login-nopwd').css("display", "block");
+$('#iptPwd').css("display", "none");
+$('#forgetPwd').css("display", "none");
+$('#toPwdLogin').css("display", "inline");
+$('#toNoPwdLogin').css("display", "none");
+}else{
+$('#btn-login').css("display", "block");
+$('#btn-login-nopwd').css("display", "none");
+$('#iptPwd').css("display", "block");
+$('#forgetPwd').css("display", "inline");
+$('#toPwdLogin').css("display", "none");
+if(isAllowNoPwdLogin) {
+$('#toNoPwdLogin').css("display", "inline");
+}else{
+$('#toNoPwdLogin').css("display", "none");
+}
+}
+}
+/**
+* 判断是否需要验证码
+*/
+function doValidate(callback) {
+var username = $('#login-username').val();
+var captcha = document.querySelector(".ipt-captcha");
+if (!username) {
+return;
+}
+if(captcha&&captcha.value){
+// 已经出现验证且有值
+return callback && callback(true);
+}
+$.post("/sson/captcha/isneed", {username: username}, function (response) {
+var msg = response.data ? response.data.needCaptcha : false; //response.data.needCaptcha 的值为false表示不需要验证码,为true表示需要验证码
+var cf = document.querySelector('.login-cf');
+//需要验证码时
+if (msg) {
+//需要验证码但是验证码的图片不存在时
+if (!captcha) {
+loadCaptcha({
+base:'/sson',
+container:'.login-cf',
+sliderOpt:{
+success:function(params){
+var responseCode = params.responseCode
+var captcha=$('.ipt-captcha')
+if(captcha.length===0){
+$(cf).append($('<input class="ipt-captcha" type="hidden" name="captcha" placeholder="验证码" value="'+responseCode+'">'))
+}else{
+captcha.val(responseCode)
+}
+$('#form-tip').hide()
+},
+fail:function(params){
+console.log(params)
+// $('#form-tip').hide()
+}
+},
+imgOpt:{
+render:function(url){
+var aEl =$('<a class="captcha-field inline-link">不清楚？换一张</a>')
+aEl.click(function(){
+var img = document.getElementById('imageCaptcha');
+var src = img.src.split('?')[0];
+img.src = src + '?p=' + new Date().getTime();
+})
+var imgContainer = $('<div class="form-field cf ">' +
+'<i class="icon icon-captcha"></i>' +
+'<input id="login-captcha" class="ipt-captcha" type="text" name="captcha" placeholder="验证码" value="">' +
+'<div class="captcha-field form-field-cf" >' +
+'<img id="imageCaptcha" alt="点击更新验证码" title="点击更新验证码" src="'+url+'">' +
+'</div>'+
+'</div>');
+var refresh=imgContainer.find('.form-field-cf');
+var input=imgContainer.find('#login-captcha')
+//输完验证码点回车时登录
+if(input.length!==0){
+input.on('keydown',function(e){
+if (!e) e = window.event;//火狐中是 window.event
+if ((e.keyCode || e.which) == 13) {
+doSubmit();
+}
+})
+}
+refresh.append(aEl);
+return imgContainer
+}
+}
+})
+}
+//需要验证码时执行的回调
+callback && callback(false);
+return;
+} else if (response.data && response.data.needCaptcha == false) { //不需要验证码但是验证码的图片存在时
+cf && (cf.innerHTML = "");
+}
+//不需要验证码时执行的回调
+callback && callback(true);
+})
+};
+// 账号密码登录
+function doSubmit() {
+var captcha = document.querySelector(".ipt-captcha");
+var username = $("#login-username").val();
+//设个占位密码，避免后续验证逻辑改动
+if(isNoPwdLogin) {
+$("#login-password").val('defaultPwd');
+}
+var password = $("#login-password").val();
+if (!username || !password || submitLock) {
+return;
+}
+clickForget = false;
+doValidate(function (flag) {
+if (flag) {// 验证通过,可以提交
+window.moduleClick && moduleClick('b_oa_vghozk8y_mc', {
+pc_login_type: 'Password'
+});
+var username = $("#login-username").val();
+var password = $("#login-password").val();
+if (username && password) {
+if (username.indexOf("@") !== -1) {
+// $("#login-username").val(username.substr(0, username.indexOf("@")));
+}
+$("#login-username").val(username.replace(/(^\s+)|(\s+$)/g,''));
+if (isSupported()) {
+try{
+_ls.setItem('_username', username);
+}catch(e){}
+}
+submitLock=true;
+// webToken
+var webTokenInfo = window.collectFingerprint&&collectFingerprint()
+if($('.form-field-other input[name="webTokenInfo"]').length===0){
+$('.form-field-other').append($("<input type='hidden' name='webTokenInfo' value='"+webTokenInfo+"'/>"))
+}
+// 塞入moa数据
+window.moaClient && moaClient.connect().then(function(){
+moaClient.fetch().then(function (data){
+var moaInfo = JSON.stringify(data);
+if($('.form-field-other input[name="moaInfo"]').length===0){
+$('.form-field-other').append($("<input type='hidden' name='moaInfo' value='"+moaInfo+"'/>"))
+}
+if(data.type==='success'){
+moaClient.accept()
+moaClient.close()
+}
+$.ajax({
+type: "POST",
+url: "/sson/login/getEncryptionKey",
+contentType: "application/json",
+dataType:"json",
+data: JSON.stringify({
+account: username
+}),
+success: function (res) {
+if(res.code==200){
+var newPassword;
+if(res.data.passwordMode==2){
+newPassword = encrypt(window.md5 ? md5(password):'',res.data.encryptionSecret);
+}else{
+newPassword = encrypt(password,res.data.encryptionSecret);
+}
+$("#login-password").val('');
+$('.form-field-other').append($("<input type='hidden' name='password' value='"+newPassword+"'>"));
+$('.form-field-other').append($("<input type='hidden' name='encryptionKey' value='"+res.data.encryptionKey+"'/>"));
+$("#form-submit").submit();
+}else{
+submitLock=false;
+console.log('getEncryptionKey ERROR');
+if(res && res.data && res.data.msg) {
+var tip = res.data.msg + '。如有疑问，请联系6000获取帮助。';
+if($("#form-tip").length>0) {
+$("#form-tip").html(tip);
+} else {
+$(".login-cf").after($("<div id='form-tip' class='tip-error'>"+tip+"</div>"));
+}
+}
+}
+},
+error: function(){
+submitLock=false;
+console.log('getEncryptionKey ERROR');
+}
+});
+})
+})
+}
+}else{
+if(!$('.login-form-container').is(":visible")){
+$('#form-img').click()
+}
+var tip="请完成人机校验";
+if($("#form-tip").length>0){
+$("#form-tip").html(tip)
+}else{
+$(".login-cf").after($("<div id='form-tip' class='tip-error'>"+tip+"</div>"))
+}
+}
+});
+};
+// 短信验证登录
+function doMobileSubmit() {
+var mobile = $("#login-telephone").val().trim();
+var interCode = $("#sms-submit .region").find(".region-value").text().trim().slice(1);
+var smsCode = $("#login-code").val().trim();
+// 手机号、区号或短信验证码不存在
+if(!mobile || !interCode || !smsCode) {
+return;
+}
+// 手机号不正确
+if(!validateTelephone(interCode, mobile)) {
+return;
+}
+window.moduleClick && moduleClick('b_oa_vghozk8y_mc', {
+pc_login_type: 'SmsCode'
+});
+$("#login-code").val(smsCode);
+$('.sms-field-other').append($("<input type='hidden' name='interCode' value='" + interCode + "' />"));
+// webToken
+var webTokenInfo = window.collectFingerprint && collectFingerprint();
+if ($('.sms-field-other input[name="webTokenInfo"]').length === 0) {
+$('.sms-field-other').append($("<input type='hidden' name='webTokenInfo' value='" + webTokenInfo + "' />"));
+}
+// 塞入moa数据
+window.moaClient && moaClient.connect().then(function () {
+moaClient.fetch().then(function (data) {
+var moaInfo = JSON.stringify(data);
+if ($('.sms-field-other input[name="moaInfo"]').length === 0) {
+$('.sms-field-other').append($("<input type='hidden' name='moaInfo' value='" + moaInfo + "' />"));
+}
+if (data.type === 'success') {
+moaClient.accept();
+moaClient.close();
+}
+$("#sms-submit").submit();
+});
+});
+};
+// 添加自动轮播
+(function slide() {
+// 本地存储
+var Local = (function () {
+function isSupported() {
+try {
+localStorage.setItem('~_~', '~')
+localStorage.removeItem('~_~')
+return true
+} catch (e) {
+return false
+}
+}
+return {
+isSupported: isSupported(),
+set: function (name, value) {
+try{
+localStorage.setItem(name, value)
+}catch(e){}
+},
+get: function (name) {
+var value
+try{
+value=localStorage.getItem(name)
+}catch(e){}
+return value
+}
+}
+})();
+// 背景变换
+function changeBgColor(color, index) {
+var doc = $('#doc')
+doc.css('background-color', color['imageTheme'])
+.find('.promotion-banner')
+.css('background', 'url(' + color['imageUrl'] + ') no-repeat 0px 46px')
+.css('background-size', 'auto 492px')
+// 为被点击的按钮增加激活状态
+var defaultPath = '/sson/static/images/login/rotate.png'
+var activePath = '/sson/static/images/login/active-rotate.png'
+var images = document.getElementsByClassName('change-bg')
+var length = images.length
+for (var i = 0; i < length; i++) {
+if (images[i]['id'] != index) {
+images[i].src = defaultPath
+}
+else {
+images[i].src = activePath
+}
+}
+}
+var Slider = {
+init: function (data, canUse) {
+this.index = 0
+this.colors = data
+this.canUse = canUse || false
+this.defaultTime = 2 * 1000
+if (this.colors.length > 1) {
+this.renderDot(this.colors)
+}
+this.bindEvent()
+this.go(this.getDefaultIndex())
+if (this.canUse) {
+this.generateTimer()
+}
+},
+getDefaultIndex: function () {
+if (Local.isSupported) {
+if (Local.get('bg:index') != null) {
+var index = (+Local.get('bg:index') + 1) % this.colors.length
+this.index = index
+Local.set('bg:index', index)
+return index
+}
+}
+return this.index
+},
+bindEvent: function () {
+var btn = $('.change-bg')
+var that = this
+// 手动切换背景
+btn.on('click', function () {
+that.handleButton.call(this, that)
+})
+},
+renderDot: function (list) {
+var images = ['<ul>']
+for (var index = 0; index < list.length; index++) {
+images.push([
+'<li>',
+'<img id="',
+index,
+'" class="change-bg" alt="点击更换背景色" title="点击更换背景色" src="/sson/static/images/login/rotate.png">',
+'</li>'].join(''))
+}
+images.push('</ul>')
+$('#l-ft').append(images.join(''))
+},
+handleButton: function (slider) {
+var index = $(this).context['id']
+if (slider.canUse) {
+slider.destroyTimer()
+}
+slider.go(index)
+if (slider.canUse) {
+slider.generateTimer()
+}
+},
+generateTimer: function () {
+var that = this
+this.timer = setInterval(function () {
+that.go(++that.index)
+}, this.defaultTime)
+},
+destroyTimer: function () {
+clearInterval(this.timer)
+},
+go: function (index) {
+this.index = index % this.colors.length
+changeBgColor(this.colors[this.index]||defaultInfo, this.index)
+if (Local.isSupported) {
+Local.set('bg:index', this.index)
+}
+}
+}
+// 获取配置信息
+var configurationAddress = '/sson/login/imageinfo'
+var defaultInfo = [
+{
+"priority": 3,
+"imageUrl": "/sson/static/images/login/pk-v2.png",
+"imageTheme": "#3d3878",
+"logoUrl":"/sson/static/images/login/logo.png",
+"iconTheme": "#FE8C00",
+"textTheme": "#FFFFFF"
+}
+]
+var getConfigInfo = function (configurationAddress, callback) {
+$.get(configurationAddress, function (response) {
+if (response.code == 200) {
+return callback(response.data)
+}
+callback(defaultInfo)
+console.error(response.reason || '配置获取异常！')
+}).error(function () {
+callback(defaultInfo)
+})
+}
+getConfigInfo(configurationAddress, function (data) {
+if(data[0]){
+//添加logo
+$('#l-hd img').attr('src',data[0].logoUrl);
+//登录底部按钮和文字颜色设置
+$('.feedback .icon-comment').css({color:data[0].iconTheme,fontSize:'16px'})
+$('.feedback a').css({color:data[0].textTheme})
+}
+Slider.init(data, false)
+})
+})();
+</script>
+<script src="/sson/static/node_modules/qrcodejs/qrcode.js?v=cb8fa1cf9"></script>
+<script src="/sson/static/entrance/login/login-bundle.js?v=154804816892"></script>
+<script src="/sson/static/entrance/login/moa.js?v=15566141448919"></script>
+<script>
+if(typeof jQuery == 'undefined'){
+throw new Error('jQuery 加载失败')
+}
+window.moduleClick = function(bid, custom) {
+if(window.isDevMode && !isDevMode()) {
+var valLab = custom ? { custom: custom } : {};
+window.LXAnalytics && LXAnalytics('moduleClick', bid, valLab);
+}
+}
+var ST_DOMAIN = 'https://verify-test.meituan.com';
+var DEV_DOMAIN = 'http://verify.inf.dev.meituan.com';
+var TEST_DOMAIN = 'http://verify.inf.test.meituan.com';
+var PPE_DOMAIN = 'http://verify.inf.ppe.meituan.com';
+var DOMAIN = {
+'pro': 'https://verify.meituan.com',
+'staging': ST_DOMAIN,
+'dev': DEV_DOMAIN,
+'test': TEST_DOMAIN,
+'ppe': PPE_DOMAIN
+};
+if(window.moaConnector){
+window.moaClient = new moaConnector();
+}
+window.addEventListener('load',function(){
+var qrCodeParamGetter = function(){
+var dfd = $.Deferred();
+window.moaClient && moaClient.fetch().then(function(data){
+var moaInfo = JSON.stringify(data);
+if(data.type==='success'){
+moaClient.accept()
+moaClient.close()
+}
+dfd.resolve({
+moaInfo:moaInfo
+})
+})
+return dfd.promise();
+}
+window.moaClient && moaClient.connect().then(function(data){
+if(data.type==='error'){
+console.log(data.data)
+}
+})
+// lxuid
+window.collectUUId && window.collectUUId();
+require('main').init({
+appkey: ''
+, service: ''
+, image: '/sson/static/images/topic1.png'
+, qrcode: {
+text: '709db775c95240b192da133919b35e04',
+extraParamGetter:qrCodeParamGetter
+}
+, isNeedCaptcha: false
+, login: {
+types: ['qrcode', 'form'],
+type: 'form',
+toggle: '.login-toggle'
+}
+});
+});
+function primaryLoginType(){
+try{
+var type = localStorage.getItem('__loginType')
+if(type==='form'){
+window.addEventListener('load',function(){
+$('#form-img').click()
+})
+}
+}catch(e){
+console.log(e)
+}
+}
+primaryLoginType();
+function beforeSumit(form){
+var btn=$(form).find("input[type='submit']")[0];
+btn.disabled= "disabled";
+// webToken
+var webTokenInfo = window.collectFingerprint&&collectFingerprint()
+if($('.form-field-other input[name="webTokenInfo"]').length===0){
+$('.form-field-other').append($("<input type='hidden' name='webTokenInfo' value='"+webTokenInfo+"'/>"))
+}
+return true;
+}
+// 没有错误信息的时候才能自动登录
+/**
+* 自动登录
+*/
+doSubmit();
+//选择多因子
+function factorAuthType(code, notFactorButton){
+if(notFactorButton) {
+window.moduleClick && moduleClick('b_oa_rg5ag1ul_mc');
+} else {
+window.moduleClick && moduleClick('b_oa_exvmnuac_mc', {
+factor_type: code
+});
+}
+switch (code) {
+//可信设备(PC端可信设备认证即为人脸识别认证)
+case 'TrustedDevice':
+// 人脸识别认证
+case 'FaceRecognition':
+$.ajax({
+type: "POST",
+url: "/sson/login/face/faceCode",
+contentType: "application/json",
+dataType:"json",
+data: JSON.stringify({
+authStyle: '',
+lt: 'LT-77767-HVjiB5st9pTrj3J89NqPX8OiuTr4Cg-ssosv.it',
+authWay: code
+}),
+success: function (res) {
+if(res.code==200){
+var resData = res.data;
+var params = [
+"requestCode=" + resData.requestCode,
+"succCallbackUrl=" + encodeURIComponent(resData.successUrl),
+"failCallbackUrl=" + encodeURIComponent(resData.failUrl),
+"env=" + resData.env,
+"theme=meituan",
+"adaptor=auto"
+];
+window.location.href=DOMAIN[resData.env] + '/v2/web/general_page?' + params.join("&");
+}else{
+console.log('获取人脸识别请求码失败')
+var tip = '服务端异常';
+if(res && res.msg) {
+tip = res.msg;
+}
+$("#factor-error-tip").text(tip);
+}
+}
+});
+break;
+//短信验证码
+case 'SmsCode':
+$('.login-auth-list-section').hide();
+$('.login-auth-sms-section').show();
+break;
+//大象动态口令
+case 'OneTimePwd':
+$('.login-auth-list-section').hide();
+$('.login-auth-onetimepwd-section').show();
+break;
+//同事辅助认证
+case 'AssociateAssisted':
+$.ajax({
+type: "POST",
+url: "/sson/associateassisted/ticket",
+contentType: "application/json",
+dataType:"json",
+data: JSON.stringify({
+account: '',
+clientId: 'com.sankuai.it.ead.citadel',
+lt: 'LT-77767-HVjiB5st9pTrj3J89NqPX8OiuTr4Cg-ssosv.it',
+sceneType: 'WebScene'
+}),
+success: function (res) {
+if(res.code==200){
+window.location.href='/certification/colleague-assist?ticket='+res.data.ticket+'&num='+res.data.num+'&lt=LT-77767-HVjiB5st9pTrj3J89NqPX8OiuTr4Cg-ssosv.it';
+}else{
+console.log('获取同事辅助认证ticket失败')
+var tip = '服务端异常';
+if(res.data && res.data.msg) {
+tip = res.data.msg;
+}
+$("#factor-error-tip").text(tip);
+}
+}
+});
+break;
+}
+}
+// 密码加密
+function encrypt(word, secret) {
+if(!window.CryptoJS) {
+console.log('CryptoJS加载失败')
+return '';
+}
+var key = CryptoJS.enc.Utf8.parse(secret);
+var srcs = CryptoJS.enc.Utf8.parse(word);
+var encrypted = CryptoJS.AES.encrypt(srcs, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
+return encrypted.toString();
+}
+//密码解密
+function decrypt(word, secret) {
+if(!window.CryptoJS) {
+console.log('CryptoJS加载失败')
+return '';
+}
+var key = CryptoJS.enc.Utf8.parse(secret);
+var decrypt = CryptoJS.AES.decrypt(word, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
+return CryptoJS.enc.Utf8.stringify(decrypt).toString();
+}
+try{
+fingerprint2 && fingerprint2(Fingerprint2,'/sson/web/device/info');
+}catch (e) {
+console.log("fingerprint2或Fingerprint2加载失败")
+}
+</script>
+</body>
+</html>
