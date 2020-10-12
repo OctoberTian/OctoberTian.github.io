@@ -6,17 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.octber.xyz">
-  <title>October Blog</title>
+  <title>Tag: 线程 | October Blog</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    
-    <!-- <meta name="keywords" content="October | October Blog | 十月 | 十月博客 | Java | Octber | octber">
-    <meta name="description" content=""> -->
-  
   <meta property="og:type" content="website">
 <meta property="og:title" content="October Blog">
-<meta property="og:url" content="http://www.octber.xyz/index.html">
+<meta property="og:url" content="http://www.octber.xyz/tags/%E7%BA%BF%E7%A8%8B/index.html">
 <meta property="og:site_name" content="October Blog">
 <meta property="og:locale">
 <meta property="article:author" content="October">
@@ -204,64 +200,39 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
-    <script src="/lib/oauthcallback.browser.js"></script>
   
-  <script>
-    Oauthcallback();
-  </script>
-
-
-  
-    <article id="post-从阿里不推荐使用Executors到CompletableFuture的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
     
-      <header class="article-header">
-  
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	
+<a href="/2020/10/12/%E4%BB%8E%E9%98%BF%E9%87%8C%E4%B8%8D%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8Executors%E5%88%B0CompletableFuture%E7%9A%84%E4%BD%BF%E7%94%A8/" class="archive-article-date">
+        <time datetime="2020-10-12T07:08:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-12</time>
+</a>
+
+        </div>
+    	 
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2020/10/12/%E4%BB%8E%E9%98%BF%E9%87%8C%E4%B8%8D%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8Executors%E5%88%B0CompletableFuture%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_blank">从阿里不推荐使用Executors到CompletableFuture的使用</a>
+	  <a class="archive-article-title" href="/2020/10/12/%E4%BB%8E%E9%98%BF%E9%87%8C%E4%B8%8D%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8Executors%E5%88%B0CompletableFuture%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_blank">从阿里不推荐使用Executors到CompletableFuture的使用</a>
   
     </h1>
   
 
 
-  
-  
-<a href="/2020/10/12/%E4%BB%8E%E9%98%BF%E9%87%8C%E4%B8%8D%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8Executors%E5%88%B0CompletableFuture%E7%9A%84%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2020-10-12T07:08:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-12</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文主要围绕以下关键字进行：</p>
-<ol>
-<li>Executors</li>
-<li>ThreadPoolExecutor</li>
-<li>ThreadLocal</li>
-<li>Springboot Async</li>
-<li>CompletableFuture</li>
-</ol>
-    
-    <a class="article-more-a" href="/2020/10/12/%E4%BB%8E%E9%98%BF%E9%87%8C%E4%B8%8D%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8Executors%E5%88%B0CompletableFuture%E7%9A%84%E4%BD%BF%E7%94%A8/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -273,402 +244,19 @@ var _hmt = _hmt || [];
 		</ul>
 	</div>
 
-    
+          
 
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/10/12/%E4%BB%8E%E9%98%BF%E9%87%8C%E4%B8%8D%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8Executors%E5%88%B0CompletableFuture%E7%9A%84%E4%BD%BF%E7%94%A8/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-导航学与定位准确性" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
   
   
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/" target="_blank">导航学与定位准确性</a>
-  
-    </h1>
+    </div></section>
   
 
-
-  
-  
-<a href="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/" class="archive-article-date">
-        <time datetime="2020-10-10T11:58:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-10</time>
-</a>
-
-  
-  
     
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>导航学与定位准确性：本文是《关于论文。。。》和《GPS信号质量评估》的总结</p>
-    
-    <a class="article-more-a" href="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">location</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-关于论文《多GNSS观测数据质量与完好性评价方法研究》学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/" target="_blank">关于论文《多GNSS观测数据质量与完好性评价方法研究》学习</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-        <time datetime="2020-09-29T03:00:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-29</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文是对论文《<a target="_blank" rel="noopener" href="https://www.shuoboku.com/18/4247996.html">多GNSS观测数据质量与完好性评价方法研究</a>》的学习感悟，感兴趣的同学可以去下载，并研究。</p>
-    
-    <a class="article-more-a" href="/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">location</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-GPS信号质量评估" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/" target="_blank">GPS信号质量评估</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/" class="archive-article-date">
-        <time datetime="2020-09-28T06:30:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-28</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文主要根据SNR信噪比和pDop两个指标对GPS信号质量进行一定的评估</p>
-<p>感谢：</p>
-<ul>
-<li>维基百科</li>
-<li>百度百科</li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/inteliot/archive/2012/08/14/2638185.html">https://www.cnblogs.com/inteliot/archive/2012/08/14/2638185.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/magicboy110/archive/2010/12/09/1901669.html">https://www.cnblogs.com/magicboy110/archive/2010/12/09/1901669.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://spotlight.unavco.org/how-gps-works/gps-basics/gps-signal-to-noise-ratio-data.html">https://spotlight.unavco.org/how-gps-works/gps-basics/gps-signal-to-noise-ratio-data.html</a></li>
-<li>参考了一些论文如：Multi-Constellation_GNSS_Performance_Evaluation_fo</li>
-</ul>
-    
-    <a class="article-more-a" href="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">location</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/09/28/GPS%E4%BF%A1%E5%8F%B7%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hexo如何正确的插入图片" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/09/27/hexo%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/" target="_blank">hexo如何正确的插入图片</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/09/27/hexo%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/" class="archive-article-date">
-        <time datetime="2020-09-27T11:16:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-27</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文将介绍如何在hexo中添加你的图片</p>
-    
-    <a class="article-more-a" href="/2020/09/27/hexo%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/09/27/hexo%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
 
 
           </div>
@@ -708,10 +296,10 @@ var _hmt = _hmt || [];
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
