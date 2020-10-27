@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://www.octber.xyz/2020/10/21/GPS%E5%8E%9F%E7%90%86%E4%B8%8E%E6%8E%A5%E6%94%B6%E6%9C%BA%E8%AE%BE%E8%AE%A1%E5%88%86%E4%BA%AB/image-20201021192239747.png">
 <meta property="og:image" content="http://www.octber.xyz/2020/10/21/GPS%E5%8E%9F%E7%90%86%E4%B8%8E%E6%8E%A5%E6%94%B6%E6%9C%BA%E8%AE%BE%E8%AE%A1%E5%88%86%E4%BA%AB/image-20201021192907810.png">
 <meta property="article:published_time" content="2020-10-21T10:06:12.000Z">
-<meta property="article:modified_time" content="2020-10-26T08:16:53.251Z">
+<meta property="article:modified_time" content="2020-10-27T08:48:24.248Z">
 <meta property="article:author" content="October">
 <meta property="article:tag" content="location">
 <meta name="twitter:card" content="summary">
@@ -261,7 +261,7 @@ var _hmt = _hmt || [];
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">3k字</span>
+      <span class="post-count">3.1k字</span>
     </span>
   </span>
 
@@ -284,7 +284,7 @@ var _hmt = _hmt || [];
     <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文基于《GPS接收机原理与设计》谢钢，进行学习和分享。</p>
 <a id="more"></a>
 
-<h2 id="一、导引"><a href="#一、导引" class="headerlink" title="一、导引"></a>一、导引</h2><h3 id="1-1-GPS起源"><a href="#1-1-GPS起源" class="headerlink" title="1.1 GPS起源"></a>1.1 GPS起源</h3><p>1957年10月4日，前苏联发送了世界上第一颗人造地球卫星，科学家通过跟踪和检测该卫星发射的信号，描绘出所接收的卫星信号的多普勒频移曲线图。</p>
+<h1 id="GPS接收机原理与设计"><a href="#GPS接收机原理与设计" class="headerlink" title="GPS接收机原理与设计"></a>GPS接收机原理与设计</h1><h2 id="一、导引"><a href="#一、导引" class="headerlink" title="一、导引"></a>一、导引</h2><h3 id="1-1-GPS起源"><a href="#1-1-GPS起源" class="headerlink" title="1.1 GPS起源"></a>1.1 GPS起源</h3><p>1957年10月4日，前苏联发送了世界上第一颗人造地球卫星，科学家通过跟踪和检测该卫星发射的信号，描绘出所接收的卫星信号的多普勒频移曲线图。</p>
 <blockquote>
 <p>  <strong>多普勒效应</strong></p>
 <p>  站在火车轨道附近，蛋火车迎面开来时，我们听起来就会觉得火车鸣笛音调变高（注意是音调而不是响度），而当火车驶过我们而离去时，同样的鸣笛声听起来却音调变低。</p>
@@ -379,8 +379,14 @@ var _hmt = _hmt || [];
 <p>  显然，有效性和和连续性与GPS的空间星座机器卫星信号的覆盖率关系很大</p>
 </blockquote>
 </li>
-<li></li>
 </ol>
+<h2 id="二、GPS信号及其导航电文"><a href="#二、GPS信号及其导航电文" class="headerlink" title="二、GPS信号及其导航电文"></a>二、GPS信号及其导航电文</h2><h3 id="2-1-载波"><a href="#2-1-载波" class="headerlink" title="2.1 载波"></a>2.1 载波</h3><p>GPS卫星所发射的信号从结构上可以分为三个层次</p>
+<ul>
+<li>载波</li>
+<li>伪码</li>
+<li>数据码</li>
+</ul>
+<p>其中伪码和数据码一起通过调制而依附在正弦波形式上的载波上，然后卫星将调制后的载波信号播发出去。</p>
 
     
 
@@ -746,10 +752,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">动漫新闻</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MYSQL</a>
               </li>
              
               <li class="article-tag-list-item">
