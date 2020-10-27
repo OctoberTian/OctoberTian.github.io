@@ -7,35 +7,34 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.octber.xyz">
-  <title>导航学与定位准确性 | October Blog</title>
+  <title>MySQL索引原理初探 | October Blog</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="简介导航学与定位准确性：本文是《关于论文。。。》和《GPS信号质量评估》的总结">
+  <meta name="description" content="简介简单介绍一下MySQL索引相关的一些原理知识。 转载自：https:&#x2F;&#x2F;juejin.im&#x2F;post&#x2F;6844903969160953864">
 <meta property="og:type" content="article">
-<meta property="og:title" content="导航学与定位准确性">
-<meta property="og:url" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/index.html">
+<meta property="og:title" content="MySQL索引原理初探">
+<meta property="og:url" content="http://www.octber.xyz/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/index.html">
 <meta property="og:site_name" content="October Blog">
-<meta property="og:description" content="简介导航学与定位准确性：本文是《关于论文。。。》和《GPS信号质量评估》的总结">
+<meta property="og:description" content="简介简单介绍一下MySQL索引相关的一些原理知识。 转载自：https:&#x2F;&#x2F;juejin.im&#x2F;post&#x2F;6844903969160953864">
 <meta property="og:locale">
-<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010195945261.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200155088.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200145871.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200217462.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200122841.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200231268.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200242978.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200253136.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200259288.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200307488.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200318051.png">
-<meta property="og:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200327973.png">
-<meta property="article:published_time" content="2020-10-10T11:58:13.000Z">
-<meta property="article:modified_time" content="2020-10-10T12:04:23.062Z">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201026194324492.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201026194525794.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201026195314298.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201026195503615.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201026195746559.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201026195921697.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201027104010794.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201027105342638.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201027105415930.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201027140907004.png">
+<meta property="og:image" content="http://www.octber.xyz/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201027141222944.png">
+<meta property="article:published_time" content="2020-10-26T11:38:11.000Z">
+<meta property="article:modified_time" content="2020-10-27T08:32:21.806Z">
 <meta property="article:author" content="October">
-<meta property="article:tag" content="location">
+<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010195945261.png">
+<meta name="twitter:image" content="http://www.octber.xyz/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201026194324492.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -235,14 +234,14 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-导航学与定位准确性" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-MySQL索引原理初探" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      导航学与定位准确性
+      MySQL索引原理初探
     </h1>
   
 
@@ -254,8 +253,8 @@ var _hmt = _hmt || [];
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/" class="archive-article-date">
-        <time datetime="2020-10-10T11:58:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-10</time>
+<a href="/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/" class="archive-article-date">
+        <time datetime="2020-10-26T11:38:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-26</time>
 </a>
 
   
@@ -268,7 +267,7 @@ var _hmt = _hmt || [];
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">3.8k字</span>
+      <span class="post-count">2.5k字</span>
     </span>
   </span>
 
@@ -277,7 +276,7 @@ var _hmt = _hmt || [];
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">13分</span>
+      <span class="post-count">9分</span>
     </span>
   </span>
 </div>
@@ -288,133 +287,131 @@ var _hmt = _hmt || [];
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>导航学与定位准确性：本文是《关于论文。。。》和《GPS信号质量评估》的总结</p>
+    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>简单介绍一下MySQL索引相关的一些原理知识。</p>
+<p>转载自：<a target="_blank" rel="noopener" href="https://juejin.im/post/6844903969160953864">https://juejin.im/post/6844903969160953864</a></p>
 <a id="more"></a>
 
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ul>
-<li>PDOP - 主要取决于卫星导航系统，我们没法控制，看天。</li>
-<li>UERE - 包括钟差、电离层和对流层误差、接收机噪声、多路径。主要关注接收机噪声，就是SNR。</li>
+<h2 id="索引概述"><a href="#索引概述" class="headerlink" title="索引概述"></a>索引概述</h2><p>在关系数据库中，索引是一种单独的、物理的对数据库表中一列或多列的值进行排序的一种存储结构，它是某个表中一列或若干列值的集合和相应的指向表中物理标识这些值的数据页的逻辑指针清单。</p>
+<p>就像字典中的A、B、C这种帮助使用者快速定位自己想要的内容一样，数据库索引是一样的考虑。</p>
+<h2 id="索引相关的数据结构"><a href="#索引相关的数据结构" class="headerlink" title="索引相关的数据结构"></a>索引相关的数据结构</h2><h3 id="B-树"><a href="#B-树" class="headerlink" title="B-树"></a>B-树</h3><blockquote>
+<p>  B-树的搜索，从根节点开始，对节点内的关键字（有序）序列进行二分查找，如果命中则结束，否则进入查询关键字所属范围的儿子节点；重复，直到所对应的儿子指针为空，或已经是叶子节点</p>
+</blockquote>
+<ol>
+<li>定义任意非叶子节点最多只有M个儿子；且M&gt;2； </li>
+<li>根节点的儿子数为[2, M]； </li>
+<li>除根节点以外的非叶子节点的儿子数为[M/2, M]；  </li>
+<li>每个节点存放至少M/2-1（取上整）和至多M-1个关键字；（至少2个关键字） </li>
+<li>非叶子节点的关键字个数=指向儿子的指针个数-1； </li>
+<li>非叶子节点的关键字：K[1], K[2], …, K[M-1]；且K[i] &lt; K[i+1]； </li>
+<li>非叶子节点的指针：P[1], P[2], …, P[M]；其中P[1]指向关键字小于K[1]的子树，P[M]指向关键字大于K[M-1]的子树，其它P[i]指向关键字属于(K[i-1], K[i])的子树； </li>
+<li>所有叶子节点位于同一层； </li>
+</ol>
+<p><img src="/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201026194324492.png" alt="image-20201026194324492"></p>
+<h3 id="B-树-1"><a href="#B-树-1" class="headerlink" title="B+树"></a>B+树</h3><blockquote>
+<p>  B+的搜索与B-树也基本相同，区别是B+树只有达到叶子节点才命中（B-树可以在非叶子节点命中），而且在所有的叶子节点由一个链表串起来。</p>
+</blockquote>
+<ol>
+<li>其定义基本与B-树同，除了：</li>
+<li>非叶子节点的子树指针与关键字个数相同；</li>
+<li>非叶子节点的子树指针P[i]，指向关键字值属于[K[i], K[i+1])的子树（B-树是开区间）；</li>
+<li>为所有叶子节点增加一个链指针；</li>
+<li>所有关键字都在叶子节点出现</li>
+</ol>
+<p><img src="/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201026194525794.png" alt="image-20201026194525794"></p>
+<h2 id="MySQL索引"><a href="#MySQL索引" class="headerlink" title="MySQL索引"></a>MySQL索引</h2><p>MySQL索引要分为两种储存引擎来讲，也就是MyISAM和InnoDB，这两种储存引擎索引都使用B+树的数据结构，当然其中也是有一些细微区别的。</p>
+<h3 id="MyISAM索引数据结构"><a href="#MyISAM索引数据结构" class="headerlink" title="MyISAM索引数据结构"></a>MyISAM索引数据结构</h3><p>MyISAM的B+树叶子节点储存的并不是数据，而是数据地址，所以这种索引是非聚集索引，搜索按照B+树的搜索算法进行。</p>
+<p><img src="/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201026195314298.png" alt="image-20201026195314298"></p>
+<h3 id="InnoDB索引数据结构"><a href="#InnoDB索引数据结构" class="headerlink" title="InnoDB索引数据结构"></a>InnoDB索引数据结构</h3><p>InnoDB的索引分为主键索引和普通索引。</p>
+<h4 id="主键索引"><a href="#主键索引" class="headerlink" title="主键索引"></a>主键索引</h4><p><img src="/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201026195503615.png" alt="image-20201026195503615"></p>
+<p>InnoDB的B+树叶子节点储存的就是数据本身，就是聚集索引（聚簇索引）</p>
+<h4 id="普通索引"><a href="#普通索引" class="headerlink" title="普通索引"></a>普通索引</h4><p><img src="/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201026195746559.png" alt="image-20201026195746559"></p>
+<p>InnoDB的普通索引，存储相应记录主键的值而不是地址。所以使用普通索引时，是先通过该索引取得主键，在通过主键索引获得数据。</p>
+<h2 id="MySQL索引算法"><a href="#MySQL索引算法" class="headerlink" title="MySQL索引算法"></a>MySQL索引算法</h2><p>算法是为了提升效率的，那么使用B+树的结构肯定是考虑过查找效率的。</p>
+<img src="/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201026195921697.png" alt="image-20201026195921697" style="zoom:50%;">
+
+<p>Hash查找的算法效率是最高的，二分查找就是B+树采用的算法方式，这里就有一个问题，为什么没有使用Hash算法进行索引？</p>
+<h3 id="Hash索引"><a href="#Hash索引" class="headerlink" title="Hash索引"></a>Hash索引</h3><p><strong>MEMORY储存引擎：</strong>则是MySQL中一类特殊的储存引擎，它使用储存在内存中的内容来创造表，而且数据全部放在内存中。QQQQ</p>
+<img src="/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201027104010794.png" alt="image-20201027104010794" style="zoom:50%;">
+
+<ul>
+<li>keys：代表创建索引的列值</li>
+<li>buckets：计算出来的hash值和对应的数据的物理位置组成的hash表</li>
+<li>entries：具体的数据行</li>
 </ul>
-<p>卫星导航系统的定位精度主要由两方面因素决定，一是位置精度衰减因子（PDOP），二是用户等效测距误差（UERE）。PDOP主要取决于星座的覆盖特性，目前四大全球卫星导航系统，PDOP均值相当，一般为2左右。UERE由空间段卫星轨道钟差、传输段的电离层和对流层误差、用户段接收机噪声和多径误差等三部分构成。其中空间段轨道钟差可用用户测距误差（User Range Error, URE）来衡量，这是评估空间信号精度的重要指标，也是国际上各大系统性能竞技的主要标准。</p>
-<h2 id="定位的概念"><a href="#定位的概念" class="headerlink" title="定位的概念"></a>定位的概念</h2><p>定位（Positioning）是确定载体的空间位置，而不包括速度和姿态。我们把利用某一种技术确定空间目标在一个给定参考系下的绝对或相对位置的过程，称为定位。</p>
-<h2 id="导航的概念"><a href="#导航的概念" class="headerlink" title="导航的概念"></a>导航的概念</h2><p>利用几何、天文、无线电信号、特征匹配等方法中的一种或者几种方法的组合，确定移动载体的位置、速度和姿态并规划其航路的技术。</p>
+<p>MEMORY的索引就是使用了Hash的结构，通过Hash算法得到bucket的值，当出现hash冲突时使用链表保存，跟普通的hash算法处理基本一致。</p>
+<p>正因为MEMORY是内存中的，不支持持久化，所以它只能用于做临时表，数据量比较少，因为数据量太大的时候hash冲突过多，会退化为链表的查询复杂度。</p>
+<h4 id="InnoDB储存引擎-自适应哈希索引"><a href="#InnoDB储存引擎-自适应哈希索引" class="headerlink" title="InnoDB储存引擎-自适应哈希索引"></a>InnoDB储存引擎-自适应哈希索引</h4><p>InnoDB使用了比较聪明的方式，他通过监控对表上各索引页的查询，如果观察到建立哈希索引可以带来速度提升，则建立哈希索引。InnoDB会自动根据访问频率和模式来自动地为某些<strong>热点页</strong>建立哈希说明</p>
+<h5 id="AHI"><a href="#AHI" class="headerlink" title="AHI"></a>AHI</h5><p>AHI是通过缓冲池的B+树页构造而来，因此建立的速度很快，而且不需要对整张表构建哈希索引。</p>
+<p>AHI有一个要求，对这个页的连续访问模式必须是一样的。如对于(a,b)这样的联合索引页，其访问模式可以是： </p>
+<ol>
+<li>where a=xxx </li>
+<li>where a =xxx and b=xxx </li>
+</ol>
+<p>访问模式一样是指查询的条件是一样的，若交替进行上述两种查询，那么InnoDB存储引擎不会对该页构造AHI。</p>
+<p>AHI还有下面几个要求： </p>
+<ol>
+<li>以该模式访问了100次 </li>
+<li>页通过该模式访问了N次，其中N=页中记录*1/16 </li>
+</ol>
 <blockquote>
-<p>  需要注意的是，定位并不关注载体的速度和姿态，很多定位系统是通过将工作时的频率提高到一定程度根据位置的变化率来导出速度的。</p>
+<p>  由此可见，AHI的建立要求是比较苛刻的，但也是在这样极大压力的情况下建立AHI才有意义。Mysql中AHI只能通过配置设置开启或关闭，不能手动配置它的建立条件。</p>
 </blockquote>
-<p>所以通常来说，导航由下面两个部分组成</p>
+<p>可以使用mysql命令去查看AHI的相关情况：</p>
 <ul>
-<li>定位</li>
-<li>引导</li>
+<li><p>查看自适应哈希索引使用情况：show engine innodb status\G; </p>
+</li>
+<li><p>查看自适应哈希索引配置：show variables like ‘innodb_adaptive_hash_index’;</p>
+</li>
 </ul>
-<p>用来解决下面三个基本问题：</p>
+<p>所以，Mysql也是对Hash索引有支持的。但是，在最常用的MyISAM和InnoDB上，却没有使用Hash算法。这是因为Hash查找速度虽然高，但是也存在缺点：</p>
 <ul>
-<li>我在哪？</li>
-<li>我要去哪？</li>
-<li>我如何去？</li>
+<li>只能用于等值查询，不能用于范围查询 </li>
+<li>不能使用索引进行排序 </li>
+<li>组合索引不能使用部分索引查询 </li>
+<li>hash冲突时仍需要进行表扫描 </li>
+<li>大量hash冲突造成整体性能低下 </li>
 </ul>
-<p>所以说，我们关注的“位置的准确性”和“位置的新鲜度”，其中“位置的准确性”就是来解决“在哪”的问题，所以研究“评估位置准确性指标”这件事，就显得非常更重要。</p>
-<h2 id="GNSS概念"><a href="#GNSS概念" class="headerlink" title="GNSS概念"></a>GNSS概念</h2><blockquote>
-<p>  <strong>G</strong>lobal <strong>N</strong>avigation <strong>S</strong>atellite <strong>S</strong>ystem简称GNSS，即卫星导航系统，包括美国的GPS，俄罗斯的GLONASS、欧盟的Galileo和中国的BDS北斗导航</p>
+<p>因为这些缺点，Hash查找对数据库的一些频繁的操作场景支持不足。相反，使用二分查找却能高效地完成这些查找场景。二分查找，虽然在等值查询时效率比不上Hash，但是范围查询的效率高很多。另外，随着数据量的增大，hash冲突增多的情况下，hash查找的效率衰减远远大于二分查找。所以在数据量大的情况下，二分查找是更合适的查找算法。</p>
+<h2 id="Mysql索引实现"><a href="#Mysql索引实现" class="headerlink" title="Mysql索引实现"></a>Mysql索引实现</h2><p>虽然确定二分查是更合适的查找算法，但二分查找相关的数据结构也很多，主要是各种二叉平衡树，典型的有AVL树和红黑树：</p>
+<h3 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h3><img src="/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201027105342638.png" alt="image-20201027105342638" style="zoom:50%;">
+
+<h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h3><img src="/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201027105415930.png" alt="image-20201027105415930" style="zoom:50%;">
+
+<p>无论是AVL树还是红黑树，都是通过一定的处理，保证树的平衡性，避免二叉树失衡，使二分查找的效率变成线性查找。</p>
+<blockquote>
+<p>  AVL树和RB树的区别查看这篇文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/93369069">https://zhuanlan.zhihu.com/p/93369069</a></p>
 </blockquote>
-<p>我们以GPS为例，GPS微信的基本功能为：</p>
+<p><strong>二叉查找树：</strong></p>
+<ul>
+<li>自平衡</li>
+<li>时间复杂度O(log n)</li>
+</ul>
+<p><strong>然而，B+树比这些平衡二叉树更适合作为索引。</strong></p>
+<p><strong>下面了解几个概念：</strong></p>
+<ul>
+<li><strong>局部性原理-空间局部性：</strong>如果一个存储器位置被访问了一次，那么程序很可能在不远的将来访问附近的一个存储器位置。</li>
+<li><strong>磁盘预读：</strong>磁盘IO慢，为提高效率，磁盘往往不是严格按需读取，而是每次都会预读，即使只需要一个字节，磁盘也会从这个位置开始，顺序向后读取一定长度的数据放入内存</li>
+<li><strong>逻辑结构和物理结构：</strong>逻辑上很近的节点（父子），物理上可能很远</li>
+<li><strong>索引存储：</strong>索引文件是存在于磁盘中的。因为索引通常是很大的，因此无法一次将全部索引加载到内存当中，因此每次只能从磁盘中读取一个磁盘页的数据到内存中。</li>
+</ul>
+<blockquote>
+<p>  因为索引很大，不能一次加载所有的索引数据。<br>  因为二叉树相邻的父子节点的物理距离可能很远，没有办法利用磁盘预读一次读取，必须分开读取。所以，实际上每次只能从磁盘加载1个索引节点的数据。从查找的算法可以看出，查找的效率就跟索引树的高度直接相关。</p>
+</blockquote>
+<p><strong>对比一下平衡二叉树和B+树的树高：</strong></p>
+<p><img src="/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201027140907004.png" alt="image-20201027140907004"></p>
+<p>以上图为例，同样的数据量，平衡二叉树树高为5，B+树的树高为3。这样查找，B+树在磁盘IO上要少2次操作，从而IO效率更高。</p>
+<p><strong>B+树的优点</strong> </p>
+<ul>
+<li>B+树的每个节点可以表示的信息更多，充分利用了磁盘预读的数据，这在从磁盘中查找数据（先读取到内存、后查找）的过程中，可以减少磁盘 IO 的次数，从而提升查找速度  </li>
+<li>关键字全部存放在叶子节点中，而叶子节点中有一个指针指向一下个叶子节点。这样可以提高区间访问的性能（范围查询）。</li>
+</ul>
+<h4 id="B-树的查找过程"><a href="#B-树的查找过程" class="headerlink" title="B+树的查找过程"></a>B+树的查找过程</h4><p><img src="/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/image-20201027141222944.png" alt="image-20201027141222944"></p>
+<p>以上图为例，查找数据项29</p>
 <ol>
-<li>接受并储存来自地面控制系统的导航电文</li>
-<li>在原子钟的控制下自动生成测距吗（C/A码和Y码）和载波</li>
-<li>采用二进制相位调制法（已加载导航电文）调制在载波上发给用户</li>
-<li>按照地面控制系统的指令调整轨道、调整卫星钟、修复故障或者启用备用件以维护整个系统的正常工作</li>
+<li>磁盘块1由磁盘加载到内存，此时发生一次IO，在内存中用二分查找确定29在17和35之间，锁定磁盘块1的P2指针</li>
+<li>通过磁盘块1的P2指针的磁盘地址把磁盘3由磁盘加载到内存，发生第二次IO，29在26和30之间，锁定磁盘3的P2指针</li>
+<li>通过指针加载磁盘块8到内存，发生第三次IO，同时内存中做二分查找找到29，结束查询</li>
 </ol>
-<h2 id="GNSS准确度"><a href="#GNSS准确度" class="headerlink" title="GNSS准确度"></a>GNSS准确度</h2><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>卫星导航系统的定位误差主要来自于 4 个方面 : </p>
-<ol>
-<li>卫星部分: 卫星星历误差、卫星钟差; </li>
-<li>用 户接收机部分: 用户接收机测量误差、通道偏差; </li>
-<li>信号传播路径: 电离层的信号传播延迟、对流层的信 号传播延迟、多路径效应; </li>
-<li>其他影响: 相对论效应、地球自转影响。其中, 接收机测量噪声和通道偏差 大小与接收机的设计有关, 属于内部误差。其他误差源受外界因素影响, 与接收机无关, 相对于接收机 而言属于外部误差。</li>
-</ol>
-<h3 id="测距码"><a href="#测距码" class="headerlink" title="测距码"></a>测距码</h3><p>测距码有两种，都属于伪<strong>随机噪声码</strong>（Pseudo Random Noise，简称 PRN）：C/A 码（Coarse/Acquisition Code）和P码（Precise Code）。</p>
-<p>GPS信号利用<strong>码分多址（CDMA）</strong>方式，所有的卫星都工作在同样的频率上，采用伪随机噪声码（PRN），这是GPS信号的基本特点，实际上它只是一种非常复杂的数字编码，具有特殊的数学特征。这种信号看起来如同随机的电噪声，但是又不是真正的噪声，故称为“<strong>伪随机噪声</strong>”，信号为伪随机噪声码，如图所示。</p>
-<p><img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010195945261.png" alt="image-20201010195945261"></p>
-<h4 id="GPS有两种伪随机码"><a href="#GPS有两种伪随机码" class="headerlink" title="GPS有两种伪随机码"></a>GPS有两种伪随机码</h4><p>　　第一种为<strong>粗捕获（C/A）码</strong>，主要提供给民用，它调制在L1载波上。其调制频率是1.023MHz，每1ms（1023比特）码将重复一次。每个GPS卫星有其独特的伪随机码。<strong>粗捕获码的码元宽度较大，通常测距误差为29.3～2.93米。这也为什么民用的GPS精度收到影响的主要原因。</strong></p>
-<p>　　笫二种为<strong>精准（P）码</strong>，是和粗捕获码对应的精测码，它每7天才重复一次，以10.23MHz的频率调制在L1和L2载波上。<strong>这种码供军事应用，是加密的。当它加密时，则被称为“Y”码。</strong>由于精准码比粗捕获码复杂得多，所以信号捕获要困难得多，这就是为什么许多军用接收机开机后常常是首先显示粗捕获码，然后过渡到精准码捕获。当然，由于技术的不断进步，美国人已解决了精准码的直接捕获问题，不一定需要有粗捕获码向精准码过渡的过程。</p>
-<h3 id="精度因子DOP"><a href="#精度因子DOP" class="headerlink" title="精度因子DOP"></a>精度因子DOP</h3><p>几何定位方法中，多个基站和移动台之间的相对距离将很大程度上决定定位的准确度。这个影响因子就叫做精度因子DOP（dilution of precision，精度衰减因子）。</p>
-<p><strong>GDOP（Geometric dilution of precision）几何精度因子</strong>：包括经度，纬度,高程和时间等因子，称为几何精度因子。</p>
-<p><strong>PDOP（position dilution of precision）三维位置精度因</strong>子：为纬度、经度和高程等误差平方和的开根号值。</p>
-<p><strong>HDOP（horizontal dilution of precision）水平分量精度因子</strong>：为纬度和经度等误差平方和的开根号值。</p>
-<p><strong>VDOP（vertical dilution of precision）垂直分量精度因子</strong>。</p>
-<p><strong>TDOP（time dilution of precision）钟差精度因子</strong>：为接收仪内时表偏移误差值。</p>
-<h4 id="伪距"><a href="#伪距" class="headerlink" title="伪距"></a>伪距</h4><p><strong>伪距是什么？</strong></p>
-<p>所谓“伪距”就是由GPS观测而得的GPS观测站到卫星的距离，由于尚未对因“卫星时钟与接收机时钟同步误差”的影响加以改正，在所测距离中包含着时钟误差因素在内，故称“伪距”。</p>
-<p>GPS卫星能够按照星载时钟发射某一结构为“伪随机噪声码”的信号，称为测距码信号(即粗码 C／A码或精码P码)。该信号从卫星发射经时间Δt 后，到达接收机天线；用上述信号传播时间Δt乘以电磁波在真空中的速度c，就是卫星至接收机的空间几何距离ρ，即ρ＝Δt·c。</p>
-<p><strong>对应的真距是什么？</strong></p>
-<p>在无线电测量中,信号通过发射天线发射,经空间传播后由接收天线接收。所谓的信号空间传播时延是指信号在空间传播过程中所花费的时间。信号空间传播时延反映了信号所走过的真实路程,可将其简单地称为真距。</p>
-<p><strong>意义是什么？</strong></p>
-<p>在卫星坐标、卫星钟差和卫星不同频点间相对设备时延偏差已知的情况下,计算自己的三维坐标和钟差。因此,伪距是卫星导航系统最基本的观测量,伪距的观测精度直接决定了系统的导航定位精度。</p>
-<h4 id="单点定位模型"><a href="#单点定位模型" class="headerlink" title="单点定位模型"></a>单点定位模型</h4><blockquote>
-<p>  用于推导<strong>精度因子</strong></p>
-</blockquote>
-<p>虽然不同的用户对接收机的要求不同，但是接收 机对GPS系统的要求却是一样的，首先空间至少需要四 颗GPS卫星，其次这四颗GPS卫星的空间几何分布要合 理。我们很容易理解至少需要四颗GPS卫星，用户接收 机需要解算四个未知量，三个坐标（经度、纬度、高 程）和一个接收机时间钟差（简称钟差），于是我们 需要测量空间四颗导航卫星和接收机之间的距离（伪 距），利用如下定位方程解算上述四个未知量：</p>
-<img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200155088.png" alt="image-20201010200155088" style="zoom:25%;">
-
-<p>计算和推导过程略，结论如下：<strong>精度因子与接收机所观测到卫星数量及分布有关，表示了定位几何条件的好坏。若测站与空中四颗观测到的卫星所构成的六面体体积为Ｆ，分析表明，精度因子GDOP值与Ｆ成反比，即卫星分布越广，GDOP越小，定位的几何条件越好，定位精度越高。</strong></p>
-<img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200145871.png" alt="image-20201010200145871">
-
-<p>基本上，GPS接收器可以“看到”的信号越多（分开或彼此靠近），它就可以越精确。</p>
-<p>从观察者的角度来看，如果卫星在天空中散开，则GPS接收机的GDOP很好。</p>
-<img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200217462.png" alt="image-20201010200217462" style="zoom:50%;">
-
-<p>但是，如果卫星在物理上靠在一起，则GDOP较差。这可能会降低仪表的GPS定位质量。</p>
-<img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200122841.png" alt="image-20201010200122841" style="zoom:50%;">
-
-<p><strong>那么PDOP的取值范围呢？</strong></p>
-<p>PDOP取值范围为：0.5到99.9，一般来说好的定位而言，PDOP较小，如3（GNSS各个卫星导航系统基本能达到2），但是当PDOP&gt;7的时候通常认为就是比较差的数据了。</p>
-<h2 id="信噪比SNR"><a href="#信噪比SNR" class="headerlink" title="信噪比SNR"></a>信噪比SNR</h2><p>信噪比是指载波信号强度和噪声强度的比值。它主要受天线的增益参数、接收机相关器状态及多路径误差的影响，是反映载波相位观测质量的指标之一，信噪比可以从观测文件中直接获得，其数值越大，表示信号强度越强。</p>
-<p>Ps/Pn或Vs/Vn，单位是dB，简单来说，信噪比是越大越好，在GPS方面，低于35dB的信噪比就算相当差的了，低于这个值，晴天可能还凑合使用，到了雾霾天下雨天，定位漂移个几百米是正正常常。</p>
-<p>什么是“噪声”？与噪声相关的概念，还有一个叫“失真”，这两者相近，所以一起来谈，他们都是原信号中并不存在的额外信号，而“失真”是有规律的额外信号，“噪声”是无规律的额外信号，它不会随着原信号的改变还改变。</p>
-<p>信噪比SNR决定了GPS接收信号的强弱性能，定位性能。一般来说，&gt;50dB属于高信噪比，而&lt;35dB属于低信噪比。</p>
-<p>上述的“失真”的噪声就是下面说的多路径效应</p>
-<h2 id="大气折射"><a href="#大气折射" class="headerlink" title="大气折射"></a>大气折射</h2><p>对流层和电离层可以改变GPS信号的传播速度。由于大气条件，当卫星信号通过地面时，大气会折射卫星信号。</p>
-<p>为了解决这个问题，GPS可以使用两个单独的频率来最小化传播速度误差。根据情况，这种类型的GPS错误可能会使位置偏离5米。</p>
-<img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200231268.png" alt="image-20201010200231268" style="zoom:50%;">
-
-<h2 id="多路径效应"><a href="#多路径效应" class="headerlink" title="多路径效应"></a>多路径效应</h2><img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200242978.png" alt="image-20201010200242978" style="zoom:50%;">
-
-<p>理想状态下，卫星信号将沿最短路径直接达到接收机天线。而如果天线附近有反射物， 如图4-5 所示，这时接收机天线几乎同时收到卫星的直接信号与反射信号，两种信号的叠加 将使观测值产生附加时延量，这种现象称为多路径效应。多路径效应的影响(Multipath Rrror) 属于电磁波传输过程中的误差。</p>
-<h2 id="GNSS定位精度估计模型"><a href="#GNSS定位精度估计模型" class="headerlink" title="GNSS定位精度估计模型"></a>GNSS定位精度估计模型</h2><p>常见的系统精度估计公式将用户定位误差与等效距离误差UERE 和几何精度衰减因子 PDOP 的 关系用下式表达：</p>
-<p><img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200253136.png" alt="image-20201010200253136"></p>
-<p>这个模型的基本公式为：</p>
-<p><img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200259288.png" alt="image-20201010200259288"></p>
-<p>这个公式和上面那个单点定位模型是类似的，只不过更为精确，u1、u2、u3、u4就是接收机能够接收到的4颗卫星，公式前半部分就是一个距离公式，很容易理解，后半部分的lA1是信号传输过程中引入的附加时延（如电离层时延等）和光速的乘积、lu是用户接收机时钟和导航系统时钟的钟差与光速的乘积、ls1是卫星上时钟和导航系统时钟的钟差与光速的乘积。</p>
-<p>最终我们可以得到一个用户定位误差的协方差阵为：</p>
-<p><img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200307488.png" alt="image-20201010200307488"></p>
-<p><img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200318051.png" alt="image-20201010200318051"></p>
-<p>其中：</p>
-<p><img src="/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/image-20201010200327973.png" alt="image-20201010200327973" style="zoom:50%;">这个公式证明了上述结论。感兴趣的可以看《卫星导航系统定位精度估计》</p>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>根据上述阐述，我们知道了除去我们无法控制的一些误差源，我们主要关注SNR信噪比和PDOP精度因子，将SNR的值近似看为UERE，如果PDOP不好（也就是太高）会以为当前卫星分布不好而导致根本上定位不准确，而SNR不好（也就是太低）会导致原本较好的信息变得模糊。但是因为GNSS在PDOP上已经做得足够好，接收器的信噪比指标就成为了我们重中之重。我们可以对两个指标进行归一化处理，得到下面代码，但是代码中的参数还有待讨论。</p>
-<p>代码块</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GNSSQualityModel</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> GNSS_SNR_AVG_MAX = <span class="number">50D</span>;             <span class="comment">// snr平均值设置上限35</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> GNSS_SNR_AVG_MIN = <span class="number">5D</span>;              <span class="comment">// snr平均值下限</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> SNR_AVG_THAN25_COUNT_MAX = <span class="number">15</span>;      <span class="comment">// 信噪比大于25的卫星数量信最大值设置为15</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> SNR_AVG_THAN25_COUNT_MIN = <span class="number">0</span>;       <span class="comment">// 信噪比大于25的卫星数量信最小值设置为0，这四个参数都是为了归一化</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> GNSS_PDOP_AVG_MAX = <span class="number">20D</span>;            <span class="comment">// pdop设置上限</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> GNSS_PDOP_AVG_MIN = <span class="number">1D</span>;             <span class="comment">// pdop值下限</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> SNR_AVG_PARAM = <span class="number">0.75</span>;               <span class="comment">// 平均SNR在计算SNR系数中的比例</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> SNR_THAN_COUNT_PARAM = <span class="number">0.25</span>;        <span class="comment">// 超过指定SNR卫星数量在计算中的比例</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> SNR_MODEL_PARAM = <span class="number">0.5</span>;              <span class="comment">// 计算GNSS质量的SNR部分权重</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> PDOP_MODEL_PARAM = <span class="number">0.5</span>;             <span class="comment">// 计算GNSS质量的PDOP部分权重</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">getSnrModelValue</span><span class="params">(<span class="keyword">double</span> snravg, <span class="keyword">int</span> snrThanCount)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SNR_AVG_PARAM * snrAvgNorm(snravg) + SNR_THAN_COUNT_PARAM * snrThan25CountNorm(snrThanCount);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">getModelValue</span><span class="params">(<span class="keyword">double</span> snravg, <span class="keyword">int</span> snrThan25Count, <span class="keyword">double</span> pdop)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BigDecimal((SNR_MODEL_PARAM * getSnrModelValue(snravg, snrThan25Count) + PDOP_MODEL_PARAM * getPdopModelValue(pdop)) * <span class="number">100</span>).setScale(<span class="number">2</span>, BigDecimal.ROUND_HALF_UP).doubleValue();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">getPdopModelValue</span><span class="params">(<span class="keyword">double</span> pdop)</span> </span>&#123;</span><br><span class="line">        pdop = Math.min(pdop, GNSS_PDOP_AVG_MAX);</span><br><span class="line">        pdop = Math.max(pdop, GNSS_PDOP_AVG_MIN);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> - (pdop - GNSS_PDOP_AVG_MIN) / (GNSS_PDOP_AVG_MAX - GNSS_PDOP_AVG_MIN);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">snrAvgNorm</span><span class="params">(<span class="keyword">double</span> snravg)</span> </span>&#123;</span><br><span class="line">        snravg = Math.min(snravg, GNSS_SNR_AVG_MAX);</span><br><span class="line">        snravg = Math.max(snravg, GNSS_SNR_AVG_MIN);</span><br><span class="line">        <span class="keyword">return</span> (snravg - GNSS_SNR_AVG_MIN) / (GNSS_SNR_AVG_MAX - GNSS_SNR_AVG_MIN);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">snrThan25CountNorm</span><span class="params">(<span class="keyword">int</span> snrThan25Count)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> snrThan25 = snrThan25Count;</span><br><span class="line">        snrThan25 = Math.min(snrThan25, SNR_AVG_THAN25_COUNT_MAX);</span><br><span class="line">        snrThan25 = Math.max(snrThan25, SNR_AVG_THAN25_COUNT_MIN);</span><br><span class="line">        <span class="keyword">return</span> snrThan25 / SNR_AVG_THAN25_COUNT_MAX;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> modelvalue = getModelValue(<span class="number">50D</span>, <span class="number">20</span>, <span class="number">1d</span>);</span><br><span class="line">        System.out.print(modelvalue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><blockquote>
-<p>  以下内容参考《导航学》以及相关论文与博客，相关链接如下：</p>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/67987508">https://zhuanlan.zhihu.com/p/67987508</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.beidou.gov.cn/zy/kpyd/201710/t20171023_4770.html">http://www.beidou.gov.cn/zy/kpyd/201710/t20171023_4770.html</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.beidou.gov.cn/zy/kpyd/202001/t20200103_19871.html">http://www.beidou.gov.cn/zy/kpyd/202001/t20200103_19871.html</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/inteliot/archive/2012/08/14/2638185.html">https://www.cnblogs.com/inteliot/archive/2012/08/14/2638185.html</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/magicboy110/archive/2010/12/09/1901669.html">https://www.cnblogs.com/magicboy110/archive/2010/12/09/1901669.html</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/inteliot/archive/2012/08/14/2638185.html">https://www.cnblogs.com/inteliot/archive/2012/08/14/2638185.html</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://spotlight.unavco.org/how-gps-works/gps-basics/gps-signal-to-noise-ratio-data.html">https://spotlight.unavco.org/how-gps-works/gps-basics/gps-signal-to-noise-ratio-data.html</a></p>
-</li>
-<li><p>参考了一些论文如：Multi-Constellation_GNSS_Performance_Evaluation_fo、GPS系统导航卫星几何精度因子是怎么回事_第十六讲、多GNSS观测数据质量与完好性评价方法研究、卫星导航系统定位精度估计</p>
-</li>
-<li><p>其他引用略</p>
-</li>
-</ul>
-</blockquote>
 
     
 
@@ -461,7 +458,7 @@ var _hmt = _hmt || [];
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://www.octber.xyz/2020/10/10/导航学与定位准确性/" title="导航学与定位准确性" target="_blank">http://www.octber.xyz/2020/10/10/导航学与定位准确性/</a>
+          <a href="http://www.octber.xyz/2020/10/26/MySQL索引原理初探/" title="MySQL索引原理初探" target="_blank">http://www.octber.xyz/2020/10/26/MySQL索引原理初探/</a>
         </li>
         
         <li>
@@ -483,7 +480,7 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">location</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
@@ -539,7 +536,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.octber.xyz/2020/10/10/%E5%AF%BC%E8%88%AA%E5%AD%A6%E4%B8%8E%E5%AE%9A%E4%BD%8D%E5%87%86%E7%A1%AE%E6%80%A7/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.octber.xyz/2020/10/26/MySQL%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -554,18 +551,9 @@ var _hmt = _hmt || [];
 
 <nav id="article-nav">
   
-    <a href="/2020/10/12/%E4%BB%8E%E9%98%BF%E9%87%8C%E4%B8%8D%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8Executors%E5%88%B0CompletableFuture%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          从阿里不推荐使用Executors到CompletableFuture的使用
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/09/29/%E5%85%B3%E4%BA%8E%E8%AE%BA%E6%96%87%E3%80%8A%E5%A4%9AGNSS%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E4%B8%8E%E5%AE%8C%E5%A5%BD%E6%80%A7%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E3%80%8B%E5%AD%A6%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">关于论文《多GNSS观测数据质量与完好性评价方法研究》学习</div>
+    <a href="/2020/10/22/Shell%E7%BC%96%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Shell编程的一些基础</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -603,9 +591,9 @@ var _hmt = _hmt || [];
     <script src="/lib/giteement.browser.js"></script>
   
   <script>
-  <!-- id: "导航学与定位准确性" -->
+  <!-- id: "MySQL索引原理初探" -->
   var giteement = new Giteement({
-    id: '20201010195813',
+    id: '20201026193811',
     owner: 'octCoding',
     repo: 'OctoberBlog',
     backcall_uri: 'https://www.octber.xyz/',
